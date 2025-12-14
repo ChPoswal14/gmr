@@ -12,14 +12,17 @@ export default function decorate(block) {
   entryContainer.className = 'entry-container';
 
 // Title + description (wrap first child in <h2>)
-if (children[0]) {
-  const p = children[0].querySelector('p');
+const text = (el) => (el && el.textContent ? el.textContent.trim() : '');
+
+// Extract title text from children[0] <p>
+const titleText = (children[0] && children[0].querySelector && children[0].querySelector('p')) 
+  ? text(children[0].querySelector('p')) 
+  : '';
+
+// Create <h2> for title
+if (titleText) {
   const h2 = document.createElement('h2');
-  if (p) {
-    h2.innerHTML = p.innerHTML; // keep content
-  } else {
-    h2.textContent = children[0].textContent.trim();
-  }
+  h2.textContent = titleText;
   entryContainer.appendChild(h2);
 }
 
