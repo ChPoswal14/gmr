@@ -68,19 +68,13 @@ if (children[2] && children[3]) {
 
     // Wrap the first child of companyItem in <h3>
     const firstChild = companyItem.children[0];
-if (firstChild) {
-  const h3 = document.createElement('h3');
-
-  // If firstChild contains a <p>, take its text content only
-  const p = firstChild.querySelector('p');
-  if (p) {
-    h3.textContent = p.textContent.trim();
-  } else {
-    h3.textContent = firstChild.textContent.trim();
-  }
-
-  companyItem.replaceChild(h3, firstChild);
-}
+    if (firstChild) {
+      const h3 = document.createElement('h3');
+      while (firstChild.childNodes.length > 0) {
+        h3.appendChild(firstChild.childNodes[0]);
+      }
+      companyItem.replaceChild(h3, firstChild);
+    }
 
     // IMPORTANT: keep full AEM structure
     companiesGrid.appendChild(companyItem);
