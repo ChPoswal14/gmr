@@ -67,11 +67,7 @@ export default function decorate(block) {
     if (firstChild) {
       const h3 = document.createElement('h3');
       const p = firstChild.querySelector('p');
-      if (p) {
-        h3.textContent = p.textContent.trim();
-      } else {
-        h3.textContent = firstChild.textContent.trim();
-      }
+      h3.textContent = p ? p.textContent.trim() : firstChild.textContent.trim();
       companyItem.replaceChild(h3, firstChild);
     }
 
@@ -82,18 +78,43 @@ export default function decorate(block) {
       companiesStock = document.createElement('div');
       companiesStock.className = 'companiesStock';
       companiesStock.textContent = thirdChild.textContent.trim();
-      // Remove the third child from companyItem
       companyItem.removeChild(thirdChild);
     }
 
+    // Process buttons (child 3+4, 5+6) into single companies-links div
+    const btnContainer = document.createElement('div');
+    btnContainer.className = 'companies-links mt-5 mb-4';
+
+    const buttonPairs = [
+      [companyItem.children[2], companyItem.children[3]], // Visit Website
+      [companyItem.children[4], companyItem.children[5]]  // Explore Highlights
+    ];
+
+    buttonPairs.forEach(pair => {
+      const [labelEl, hrefEl] = pair;
+      if (labelEl && hrefEl) {
+        const btnAnchor = document.createElement('a');
+        btnAnchor.href = hrefEl.textContent.trim() || '#';
+        btnAnchor.title = labelEl.textContent.trim();
+        btnAnchor.className = 'btn btn-link';
+        btnAnchor.textContent = labelEl.textContent.trim();
+        btnContainer.appendChild(btnAnchor);
+
+        // Remove original nodes
+        labelEl.remove();
+        hrefEl.remove();
+      }
+    });
+
     // Append companyItem into companiesGrid
     companiesGrid.appendChild(companyItem);
+    // Append button container after content
+    companiesGrid.appendChild(btnContainer);
+
     col.appendChild(companiesGrid);
 
     // Append companiesStock outside of companiesGrid
-    if (companiesStock) {
-      col.appendChild(companiesStock);
-    }
+    if (companiesStock) col.appendChild(companiesStock);
 
     row.appendChild(col);
   }
