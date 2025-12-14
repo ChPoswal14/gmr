@@ -2,7 +2,7 @@ export default function decorate(block) {
   const children = [...block.children];
 
   /* ===============================
-     HEADER (keep original nodes)
+     HEADER
      =============================== */
 
   const header = document.createElement('header');
@@ -11,21 +11,23 @@ export default function decorate(block) {
   const entryContainer = document.createElement('div');
   entryContainer.className = 'entry-container';
 
-  // Move original AEM nodes (DO NOT unwrap)
-  entryContainer.append(children[0], children[1]);
+  // 0 = title, 1 = description
+  if (children[0]) entryContainer.appendChild(children[0]);
+  if (children[1]) entryContainer.appendChild(children[1]);
+
   header.appendChild(entryContainer);
 
-  // CTA button (keep original AEM anchor)
+  // 2 = CTA text, 3 = CTA link
   if (children[3]) {
-    const btn = children[3].querySelector('a');
-    if (btn) {
-      btn.classList.add('btn', 'btn-orange');
-      header.appendChild(btn);
+    const ctaLink = children[3].querySelector('a');
+    if (ctaLink) {
+      ctaLink.classList.add('btn', 'btn-orange');
+      header.appendChild(ctaLink);
     }
   }
 
   /* ===============================
-     COMPANIES
+     COMPANIES SECTION
      =============================== */
 
   const companiesCol = document.createElement('div');
@@ -34,48 +36,57 @@ export default function decorate(block) {
   const row = document.createElement('div');
   row.className = 'row';
 
-  // Each company is ONE AEM-authored node
-  for (let i = 4; i < children.length; i++) {
-    const company = children[i];
+  // Start after header fields
+  let i = 4;
 
+  while (i < children.length) {
     const col = document.createElement('div');
     col.className = 'col-md-6 mb-4';
 
     const companiesGrid = document.createElement('div');
     companiesGrid.className = 'companiesGrid';
 
-    const fields = [...company.children];
+    // Name
+    if (children[i]) companiesGrid.appendChild(children[i++]);
 
-    // Name + description (keep original)
-    companiesGrid.append(fields[0], fields[1]);
+    // Description
+    if (children[i]) companiesGrid.appendChild(children[i++]);
 
-    // Links wrapper
+    // Stock
+    let stockNode = null;
+    if (children[i]) {
+      stockNode = document.createElement('div');
+      stockNode.className = 'companiesStock';
+      stockNode.appendChild(children[i++]);
+    }
+
+    // Visit Website (text + link)
     const linksWrap = document.createElement('div');
     linksWrap.className = 'companies-links mt-5 mb-4';
 
-    const visitLink = fields[4]?.querySelector('a');
-    if (visitLink) {
-      visitLink.classList.add('btn', 'btn-link');
-      linksWrap.appendChild(visitLink);
+    if (children[i]) i++; // text label
+    if (children[i]) {
+      const link = children[i++].querySelector('a');
+      if (link) {
+        link.classList.add('btn', 'btn-link');
+        linksWrap.appendChild(link);
+      }
     }
 
-    const exploreLink = fields[6]?.querySelector('a');
-    if (exploreLink) {
-      exploreLink.classList.add('btn', 'btn-link');
-      linksWrap.appendChild(exploreLink);
+    // Explore Highlights (text + link)
+    if (children[i]) i++; // text label
+    if (children[i]) {
+      const link = children[i++].querySelector('a');
+      if (link) {
+        link.classList.add('btn', 'btn-link');
+        linksWrap.appendChild(link);
+      }
     }
 
     companiesGrid.appendChild(linksWrap);
+    col.appendChild(companiesGrid);
 
-    // Stock (outside grid)
-    if (fields[2]) {
-      const stock = document.createElement('div');
-      stock.className = 'companiesStock';
-      stock.appendChild(fields[2]);
-      col.append(companiesGrid, stock);
-    } else {
-      col.appendChild(companiesGrid);
-    }
+    if (stockNode) col.appendChild(stockNode);
 
     row.appendChild(col);
   }
@@ -83,9 +94,9 @@ export default function decorate(block) {
   companiesCol.appendChild(row);
 
   /* ===============================
-     FINAL (AEM SAFE)
+     FINAL ASSEMBLY
      =============================== */
 
-  // Do NOT clear innerHTML
-  block.replaceChildren(header, companiesCol);
+  block.innerHTML = '';
+  block.append(header, companiesCol);
 }
