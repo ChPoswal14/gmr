@@ -12,19 +12,23 @@ export default function decorate(block) {
   entryContainer.className = 'entry-container';
 
   // Title + description (wrap first child in <h2>)
-  if (children[0]) {
+  if (children[0] && children[0].tagName === 'P') {
   const pElement = children[0];
-  const h2Element = document.createElement('h2');
   
-  // Copy the text content
-  h2Element.textContent = pElement.textContent || 'Default Section Title';
+  // Change the tag name from P to H2 while keeping the same element
+  // This preserves AEM's data attributes and Universal Editor connection
+  const outerHTML = pElement.outerHTML;
+  const newHTML = outerHTML.replace(/^<p/i, '<h2').replace(/<\/p>$/i, '</h2>');
   
-  // Copy all data attributes with fallbacks
-  const labelValue = pElement.getAttribute('data-aue-label');
-  h2Element.setAttribute('data-aue-prop', pElement.getAttribute('data-aue-prop') || '');
-  h2Element.setAttribute('data-aue-label', labelValue !== null ? labelValue : 'Section Title'); // Key fix here
-  h2Element.setAttribute('data-aue-type', pElement.getAttribute('data-aue-type') || 'text');
+  // Create a temporary container to parse the new HTML
+  const temp = document.createElement('div');
+  temp.innerHTML = newHTML;
+  const h2Element = temp.firstChild;
   
+  // Replace the original p element with the new h2 element
+  pElement.parentNode.replaceChild(h2Element, pElement);
+  
+  // Now append to your entryContainer
   entryContainer.appendChild(h2Element);
 }
 
