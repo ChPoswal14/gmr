@@ -13,26 +13,17 @@ export default function decorate(block) {
 
   // Title + description (wrap first child in <h2>)
   if (children[0]) {
-  // Check if it's the p tag with the specific attributes
   const pElement = children[0];
-  
-  // Create h2 element
   const h2Element = document.createElement('h2');
   
-  // Copy the text content
+  // Copy text content
   h2Element.textContent = pElement.textContent;
   
-  // Copy all data attributes
-  h2Element.setAttribute('data-aue-prop', pElement.getAttribute('data-aue-prop'));
-  h2Element.setAttribute('data-aue-label', pElement.getAttribute('data-aue-label'));
-  h2Element.setAttribute('data-aue-type', pElement.getAttribute('data-aue-type'));
+  // Copy all attributes
+  Array.from(pElement.attributes).forEach(attr => {
+    h2Element.setAttribute(attr.name, attr.value);
+  });
   
-  // Optional: Copy any other attributes (class, style, etc.)
-  // Array.from(pElement.attributes).forEach(attr => {
-  //   h2Element.setAttribute(attr.name, attr.value);
-  // });
-  
-  // Append the h2 instead of the original p
   entryContainer.appendChild(h2Element);
 }
 
