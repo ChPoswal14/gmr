@@ -14,8 +14,11 @@ export default function decorate(block) {
   // Title + description (wrap first child in <h2>)
   if (children[0]) {
     const h2 = document.createElement('h2');
-    while (children[0].childNodes.length > 0) {
-      h2.appendChild(children[0].childNodes[0]);
+    const firstChildP = children[0].querySelector('p');
+    if (firstChildP) {
+      h2.textContent = firstChildP.textContent.trim();
+    } else {
+      h2.textContent = children[0].textContent.trim();
     }
     entryContainer.appendChild(h2);
   }
@@ -28,7 +31,7 @@ export default function decorate(block) {
   // CTA button (children[2] = label, children[3] = href)
   if (children[2] && children[3]) {
     const btnLabel = children[2].textContent.trim();
-    const btnHref  = children[3].textContent.trim() || '#';
+    const btnHref = children[3].textContent.trim() || '#';
 
     const btnAnchor = document.createElement('a');
     btnAnchor.href = btnHref;
