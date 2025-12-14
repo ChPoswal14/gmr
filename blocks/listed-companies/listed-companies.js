@@ -11,21 +11,13 @@ export default function decorate(block) {
   const entryContainer = document.createElement('div');
   entryContainer.className = 'entry-container';
 
-  // Title → h2
-  const titleP = children[0]?.querySelector('p');
-  if (titleP) {
+  // Title + description (KEEP AS IS)
+  if (children[0]) {
     const h2 = document.createElement('h2');
-    h2.innerHTML = titleP.innerHTML;
+    h2.appendChild(children[0]); // keep AEM structure intact
     entryContainer.appendChild(h2);
   }
-
-  // Description
-  const descP = children[1]?.querySelector('p');
-  if (descP) {
-    const p = document.createElement('p');
-    p.innerHTML = descP.innerHTML;
-    entryContainer.appendChild(p);
-  }
+  if (children[1]) entryContainer.appendChild(children[1]);
 
   header.appendChild(entryContainer);
 
