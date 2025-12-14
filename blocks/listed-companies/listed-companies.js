@@ -13,22 +13,11 @@ export default function decorate(block) {
 
   // Title + description (wrap first child in <h2>)
   if (children[0] && children[0].tagName === 'P') {
-  const pElement = children[0];
+  const h2Element = document.createElement('h2');
+  h2Element.innerHTML = children[0].innerHTML;
   
-  // Change the tag name from P to H2 while keeping the same element
-  // This preserves AEM's data attributes and Universal Editor connection
-  const outerHTML = pElement.outerHTML;
-  const newHTML = outerHTML.replace(/^<p/i, '<h2').replace(/<\/p>$/i, '</h2>');
-  
-  // Create a temporary container to parse the new HTML
-  const temp = document.createElement('div');
-  temp.innerHTML = newHTML;
-  const h2Element = temp.firstChild;
-  
-  // Replace the original p element with the new h2 element
-  pElement.parentNode.replaceChild(h2Element, pElement);
-  
-  // Now append to your entryContainer
+  // Replace the p with h2
+  children[0].replaceWith(h2Element);
   entryContainer.appendChild(h2Element);
 }
 
