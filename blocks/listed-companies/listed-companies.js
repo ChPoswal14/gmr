@@ -11,23 +11,29 @@ export default function decorate(block) {
   const entryContainer = document.createElement('div');
   entryContainer.className = 'entry-container';
 
-  // Title + description (KEEP AS IS)
-  if (children[0]) {
-    const h2 = document.createElement('h2');
-    h2.appendChild(children[0]); // keep AEM structure intact
-    entryContainer.appendChild(h2);
+// Title + description (wrap first child in <h2>)
+if (children[0]) {
+  const h2 = document.createElement('h2');
+  // Move the first child inside h2
+  while (children[0].childNodes.length > 0) {
+    h2.appendChild(children[0].childNodes[0]);
   }
-  if (children[1]) entryContainer.appendChild(children[1]);
+  entryContainer.appendChild(h2);
+}
 
-  header.appendChild(entryContainer);
+// Append second child (description) as-is
+if (children[1]) entryContainer.appendChild(children[1]);
 
-  // CTA button (KEEP WHOLE BUTTON CONTAINER)
-  if (children[3]) {
-    const btnWrapper = children[3];
-    const btn = btnWrapper.querySelector('a');
-    if (btn) btn.classList.add('btn', 'btn-orange');
-    header.appendChild(btnWrapper);
-  }
+header.appendChild(entryContainer);
+
+// CTA button (KEEP WHOLE BUTTON CONTAINER)
+if (children[3]) {
+  const btnWrapper = children[3];
+  const btn = btnWrapper.querySelector('a');
+  if (btn) btn.classList.add('btn', 'btn-orange');
+  header.appendChild(btnWrapper);
+}
+
 
   /* ===============================
      COMPANIES
