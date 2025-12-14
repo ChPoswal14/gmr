@@ -2,17 +2,32 @@ export default function decorate(block) {
   const children = [...block.children];
 
   /* ===============================
-     Header structure
+     HEADER
      =============================== */
 
-  const header = document.createElement('div');
+  const header = document.createElement('header');
   header.className = 'd-md-flex align-items-center gap-3';
 
   const entryContainer = document.createElement('div');
   entryContainer.className = 'entry-container';
 
+  // 0 = title, 1 = description
+  if (children[0]) entryContainer.appendChild(children[0]);
+  if (children[1]) entryContainer.appendChild(children[1]);
+
+  header.appendChild(entryContainer);
+
+  // 2 = CTA text, 3 = CTA link
+  if (children[3]) {
+    const ctaLink = children[3].querySelector('a');
+    if (ctaLink) {
+      ctaLink.classList.add('btn', 'btn-orange');
+      header.appendChild(ctaLink);
+    }
+  }
+
   /* ===============================
-     Companies structure
+     COMPANIES SECTION
      =============================== */
 
   const companiesCol = document.createElement('div');
@@ -21,64 +36,67 @@ export default function decorate(block) {
   const row = document.createElement('div');
   row.className = 'row';
 
-  children.forEach((child) => {
-    /* -------------------------------
-       Listed Company Item
-       ------------------------------- */
-    if (child.classList.contains('listed-company-item')) {
-      const col = document.createElement('div');
-      col.className = 'col-md-6 mb-4';
+  // Start after header fields
+  let i = 4;
 
-      const companiesGrid = document.createElement('div');
-      companiesGrid.className = 'companiesGrid';
+  while (i < children.length) {
+    const col = document.createElement('div');
+    col.className = 'col-md-6 mb-4';
 
-      const itemChildren = [...child.children];
+    const companiesGrid = document.createElement('div');
+    companiesGrid.className = 'companiesGrid';
 
-      // Company Name
-      if (itemChildren[0]) companiesGrid.appendChild(itemChildren[0]);
+    // Name
+    if (children[i]) companiesGrid.appendChild(children[i++]);
 
-      // Company Description
-      if (itemChildren[1]) companiesGrid.appendChild(itemChildren[1]);
+    // Description
+    if (children[i]) companiesGrid.appendChild(children[i++]);
 
-      // Links wrapper
-      const linksWrap = document.createElement('div');
-      linksWrap.className = 'companies-links mt-5 mb-4';
+    // Stock
+    let stockNode = null;
+    if (children[i]) {
+      stockNode = document.createElement('div');
+      stockNode.className = 'companiesStock';
+      stockNode.appendChild(children[i++]);
+    }
 
-      // Visit Website
-      if (itemChildren[3]) linksWrap.appendChild(itemChildren[3]);
+    // Visit Website (text + link)
+    const linksWrap = document.createElement('div');
+    linksWrap.className = 'companies-links mt-5 mb-4';
 
-      // Explore Highlights
-      if (itemChildren[5]) linksWrap.appendChild(itemChildren[5]);
-
-      companiesGrid.appendChild(linksWrap);
-      col.appendChild(companiesGrid);
-
-      // Stock Symbol (outside grid)
-      if (itemChildren[2]) {
-        const stock = document.createElement('div');
-        stock.className = 'companiesStock';
-        stock.appendChild(itemChildren[2]);
-        col.appendChild(stock);
+    if (children[i]) i++; // text label
+    if (children[i]) {
+      const link = children[i++].querySelector('a');
+      if (link) {
+        link.classList.add('btn', 'btn-link');
+        linksWrap.appendChild(link);
       }
-
-      col.appendChild(child); // keeps item editable
-      row.appendChild(col);
     }
 
-    /* -------------------------------
-       Header fields
-       ------------------------------- */
-    else {
-      entryContainer.appendChild(child);
+    // Explore Highlights (text + link)
+    if (children[i]) i++; // text label
+    if (children[i]) {
+      const link = children[i++].querySelector('a');
+      if (link) {
+        link.classList.add('btn', 'btn-link');
+        linksWrap.appendChild(link);
+      }
     }
-  });
 
-  header.appendChild(entryContainer);
+    companiesGrid.appendChild(linksWrap);
+    col.appendChild(companiesGrid);
+
+    if (stockNode) col.appendChild(stockNode);
+
+    row.appendChild(col);
+  }
+
   companiesCol.appendChild(row);
 
   /* ===============================
-     Rebuild block (safe)
+     FINAL ASSEMBLY
      =============================== */
+
   block.innerHTML = '';
   block.append(header, companiesCol);
 }
