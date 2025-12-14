@@ -12,14 +12,13 @@ export default function decorate(block) {
   entryContainer.className = 'entry-container';
 
   // Title + description (wrap first child in <h2>)
-  if (children[0] && children[0].tagName === 'P') {
-  const h2Element = document.createElement('h2');
-  h2Element.innerHTML = children[0].innerHTML;
-  
-  // Replace the p with h2
-  children[0].replaceWith(h2Element);
-  entryContainer.appendChild(h2Element);
-}
+  if (children[0]) {
+    const h2 = document.createElement('h2');
+    while (children[0].childNodes.length > 0) {
+      h2.appendChild(children[0].childNodes[0]);
+    }
+    entryContainer.appendChild(h2);
+  }
 
   // Append second child (description) as-is
   if (children[1]) entryContainer.appendChild(children[1]);
