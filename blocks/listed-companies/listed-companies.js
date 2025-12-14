@@ -15,15 +15,17 @@ export default function decorate(block) {
   if (children[0]) {
   const pElement = children[0];
   const h2Element = document.createElement('h2');
-  
-  // Copy text content
   h2Element.textContent = pElement.textContent;
   
-  // Copy all attributes
+  // Copy attributes
   Array.from(pElement.attributes).forEach(attr => {
     h2Element.setAttribute(attr.name, attr.value);
   });
   
+  // Replace p with h2 in the original parent
+  pElement.replaceWith(h2Element);
+  
+  // Append to entryContainer
   entryContainer.appendChild(h2Element);
 }
 
