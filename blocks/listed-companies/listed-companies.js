@@ -27,11 +27,17 @@ if (children[1]) entryContainer.appendChild(children[1]);
 header.appendChild(entryContainer);
 
 // CTA button (KEEP WHOLE BUTTON CONTAINER)
-if (children[3]) {
-  const btnWrapper = children[3];
-  const btn = btnWrapper.querySelector('a');
-  if (btn) btn.classList.add('btn', 'btn-orange');
-  header.appendChild(btnWrapper);
+if (children[2] && children[3]) {
+  const btnLabel = children[2].textContent.trim(); // button label
+  const btnHref  = children[3].textContent.trim() || '#'; // href from children[3]
+
+  const btnAnchor = document.createElement('a');
+  btnAnchor.href = btnHref;
+  btnAnchor.title = btnLabel;
+  btnAnchor.className = 'btn btn-orange';
+  btnAnchor.textContent = btnLabel;
+
+  header.appendChild(btnAnchor);
 }
 
 
