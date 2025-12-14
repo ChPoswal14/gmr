@@ -3,7 +3,7 @@ export default function decorate(block) {
 
   /* ===============================
      HEADER
-  =============================== */
+     =============================== */
 
   const header = document.createElement('header');
   header.className = 'd-md-flex align-items-center gap-3';
@@ -11,34 +11,39 @@ export default function decorate(block) {
   const entryContainer = document.createElement('div');
   entryContainer.className = 'entry-container';
 
-  // Title + description (wrap first child in <h2>)
-  if (children[0]) {
-    const h2 = document.createElement('h2');
-    while (children[0].childNodes.length > 0) {
-      h2.appendChild(children[0].childNodes[0]);
-    }
-    entryContainer.appendChild(h2);
+// Title + description (wrap first child in <h2>)
+if (children[0]) {
+  const h2 = document.createElement('h2');
+  // Move the first child inside h2
+  while (children[0].childNodes.length > 0) {
+    h2.appendChild(children[0].childNodes[0]);
   }
+  entryContainer.appendChild(h2);
+}
 
-  // Append second child (description) as-is
-  if (children[1]) entryContainer.appendChild(children[1]);
+// Append second child (description) as-is
+if (children[1]) entryContainer.appendChild(children[1]);
 
-  header.appendChild(entryContainer);
+header.appendChild(entryContainer);
 
-  // CTA button (children[3] = label, children[4] = anchor)
-  if (children[3] && children[4]) {
-    const btnAnchor = children[4];
-    // Move label (children[3]) inside anchor
-    while (children[3].childNodes.length > 0) {
-      btnAnchor.appendChild(children[3].childNodes[0]);
-    }
-    btnAnchor.classList.add('btn', 'btn-orange');
-    header.appendChild(btnAnchor);
-  }
+// CTA button (KEEP WHOLE BUTTON CONTAINER)
+if (children[2] && children[3]) {
+  const btnLabel = children[2].textContent.trim(); // button label
+  const btnHref  = children[3].textContent.trim() || '#'; // href from children[3]
+
+  const btnAnchor = document.createElement('a');
+  btnAnchor.href = btnHref;
+  btnAnchor.title = btnLabel;
+  btnAnchor.className = 'btn btn-orange';
+  btnAnchor.textContent = btnLabel;
+
+  header.appendChild(btnAnchor);
+}
+
 
   /* ===============================
      COMPANIES
-  =============================== */
+     =============================== */
 
   const companiesCol = document.createElement('div');
   companiesCol.className = 'companiesCol';
@@ -47,7 +52,7 @@ export default function decorate(block) {
   row.className = 'row';
 
   // Each company is ONE authored group
-  for (let i = 5; i < children.length; i++) { // start from 5 now
+  for (let i = 4; i < children.length; i++) {
     const companyItem = children[i];
 
     // SAFETY: only wrap real company items
@@ -72,7 +77,7 @@ export default function decorate(block) {
 
   /* ===============================
      FINAL (DO NOT DESTROY AEM)
-  =============================== */
+     =============================== */
 
   block.replaceChildren(header, companiesCol);
 }
