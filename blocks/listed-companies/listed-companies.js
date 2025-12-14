@@ -66,6 +66,16 @@ if (children[2] && children[3]) {
     const companiesGrid = document.createElement('div');
     companiesGrid.className = 'companiesGrid';
 
+    // Wrap the first child of companyItem in <h3>
+    const firstChild = companyItem.children[0];
+    if (firstChild) {
+      const h3 = document.createElement('h3');
+      while (firstChild.childNodes.length > 0) {
+        h3.appendChild(firstChild.childNodes[0]);
+      }
+      companyItem.replaceChild(h3, firstChild);
+    }
+
     // IMPORTANT: keep full AEM structure
     companiesGrid.appendChild(companyItem);
 
