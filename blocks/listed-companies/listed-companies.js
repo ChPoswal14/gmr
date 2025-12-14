@@ -11,23 +11,36 @@ export default function decorate(block) {
   const entryContainer = document.createElement('div');
   entryContainer.className = 'entry-container';
 
-  // 0 = title, 1 = description
-  if (children[0]) entryContainer.appendChild(children[0]);
-  if (children[1]) entryContainer.appendChild(children[1]);
+  // Title → h2
+  const titleP = children[0]?.querySelector('p');
+  if (titleP) {
+    const h2 = document.createElement('h2');
+    h2.innerHTML = titleP.innerHTML;
+    entryContainer.appendChild(h2);
+  }
+
+  // Description
+  const descP = children[1]?.querySelector('p');
+  if (descP) {
+    const p = document.createElement('p');
+    p.innerHTML = descP.innerHTML;
+    entryContainer.appendChild(p);
+  }
 
   header.appendChild(entryContainer);
 
-  // 2 = CTA text, 3 = CTA link
-  if (children[3]) {
-    const ctaLink = children[3].querySelector('a');
-    if (ctaLink) {
-      ctaLink.classList.add('btn', 'btn-orange');
-      header.appendChild(ctaLink);
-    }
+  // CTA button (label + link)
+  const ctaText = children[2]?.querySelector('p')?.textContent;
+  const ctaLink = children[3]?.querySelector('a');
+
+  if (ctaLink) {
+    ctaLink.textContent = ctaText || ctaLink.textContent;
+    ctaLink.classList.add('btn', 'btn-orange');
+    header.appendChild(ctaLink);
   }
 
   /* ===============================
-     COMPANIES SECTION
+     COMPANIES
      =============================== */
 
   const companiesCol = document.createElement('div');
@@ -36,57 +49,64 @@ export default function decorate(block) {
   const row = document.createElement('div');
   row.className = 'row';
 
-  // Start after header fields
-  let i = 4;
+  // Each company is ONE child starting from index 4
+  for (let i = 4; i < children.length; i++) {
+    const company = children[i];
+    const fields = [...company.children];
 
-  while (i < children.length) {
+    if (fields.length < 7) continue;
+
     const col = document.createElement('div');
     col.className = 'col-md-6 mb-4';
 
     const companiesGrid = document.createElement('div');
     companiesGrid.className = 'companiesGrid';
 
-    // Name
-    if (children[i]) companiesGrid.appendChild(children[i++]);
-
-    // Description
-    if (children[i]) companiesGrid.appendChild(children[i++]);
-
-    // Stock
-    let stockNode = null;
-    if (children[i]) {
-      stockNode = document.createElement('div');
-      stockNode.className = 'companiesStock';
-      stockNode.appendChild(children[i++]);
+    /* ---- Name → h3 ---- */
+    const name = fields[0].querySelector('p');
+    if (name) {
+      const h3 = document.createElement('h3');
+      h3.innerHTML = name.innerHTML;
+      companiesGrid.appendChild(h3);
     }
 
-    // Visit Website (text + link)
+    /* ---- Description ---- */
+    const desc = fields[1].querySelector('p');
+    if (desc) {
+      const p = document.createElement('p');
+      p.innerHTML = desc.innerHTML;
+      companiesGrid.appendChild(p);
+    }
+
+    /* ---- Links ---- */
     const linksWrap = document.createElement('div');
     linksWrap.className = 'companies-links mt-5 mb-4';
 
-    if (children[i]) i++; // text label
-    if (children[i]) {
-      const link = children[i++].querySelector('a');
-      if (link) {
-        link.classList.add('btn', 'btn-link');
-        linksWrap.appendChild(link);
-      }
+    const visitLink = fields[4].querySelector('a');
+    if (visitLink) {
+      visitLink.classList.add('btn', 'btn-link');
+      linksWrap.appendChild(visitLink);
     }
 
-    // Explore Highlights (text + link)
-    if (children[i]) i++; // text label
-    if (children[i]) {
-      const link = children[i++].querySelector('a');
-      if (link) {
-        link.classList.add('btn', 'btn-link');
-        linksWrap.appendChild(link);
-      }
+    const exploreLink = fields[6].querySelector('a');
+    if (exploreLink) {
+      exploreLink.classList.add('btn', 'btn-link');
+      linksWrap.appendChild(exploreLink);
     }
 
     companiesGrid.appendChild(linksWrap);
-    col.appendChild(companiesGrid);
 
-    if (stockNode) col.appendChild(stockNode);
+    /* ---- Stock ---- */
+    const stockP = fields[2].querySelector('p');
+    if (stockP) {
+      const stock = document.createElement('div');
+      stock.className = 'companiesStock';
+      stock.textContent = stockP.textContent;
+      col.appendChild(companiesGrid);
+      col.appendChild(stock);
+    } else {
+      col.appendChild(companiesGrid);
+    }
 
     row.appendChild(col);
   }
@@ -94,7 +114,7 @@ export default function decorate(block) {
   companiesCol.appendChild(row);
 
   /* ===============================
-     FINAL ASSEMBLY
+     FINAL
      =============================== */
 
   block.innerHTML = '';
