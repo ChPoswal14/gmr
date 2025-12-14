@@ -15,17 +15,16 @@ export default function decorate(block) {
   if (children[0]) {
   const pElement = children[0];
   const h2Element = document.createElement('h2');
-  h2Element.textContent = pElement.textContent;
   
-  // Copy attributes
-  Array.from(pElement.attributes).forEach(attr => {
-    h2Element.setAttribute(attr.name, attr.value);
-  });
+  // Copy the text content
+  h2Element.textContent = pElement.textContent || 'Default Section Title';
   
-  // Replace p with h2 in the original parent
-  pElement.replaceWith(h2Element);
+  // Copy all data attributes with fallbacks
+  const labelValue = pElement.getAttribute('data-aue-label');
+  h2Element.setAttribute('data-aue-prop', pElement.getAttribute('data-aue-prop') || '');
+  h2Element.setAttribute('data-aue-label', labelValue !== null ? labelValue : 'Section Title'); // Key fix here
+  h2Element.setAttribute('data-aue-type', pElement.getAttribute('data-aue-type') || 'text');
   
-  // Append to entryContainer
   entryContainer.appendChild(h2Element);
 }
 
