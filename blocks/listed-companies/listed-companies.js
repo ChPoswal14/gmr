@@ -13,10 +13,12 @@ export default function decorate(block) {
 
 // Title + description (wrap first child in <h2>)
 if (children[0]) {
+  const p = children[0].querySelector('p');
   const h2 = document.createElement('h2');
-  // Move the first child inside h2
-  while (children[0].childNodes.length > 0) {
-    h2.appendChild(children[0].childNodes[0]);
+  if (p) {
+    h2.innerHTML = p.innerHTML; // keep content
+  } else {
+    h2.textContent = children[0].textContent.trim();
   }
   entryContainer.appendChild(h2);
 }
