@@ -11,23 +11,22 @@ export default function decorate(block) {
   const entryContainer = document.createElement('div');
   entryContainer.className = 'entry-container';
 
-  // 0 = title, 1 = description
+  // Title + description (KEEP AS IS)
   if (children[0]) entryContainer.appendChild(children[0]);
   if (children[1]) entryContainer.appendChild(children[1]);
 
   header.appendChild(entryContainer);
 
-  // 2 = CTA text, 3 = CTA link
+  // CTA button (KEEP WHOLE BUTTON CONTAINER)
   if (children[3]) {
-    const ctaLink = children[3].querySelector('a');
-    if (ctaLink) {
-      ctaLink.classList.add('btn', 'btn-orange');
-      header.appendChild(ctaLink);
-    }
+    const btnWrapper = children[3];
+    const btn = btnWrapper.querySelector('a');
+    if (btn) btn.classList.add('btn', 'btn-orange');
+    header.appendChild(btnWrapper);
   }
 
   /* ===============================
-     COMPANIES SECTION
+     COMPANIES
      =============================== */
 
   const companiesCol = document.createElement('div');
@@ -36,67 +35,33 @@ export default function decorate(block) {
   const row = document.createElement('div');
   row.className = 'row';
 
-  // Start after header fields
-  let i = 4;
+  // Each company is ONE authored group
+  for (let i = 4; i < children.length; i++) {
+    const companyItem = children[i];
 
-  while (i < children.length) {
+    // SAFETY: only wrap real company items
+    if (!companyItem || companyItem.children.length < 3) continue;
+
+    companyItem.classList.add('listed-company-item');
+
     const col = document.createElement('div');
     col.className = 'col-md-6 mb-4';
 
     const companiesGrid = document.createElement('div');
     companiesGrid.className = 'companiesGrid';
 
-    // Name
-    if (children[i]) companiesGrid.appendChild(children[i++]);
+    // IMPORTANT: keep full AEM structure
+    companiesGrid.appendChild(companyItem);
 
-    // Description
-    if (children[i]) companiesGrid.appendChild(children[i++]);
-
-    // Stock
-    let stockNode = null;
-    if (children[i]) {
-      stockNode = document.createElement('div');
-      stockNode.className = 'companiesStock';
-      stockNode.appendChild(children[i++]);
-    }
-
-    // Visit Website (text + link)
-    const linksWrap = document.createElement('div');
-    linksWrap.className = 'companies-links mt-5 mb-4';
-
-    if (children[i]) i++; // text label
-    if (children[i]) {
-      const link = children[i++].querySelector('a');
-      if (link) {
-        link.classList.add('btn', 'btn-link');
-        linksWrap.appendChild(link);
-      }
-    }
-
-    // Explore Highlights (text + link)
-    if (children[i]) i++; // text label
-    if (children[i]) {
-      const link = children[i++].querySelector('a');
-      if (link) {
-        link.classList.add('btn', 'btn-link');
-        linksWrap.appendChild(link);
-      }
-    }
-
-    companiesGrid.appendChild(linksWrap);
     col.appendChild(companiesGrid);
-
-    if (stockNode) col.appendChild(stockNode);
-
     row.appendChild(col);
   }
 
   companiesCol.appendChild(row);
 
   /* ===============================
-     FINAL ASSEMBLY
+     FINAL (DO NOT DESTROY AEM)
      =============================== */
 
-  block.innerHTML = '';
-  block.append(header, companiesCol);
+  block.replaceChildren(header, companiesCol);
 }
