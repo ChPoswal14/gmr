@@ -65,5 +65,5 @@ export default function decorate(block) {
 
   container.appendChild(row);
   section.appendChild(container);
-  block.appendChild(section);
+  block.replaceWith(section);
 }
