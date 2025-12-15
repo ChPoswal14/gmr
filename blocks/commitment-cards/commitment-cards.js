@@ -1,13 +1,16 @@
 export default function decorate(block) {
-  // Create section wrapper
+  /** -----------------------------
+   * Section wrapper
+   * ----------------------------- */
   const section = document.createElement("section");
-  section.className = "sec-commitment spacer";
+  section.className = "bg-primary";
 
-  // Container
   const container = document.createElement("div");
   container.className = "container";
 
-  // Section title (first row)
+  /** -----------------------------
+   * Section title (parent model)
+   * ----------------------------- */
   const sectionRow = block.querySelector(":scope > div");
   let sectionTitle = "";
 
@@ -16,28 +19,68 @@ export default function decorate(block) {
     sectionRow.remove();
   }
 
-  // H2 title
   if (sectionTitle) {
     const h2 = document.createElement("h2");
-    h2.className = "title text-center fw-normal mb-5";
+    h2.className = "title";
     h2.textContent = sectionTitle;
     container.appendChild(h2);
   }
 
-  // Row wrapper (before loop)
+  /** -----------------------------
+   * Cards row
+   * ----------------------------- */
   const row = document.createElement("div");
   row.className = "row";
 
-  // Remaining cards
   [...block.children].forEach((card) => {
-    card.classList.add("col-md-6");
-    row.appendChild(card);
+    const [imgEl, titleEl, descEl, btnTextEl, btnLinkEl] = card.children;
+
+    /* column */
+    const col = document.createElement("div");
+    col.className = "col-md-6";
+
+    /* card */
+    const blockCard = document.createElement("div");
+    blockCard.className = "block-card";
+
+    /* image */
+    const imgWrap = document.createElement("div");
+    imgWrap.className = "block-card-img";
+
+    if (imgEl?.querySelector("img")) {
+      imgWrap.appendChild(imgEl.querySelector("img"));
+    }
+
+    /* body */
+    const body = document.createElement("div");
+    body.className = "block-card-body";
+
+    if (titleEl) {
+      const h3 = document.createElement("h3");
+      h3.textContent = titleEl.textContent;
+      body.appendChild(h3);
+    }
+
+    if (descEl) body.appendChild(descEl);
+
+    if (btnTextEl && btnLinkEl) {
+      const a = document.createElement("a");
+      a.href = btnLinkEl.textContent;
+      a.className = "btn btn-primary";
+      a.textContent = btnTextEl.textContent;
+      body.appendChild(a);
+    }
+
+    blockCard.append(imgWrap, body);
+    col.appendChild(blockCard);
+    row.appendChild(col);
   });
 
-  // Append row after loop
   container.appendChild(row);
-
-  // Attach container to block
   section.appendChild(container);
-  block.appendChild(section);
+
+  /** -----------------------------
+   * Replace block
+   * ----------------------------- */
+  block.replaceWith(section);
 }
