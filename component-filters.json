@@ -35,14 +35,6 @@
     ]
   },
   {
-    "id": "article-body",
-    "components": []
-  },
-  {
-    "id": "article-header",
-    "components": []
-  },
-  {
     "id": "aviation-expertise",
     "components": [
       "aviation-item"

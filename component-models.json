@@ -351,51 +351,6 @@
     ]
   },
   {
-    "id": "article-body",
-    "fields": [
-      {
-        "component": "richtext",
-        "name": "content",
-        "label": "Main Content",
-        "valueType": "string",
-        "required": true,
-        "comment": "Write the full article here. Use H2/H3 for subsections."
-      }
-    ]
-  },
-  {
-    "id": "article-header",
-    "fields": [
-      {
-        "component": "text",
-        "name": "category",
-        "label": "Category / Tag",
-        "valueType": "string",
-        "required": true
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Article Title",
-        "valueType": "string",
-        "required": true
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "label": "Short Summary",
-        "valueType": "string"
-      },
-      {
-        "component": "reference",
-        "name": "image",
-        "label": "Featured Image",
-        "valueType": "string",
-        "multi": false
-      }
-    ]
-  },
-  {
     "id": "aviation-expertise",
     "fields": [
       {
@@ -1229,45 +1184,6 @@
         "component": "text",
         "name": "exploreHighlightsUrl",
         "label": "Explore Highlights URL",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "news-updates",
-    "fields": [
-      {
-        "component": "text",
-        "name": "filterTag",
-        "label": "Filter Tag",
-        "valueType": "string",
-        "comment": "Type 'Aero' to show only Aero news. Leave empty to show all."
-      },
-      {
-        "component": "number",
-        "name": "limit",
-        "label": "Number of Items",
-        "valueType": "long",
-        "defaultValue": 3
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Title",
-        "valueType": "string",
-        "defaultValue": "News & Updates"
-      },
-      {
-        "component": "text",
-        "name": "ctaLabel",
-        "label": "Button Label",
-        "valueType": "string",
-        "defaultValue": "Go to Newsroom"
-      },
-      {
-        "component": "text",
-        "name": "ctaLink",
-        "label": "Button Link",
         "valueType": "string"
       }
     ]
