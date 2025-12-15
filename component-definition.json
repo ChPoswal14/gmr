@@ -5,19 +5,12 @@
       "id": "pages",
       "components": [
         {
-          "title": "News Article Page",
-          "id": "news-page",
-          "groups": [
-            "pages"
-          ],
+          "id": "page",
+          "title": "Page",
           "plugins": {
             "xwalk": {
               "page": {
-                "resourceType": "core/franklin/components/page/v1/page",
-                "template": {
-                  "name": "News Article Page",
-                  "model": "news-page"
-                }
+                "resourceType": "core/franklin/components/page/v1/page"
               }
             }
           }

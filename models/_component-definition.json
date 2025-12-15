@@ -5,7 +5,7 @@
       "id": "pages",
       "components": [
         {
-          "...": "./_news-page.json#/definitions"
+          "...": "./_page.json#/definitions"
         }
       ]
     },

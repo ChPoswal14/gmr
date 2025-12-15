@@ -1,4 +1,18 @@
 {
+  "definitions": [
+    {
+      "id": "page",
+      "title": "Page",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/page/v1/page"
+          }
+        }
+      }
+    }
+  ],
+
   "models": [
     {
       "id": "page",
@@ -26,7 +40,7 @@
           "valueType": "string",
           "name": "cardTitle",
           "label": "Card Title",
-          "description": "Headline shown on listing cards"
+          "description": "Title shown on listing cards"
         },
         {
           "component": "text",
@@ -39,7 +53,7 @@
           "component": "text",
           "valueType": "string",
           "name": "cardImage",
-          "label": "Card Image (DAM Path)",
+          "label": "Card Image (DAM path)",
           "description": "Example: /content/dam/gmr/news/delhi-airport.jpg"
         },
 
@@ -103,7 +117,8 @@
           "component": "text",
           "valueType": "string",
           "name": "ctaLink",
-          "label": "CTA Link (optional)"
+          "label": "CTA Link (optional)",
+          "description": "Leave empty to auto-link to the page"
         }
       ]
     }
