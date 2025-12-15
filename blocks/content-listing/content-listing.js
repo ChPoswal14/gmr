@@ -1,130 +1,134 @@
 /**
- * Content Listing – FINAL (EDS-safe, metadata-optional)
+ * Content Listing – FINAL EDS VERSION
  * Configuration via TEXT inside section
  */
+
+const TYPE_LABELS = {
+  news: 'Press Release',
+  blog: 'Blog',
+  story: 'Story',
+  'case-study': 'Case Study'
+};
 
 function readConfig(block) {
   const config = {};
   const first = block.firstElementChild;
-
   if (!first) return config;
 
-  const lines = first.textContent
+  first.textContent
     .split('\n')
     .map(l => l.trim())
-    .filter(Boolean);
+    .filter(Boolean)
+    .forEach(line => {
+      const [key, value] = line.split('=');
+      if (key && value) config[key] = value;
+    });
 
-  lines.forEach(line => {
-    const [key, value] = line.split('=');
-    if (key && value) {
-      config[key] = value;
-    }
-  });
-
-  // Remove config text from DOM
   first.remove();
   return config;
 }
 
-async function fetchPageMeta(url) {
+async function fetchPageData(url) {
   try {
-    const res = await fetch(`${url}.plain.html`);
+    const res = await fetch(`${url}.plain.json`);
     if (!res.ok) return null;
 
-    const html = await res.text();
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-
-    const meta = (name) =>
-      doc.querySelector(`meta[name="${name}"]`)?.content || '';
-
-    const pageTitle =
-      meta('listingTitle') ||
-      doc.querySelector('title')?.textContent ||
-      'Untitled';
+    const json = await res.json();
+    const meta = json.metadata || {};
 
     return {
       url,
-      title: pageTitle,
-      description: meta('listingDescription'),
-      image: meta('listingImage'),
-      type: meta('listingType') || null,
-      audience: meta('listingAudience')
-        ? meta('listingAudience').split(',').map(a => a.trim())
+      title: meta.cardTitle || meta['jcr:title'] || json.title || 'Untitled',
+      teaser: meta.cardTeaser || '',
+      image: meta.cardImage || null,
+      images: json.images || [],
+      type: meta.contentType || null,
+      audience: meta.contentAudience
+        ? meta.contentAudience.split(',').map(a => a.trim())
         : [],
-      featured: meta('listingFeatured') === 'true',
-      priority: parseInt(meta('listingPriority') || '100', 10),
-      show: meta('showInListing') !== 'false'
+      date: meta.publishDate || '',
+      featured: meta.featured === 'true',
+      priority: parseInt(meta.cardPriority || '100', 10),
+      show: meta.showInListing !== 'false',
+      ctaLabel: meta.ctaLabel || 'Read More',
+      ctaLink: meta.ctaLink || url
     };
   } catch (e) {
-    console.error('Content Listing: metadata fetch failed for', url, e);
+    console.error('Failed to fetch page data:', url, e);
     return null;
   }
 }
 
+function resolveCardImage(item) {
+  if (item.image) return item.image;
+  if (item.images && item.images.length) return item.images[0];
+  return '/content/dam/gmr/defaults/card-fallback.jpg';
+}
+
 export default async function decorate(block) {
-  // 1️⃣ Read config from text
   const config = readConfig(block);
 
   const limit = parseInt(config.limit || '999', 10);
-  const types = config.type
-    ? config.type.split(',').map(t => t.trim())
-    : [];
-  const audiences = config.audience
-    ? config.audience.split(',').map(a => a.trim())
-    : [];
+  const types = config.type ? config.type.split(',').map(t => t.trim()) : [];
+  const audiences = config.audience ? config.audience.split(',').map(a => a.trim()) : [];
 
-  // 2️⃣ Read links
   const links = [...block.querySelectorAll('a')].map(a => a.href);
-
   if (!links.length) {
     block.innerHTML = '<p>No content configured.</p>';
     return;
   }
 
-  // 3️⃣ Fetch metadata
-  let items = (await Promise.all(links.map(fetchPageMeta)))
+  let items = (await Promise.all(links.map(fetchPageData)))
     .filter(Boolean)
-    .filter(item => item.show);
+    .filter(i => i.show);
 
-  // 4️⃣ Filter by type (ONLY if filter is present)
   if (types.length) {
-    items = items.filter(item =>
-      item.type && types.includes(item.type)
-    );
+    items = items.filter(i => i.type && types.includes(i.type));
   }
 
-  // 5️⃣ Filter by audience (ONLY if filter is present)
   if (audiences.length) {
-    items = items.filter(item =>
-      item.audience.length &&
-      item.audience.some(a => audiences.includes(a))
+    items = items.filter(i =>
+      i.audience.length && i.audience.some(a => audiences.includes(a))
     );
   }
 
-  // 6️⃣ Sort: featured → priority
   items.sort((a, b) =>
     b.featured - a.featured ||
     a.priority - b.priority
   );
 
-  // 7️⃣ Limit
   items = items.slice(0, limit);
 
-  // 8️⃣ Render
   block.innerHTML = `
     <div class="content-list">
       ${items.map(item => `
         <article class="content-card">
-          ${item.image ? `
-            <div class="content-card__image">
-              <img src="${item.image}" alt="${item.title}">
-            </div>
-          ` : ''}
+          <div class="content-card__image">
+            <img
+              src="${resolveCardImage(item)}"
+              alt="${item.title}"
+              loading="lazy"
+            >
+          </div>
+
           <div class="content-card__body">
-            <h3>
+            ${item.type ? `
+              <span class="content-card__badge">
+                ${TYPE_LABELS[item.type] || item.type}
+              </span>
+            ` : ''}
+
+            ${item.date ? `
+              <time class="content-card__date">${item.date}</time>
+            ` : ''}
+
+            <h3 class="content-card__title">
               <a href="${item.url}">${item.title}</a>
             </h3>
-            ${item.description ? `<p>${item.description}</p>` : ''}
+
+            <a class="content-card__cta" href="${item.ctaLink}">
+              ${item.ctaLabel} →
+            </a>
           </div>
         </article>
       `).join('')}

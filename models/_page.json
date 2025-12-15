@@ -26,14 +26,22 @@
           "valueType": "string",
           "name": "cardTitle",
           "label": "Card Title",
-          "description": "Title shown in listing cards"
+          "description": "Headline shown on listing cards"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "cardTeaser",
-          "label": "Card Teaser",
-          "description": "Optional teaser text for cards (not always displayed)"
+          "label": "Card Teaser (optional)",
+          "description": "Optional teaser text (not always displayed)"
+        },
+
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "cardImage",
+          "label": "Card Image (DAM Path)",
+          "description": "Example: /content/dam/gmr/news/delhi-airport.jpg"
         },
 
         {
@@ -71,7 +79,7 @@
           "component": "checkbox",
           "valueType": "boolean",
           "name": "showInListing",
-          "label": "Show in Content Listings",
+          "label": "Show in Listings",
           "default": true
         },
 
@@ -79,7 +87,8 @@
           "component": "number",
           "valueType": "number",
           "name": "cardPriority",
-          "label": "Card Priority (1 = highest)"
+          "label": "Card Priority (1 = highest)",
+          "default": 100
         },
 
         {
@@ -89,13 +98,12 @@
           "label": "CTA Label",
           "default": "Read More"
         },
-
         {
           "component": "text",
           "valueType": "string",
           "name": "ctaLink",
           "label": "CTA Link (optional)",
-          "description": "Leave empty to auto-link to page"
+          "description": "Leave empty to auto-link to the page"
         }
       ]
     }
