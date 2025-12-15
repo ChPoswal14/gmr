@@ -26,7 +26,7 @@ export default function decorate(block) {
   accordion.className = "accordion";
   accordion.id = "businessAccordion";
 
-  const businessItems = children.slice(3); // remaining items
+  const businessItems = children.slice(3); // skip header & intro
 
   businessItems.forEach((item, index) => {
     item.classList.add("accordion-item");
@@ -48,14 +48,14 @@ export default function decorate(block) {
     button.setAttribute("aria-expanded", index === 0 ? "true" : "false");
     button.setAttribute("aria-controls", `collapse${index}`);
 
-    // --- Title ---
-    const titleElement = item.children[1];
+    // Title
+    const titleElement = item.querySelector(".business-title") || item.children[1];
     const titleSpan = document.createElement("span");
     titleSpan.className = "business-title";
     if (titleElement) titleSpan.textContent = titleElement.textContent;
     button.appendChild(titleSpan);
 
-    // --- Accordion icons ---
+    // Accordion icons
     const iconSpan = document.createElement("span");
     iconSpan.className = "accordion-icon";
     iconSpan.setAttribute("aria-hidden", "true");
@@ -96,19 +96,33 @@ export default function decorate(block) {
     const accordionBody = document.createElement("div");
     accordionBody.className = "accordion-body";
 
-    // --- Description ---
-    const description = item.querySelector(".business-description") || item.children[2];
-    if (description) accordionBody.appendChild(description);
+    // --- Business Description ---
+    const descDiv = document.createElement("div");
+    descDiv.className = "business-description";
+    const desc = item.querySelector(".business-description") || item.children[2];
+    if (desc) descDiv.innerHTML = desc.innerHTML;
+    accordionBody.appendChild(descDiv);
 
     // --- CTA ---
+    const ctaDiv = document.createElement("div");
+    ctaDiv.className = "business-cta";
     const cta = item.querySelector(".business-cta") || item.children[4];
-    if (cta) accordionBody.appendChild(cta);
+    if (cta) {
+      const a = cta.querySelector("a") || document.createElement("a");
+      if (!cta.querySelector("a")) {
+        a.href = "#";
+        a.className = "btn btn-transparent";
+        a.textContent = cta.textContent || "READ MORE";
+      }
+      ctaDiv.appendChild(a);
+    }
+    accordionBody.appendChild(ctaDiv);
 
     // --- Mobile Image ---
     const mobileImageDiv = document.createElement("div");
     mobileImageDiv.className = "mobile-business-image";
     mobileImageDiv.setAttribute("data-index", index);
-    mobileImageDiv.style.display = index === 0 ? "none" : "none"; // initially hidden
+    mobileImageDiv.style.display = "none";
     const picture = item.children[0]?.querySelector("picture");
     if (picture) mobileImageDiv.appendChild(picture.cloneNode(true));
     accordionBody.appendChild(mobileImageDiv);
@@ -120,21 +134,6 @@ export default function decorate(block) {
   });
 
   wrapper.appendChild(accordion);
-
-  // --- Replace original block ---
   block.innerHTML = "";
   block.appendChild(wrapper);
-
-  // --- Responsive CSS ---
-  const style = document.createElement("style");
-  style.textContent = `
-    @media (max-width: 767px) {
-      .business-image-preview { display: none !important; }
-      .mobile-business-image { display: block !important; margin-top: 20px; width:100%; }
-    }
-    @media (min-width: 768px) {
-      .mobile-business-image { display: none !important; }
-    }
-  `;
-  document.head.appendChild(style);
-}
+};
