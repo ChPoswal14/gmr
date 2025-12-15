@@ -1,0 +1,10 @@
+{
+  "blocks": [
+    {
+      "name": "content-listing",
+      "title": "Content Listing",
+      "description": "Generic listing for News, Blogs, Stories",
+      "icon": "list"
+    }
+  ]
+}
