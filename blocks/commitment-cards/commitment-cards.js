@@ -11,15 +11,6 @@ export default function decorate(block) {
   const headerRow = rows.shift();
   headerRow.classList.add("commitment-cards-header");
 
-  // Replace <p> with <h2> (UE-safe)
-  const headerP = headerRow.querySelector("p");
-  if (headerP) {
-    const h2 = document.createElement("h2");
-    h2.className = "title text-center fw-normal mb-5";
-    h2.innerHTML = headerP.innerHTML; // preserve formatting
-    headerP.replaceWith(h2);
-  }
-
   // ---- Grid ----
   const grid = document.createElement("div");
   grid.className = "row";
