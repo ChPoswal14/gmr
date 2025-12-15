@@ -14,7 +14,7 @@ export default function decorate(block) {
   // Section Title
   if (children[0]) {
     const h2 = document.createElement('h2');
-    h2.appendChild(children[0]); // MOVE node, don’t read text
+    h2.appendChild(children[0]); // MOVE node, do not read text
     entryContainer.appendChild(h2);
   }
 
@@ -41,7 +41,7 @@ export default function decorate(block) {
       const a = document.createElement('a');
       a.className = 'btn btn-orange';
 
-      // UE bindings stay on original nodes
+      // Preserve UE bindings
       labelP.setAttribute('data-aue-prop', 'ctaText');
       linkP.setAttribute('data-aue-prop', 'ctaUrl');
 
@@ -66,7 +66,6 @@ export default function decorate(block) {
   const row = document.createElement('div');
   row.className = 'row';
 
-  // IMPORTANT: each listed-company-item stays untouched
   for (let i = 4; i < children.length; i++) {
     const companyItem = children[i];
     if (!companyItem) continue;
@@ -79,9 +78,57 @@ export default function decorate(block) {
     const companiesGrid = document.createElement('div');
     companiesGrid.className = 'companiesGrid';
 
-    // Wrap visually only — DO NOT remove children
+    /* ---------- Company Name ---------- */
+    const firstChild = companyItem.children[0];
+    if (firstChild && firstChild.tagName !== 'H3') {
+      const h3 = document.createElement('h3');
+      h3.appendChild(firstChild); // MOVE node
+      companyItem.insertBefore(h3, companyItem.firstChild);
+    }
+
+    /* ---------- Stock Symbol ---------- */
+    const stockNode = companyItem.children[2];
+    let companiesStock = null;
+
+    if (stockNode) {
+      companiesStock = document.createElement('div');
+      companiesStock.className = 'companiesStock';
+      companiesStock.appendChild(stockNode); // MOVE node
+    }
+
+    /* ---------- Buttons ---------- */
+    const btnContainer = document.createElement('div');
+    btnContainer.className = 'companies-links mt-5 mb-4';
+
+    const buttonPairs = [
+      [companyItem.children[2], companyItem.children[3]],
+      [companyItem.children[4], companyItem.children[5]],
+    ];
+
+    buttonPairs.forEach(([labelEl, hrefEl]) => {
+      if (!labelEl || !hrefEl) return;
+
+      const labelP = labelEl.querySelector('p');
+      const linkP = hrefEl.querySelector('p');
+
+      if (!labelP || !linkP) return;
+
+      const a = document.createElement('a');
+      a.className = 'btn btn-link';
+      a.href = linkP.textContent.trim() || '#';
+
+      // Preserve UE bindings
+      a.appendChild(labelP); // MOVE node
+
+      btnContainer.appendChild(a);
+    });
+
     companiesGrid.appendChild(companyItem);
+    companiesGrid.appendChild(btnContainer);
+
     col.appendChild(companiesGrid);
+    if (companiesStock) col.appendChild(companiesStock);
+
     row.appendChild(col);
   }
 
