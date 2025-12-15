@@ -155,22 +155,6 @@ if (ctaLabelNode) {
   }
 }
 
-/* CTA LINK (URL FIELD) */
-if (ctaLinkNode) {
-  const a = ctaLinkNode.querySelector('a');
-  if (a) {
-    a.setAttribute('data-aue-prop', 'ctaLink');
-    a.setAttribute('data-aue-label', 'CTA Link URL');
-
-    // Wrap link around label (UE supports this)
-    if (ctaWrap.firstChild) {
-      a.appendChild(ctaWrap.firstChild);
-    }
-
-    ctaWrap.appendChild(a);
-  }
-}
-
 col3.appendChild(ctaWrap);
 
 
