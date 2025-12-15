@@ -1,7 +1,11 @@
 export default function decorate(block) {
+  // Create section wrapper
+  const section = document.createElement("section");
+  section.className = "sec-commitment spacer";
+
   // Outer container
   const container = document.createElement("div");
-  container.className = "commitment-cards__container";
+  container.className = "container";
 
   // Section title (parent model field)
   const sectionRow = block.querySelector(":scope > div");
@@ -15,7 +19,7 @@ export default function decorate(block) {
   // Title
   if (sectionTitle) {
     const h2 = document.createElement("h2");
-    h2.className = "commitment-cards__title";
+    h2.className = "title text-center fw-normal mb-5";
     h2.textContent = sectionTitle;
     container.appendChild(h2);
   }
@@ -27,7 +31,7 @@ export default function decorate(block) {
   // Card processing
   [...block.children].forEach((card) => {
     // col wrapper
-    card.classList.add("col-md-6", "commitment-card");
+    card.classList.add("col-md-6", "comm-card");
 
     const cols = [...card.children];
 
@@ -52,5 +56,6 @@ export default function decorate(block) {
   });
 
   container.appendChild(row);
-  block.appendChild(container);
+  section.appendChild(container);
+  block.appendChild(section);
 }
