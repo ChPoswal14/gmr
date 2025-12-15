@@ -1,92 +1,50 @@
 [
   {
-    "id": "page",
-    "title": "Page"
-  },
-  {
     "id": "page-metadata",
-    "title": "Page Metadata",
     "fields": [
       {
         "component": "text",
-        "valueType": "string",
-        "name": "jcr:title",
-        "label": "Page Title"
+        "name": "listingTitle",
+        "label": "Listing Title"
+      },
+      {
+        "component": "textarea",
+        "name": "listingDescription",
+        "label": "Listing Description"
+      },
+      {
+        "component": "asset",
+        "name": "listingImage",
+        "label": "Listing Image",
+        "rootPath": "/content/dam"
       },
       {
         "component": "text",
-        "valueType": "string",
-        "name": "jcr:description",
-        "label": "Page Description"
+        "name": "listingType",
+        "label": "Listing Type (news, blog, story)"
       },
       {
         "component": "text",
-        "valueType": "string",
-        "name": "cardTitle",
-        "label": "Card Title",
-        "description": "Title shown in listings (News, Blogs, Stories, etc.)"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "cardTeaser",
-        "label": "Card Teaser",
-        "description": "Short summary shown below the title"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "publishDate",
-        "label": "Publish Date (YYYY-MM-DD)"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "contentType",
-        "label": "Content Type",
-        "description": "news | blog | story | case-study"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "contentAudience",
-        "label": "Show In Sections",
-        "description": "Comma separated values. Example: aero, energy, corporate"
+        "name": "listingAudience",
+        "label": "Audience (aero, energy, group)"
       },
       {
         "component": "checkbox",
-        "valueType": "boolean",
-        "name": "featured",
-        "label": "Featured Content",
+        "name": "listingFeatured",
+        "label": "Featured",
         "default": false
       },
       {
+        "component": "number",
+        "name": "listingPriority",
+        "label": "Priority",
+        "default": 100
+      },
+      {
         "component": "checkbox",
-        "valueType": "boolean",
         "name": "showInListing",
-        "label": "Show in Listings",
+        "label": "Show in Listing",
         "default": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "cardPriority",
-        "label": "Card Priority (1 = highest)",
-        "description": "Lower number appears first. Leave empty for normal order."
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaLabel",
-        "label": "CTA Label",
-        "description": "Example: Read More"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaLink",
-        "label": "CTA Link URL",
-        "description": "Optional override. Defaults to page URL."
       }
     ]
   },
