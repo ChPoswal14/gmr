@@ -5,7 +5,7 @@
 .businesses-section-wrapper .accordion-button:not(.collapsed){background-color:transparent;box-shadow:none}
 .businesses-section-wrapper .accordion-button::after{display:none}
 .businesses-section-wrapper .accordion-button .accordion-icon{font-size:1rem;font-weight:400;line-height:normal;width:2.25rem;height:2.25rem;display:flex;align-items:center;justify-content:center;transition:transform .2s ease-in-out;color:var(--white);background-color:transparent;border:1px solid var(--yellow);border-radius:8px}
-.businesses-section-wrapper .accordion-header.active .accordion-button .accordion-icon{background-color:var(--yellow)}
+.businesses-section-wrapper .accordion-item.active .accordion-button .accordion-icon{background-color:var(--yellow)}
 .businesses-section-wrapper .accordion-header .accordion-button .accordion-icon .plus-icon{color:var(--yellow)}
 .businesses-section-wrapper .accordion-collapse{transition:height .35s ease}
 .businesses-section-wrapper .accordion-body{padding:0 1rem 1.5rem 0}
@@ -23,12 +23,13 @@
 .desktop-business-image.active{opacity:1;visibility:visible;z-index:2}
 .desktop-business-image img{width:100%;height:100%;object-fit:cover;display:block}
 .business-title{flex:1;text-align:left;padding-right:1rem;font-weight:300;font-size:1.8rem}
-.businesses-section-wrapper .accordion-button.active .business-title{font-weight:400}
+.businesses-section-wrapper .accordion-item.active .business-title{font-weight:400}
 .business-description{font-size:1.125rem;line-height:1.4;color:var(--black);margin-bottom:1.5rem;max-width:450px}
 .business-description p{margin:0 0 1rem 0}
 .business-description p:last-child{margin-bottom:0}
 .mobile-business-image{display:none;margin:1.5rem 0;border-radius:8px;overflow:hidden}
 .mobile-business-image img{width:100%;height:auto;max-height:300px;object-fit:cover;display:block}
+.business-image img {margin:1.5rem 0;border-radius:8px;overflow:hidden}
 @media (max-width:991px){
 .business-accordion-container{grid-template-columns:1fr;gap:2rem}
 .business-image-preview{display:none}
