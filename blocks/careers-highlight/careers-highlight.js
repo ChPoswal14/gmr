@@ -1,193 +1,88 @@
 export default function decorate(block) {
-  // keep original nodes (AEM editable fields)
-  const original = [...block.children];
+  const rows = [...block.children];
 
-  // helpers
-  const hasPicture = (node) => !!node.querySelector && !!node.querySelector('picture');
+  // ---- Extract authored content ----
+  const sectionTitle = rows[0]?.querySelector("p");
 
-  // FIELD HOLDERS
-  let sectionTitleNode = null;
-  const pictureNodes = [];
-  let blueCardNode = null;
+  const imageOffice = rows[1]?.querySelector("picture");
+  const imageTeamSmall = rows[2]?.querySelector("picture");
+  const imageTeamLarge = rows[3]?.querySelector("picture");
 
-  // NEW: CTA fields captured separately  
-  let ctaLabelNode = null; // The p tag: CTA Button Label
-  let ctaLinkNode = null;  // The <a class="button">
-  
-  // CLASSIFY ALL CHILD NODES
-  original.forEach((child) => {
-    const p = child.querySelector && child.querySelector('p');
-    const a = child.querySelector && child.querySelector('a.button');
+  const cardContent = rows[4]?.querySelector("div");
+  const ctaText = rows[5]?.querySelector("p")?.textContent?.trim();
+  const ctaLink = rows[6]?.querySelector("a")?.getAttribute("href");
 
-    // Section title (first text node but not CTA)
-    if (!sectionTitleNode && p && !p.textContent.includes('Explore Life')) {
-      sectionTitleNode = child;
-      return;
-    }
+  // ---- Clear block ----
+  block.innerHTML = "";
 
-    // Pictures
-    if (hasPicture(child)) {
-      pictureNodes.push(child);
-      return;
-    }
-
-    // CTA label text (p field)
-    if (p && p.textContent.includes('Explore Life')) {
-      ctaLabelNode = child;
-      return;
-    }
-
-    // CTA button link (a field)
-    if (a) {
-      ctaLinkNode = child;
-      return;
-    }
-
-    // Blue card content
-    if (!blueCardNode && (child.querySelector('h2') || child.querySelector('h3') || child.querySelector('p'))) {
-      blueCardNode = child;
-      return;
-    }
-  });
-
-  // MAIN WRAPPERS
-  const container = document.createElement('div');
-  container.className = 'careerSection';
-
-  const row = document.createElement('div');
-  row.className = 'row';
-
-  const col1 = document.createElement('div');
-  col1.className = 'col-md-4';
-
-  const col2 = document.createElement('div');
-  col2.className = 'col-md-4';
-
-  const col3 = document.createElement('div');
-  col3.className = 'col-md-4';
-
-
-  /* -------------------------
-     COLUMN 1 – TWO IMAGES
-  ------------------------- */
-
-  // Image 1 (top left)
-  if (pictureNodes[0]) {
-    const wrap1 = document.createElement('div');
-    wrap1.className = 'careerImg picone';
-    wrap1.appendChild(pictureNodes[0]);
-
-    const img = wrap1.querySelector('img');
-    if (img) {
-      img.setAttribute('data-aue-prop', 'imageOffice');
-      img.setAttribute('data-aue-label', 'Image 1 (Top Left)');
-      img.setAttribute('data-aue-type', 'media');
-    }
-
-    col1.appendChild(wrap1);
+  /* ===============================
+     Section Title
+  =============================== */
+  if (sectionTitle) {
+    const title = document.createElement("h2");
+    title.className = "careers-highlight-title";
+    title.textContent = sectionTitle.textContent;
+    block.append(title);
   }
 
-  // Image 2 (bottom left)
-  if (pictureNodes[1]) {
-    const wrap2 = document.createElement('div');
-    wrap2.className = 'careerImg pictwo';
-    wrap2.appendChild(pictureNodes[1]);
+  /* ===============================
+     Main Layout Container
+  =============================== */
+  const container = document.createElement("div");
+  container.className = "careers-highlight-grid";
 
-    const img = wrap2.querySelector('img');
-    if (img) {
-      img.setAttribute('data-aue-prop', 'imageTeamSmall');
-      img.setAttribute('data-aue-label', 'Image 2 (Bottom Left)');
-      img.setAttribute('data-aue-type', 'media');
-    }
+  /* ===============================
+     Left Images
+  =============================== */
+  const leftCol = document.createElement("div");
+  leftCol.className = "left-images";
 
-    col1.appendChild(wrap2);
+  if (imageOffice) {
+    const topImg = document.createElement("div");
+    topImg.className = "image-large";
+    topImg.append(imageOffice);
+    leftCol.append(topImg);
   }
 
-
-  /* -------------------------
-     COLUMN 2 – BLUE CARD
-  ------------------------- */
-
-  if (blueCardNode) {
-    const cardContent = document.createElement('div');
-    cardContent.className = 'cardContent';
-    cardContent.appendChild(blueCardNode);
-    col2.appendChild(cardContent);
+  if (imageTeamSmall) {
+    const bottomImg = document.createElement("div");
+    bottomImg.className = "image-small";
+    bottomImg.append(imageTeamSmall);
+    leftCol.append(bottomImg);
   }
 
+  /* ===============================
+     Center Blue Card
+  =============================== */
+  const centerCol = document.createElement("div");
+  centerCol.className = "center-card";
 
-  /* -------------------------
-     COLUMN 3 – LARGE IMAGE + CTA
-  ------------------------- */
-
-  // Image 3 (right side)
-  if (pictureNodes[2]) {
-    const wrap3 = document.createElement('div');
-    wrap3.className = 'careerImg picthree';
-    wrap3.appendChild(pictureNodes[2]);
-
-    const img = wrap3.querySelector('img');
-    if (img) {
-      img.setAttribute('data-aue-prop', 'imageTeamLarge');
-      img.setAttribute('data-aue-label', 'Image 3 (Right Side)');
-      img.setAttribute('data-aue-type', 'media');
-    }
-
-    col3.appendChild(wrap3);
+  if (cardContent) {
+    centerCol.append(cardContent);
   }
 
-  // --- CTA MERGE FIX ---
-  const ctaWrap = document.createElement('div');
-  ctaWrap.className = 'cta careerBtn';
+  /* ===============================
+     Right Image + CTA
+  =============================== */
+  const rightCol = document.createElement("div");
+  rightCol.className = "right-content";
 
-  const finalBtn = document.createElement('a');
-  finalBtn.className = 'btn btn-orange w-100';
-
-  // CTA LABEL (from text field)
-  if (ctaLabelNode) {
-    const p = ctaLabelNode.querySelector('p');
-    if (p) {
-      finalBtn.textContent = p.textContent.trim();
-    }
+  if (imageTeamLarge) {
+    const rightImg = document.createElement("div");
+    rightImg.className = "image-vertical";
+    rightImg.append(imageTeamLarge);
+    rightCol.append(rightImg);
   }
 
-  // CTA URL/TITLE (from button field)
-  if (ctaLinkNode) {
-    const a = ctaLinkNode.querySelector('a');
-    if (a) {
-      finalBtn.href = a.href;
-      if (a.title) finalBtn.title = a.title;
-    }
+  if (ctaText && ctaLink) {
+    const cta = document.createElement("a");
+    cta.href = ctaLink;
+    cta.className = "cta-button";
+    cta.textContent = ctaText;
+    rightCol.append(cta);
   }
 
-  ctaWrap.appendChild(finalBtn);
-  col3.appendChild(ctaWrap);
-
-
-  /* -------------------------
-     ASSEMBLE FINAL STRUCTURE
-  ------------------------- */
-
-  row.appendChild(col1);
-  row.appendChild(col2);
-  row.appendChild(col3);
-  container.appendChild(row);
-
-  // Clear AEM block first
-  block.innerHTML = '';
-
-  // Add header wrapper
-  if (sectionTitleNode) {
-    const header = document.createElement('header');
-    header.className = 'entry-container text-center';
-
-    const p = sectionTitleNode.querySelector('p');
-    if (p) p.classList.add('title');
-    else sectionTitleNode.classList.add('title');
-
-    header.appendChild(sectionTitleNode);
-    block.appendChild(header);
-  }
-
-  block.appendChild(container);
+  // ---- Assemble layout ----
+  container.append(leftCol, centerCol, rightCol);
+  block.append(container);
 }
