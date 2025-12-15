@@ -1,41 +1,64 @@
 export default function decorate(block) {
-  block.classList.add('commitment-cards');
+  // Get all rows
+  const rows = [...block.children];
 
-  const children = [...block.children];
+  // First row → Section Title
+  const sectionTitle = rows.shift()?.textContent?.trim();
 
-  // Extract Section Title
-  const titleWrapper = children.shift();
-  const sectionTitle = titleWrapper?.querySelector('[data-aue-prop="sectionTitle"]');
+  // Create section wrapper
+  const section = document.createElement("section");
+  section.className = "sec-commitment spacer";
 
-  const header = document.createElement('div');
-  header.className = 'commitment-header';
-  if (sectionTitle) header.append(sectionTitle);
+  const container = document.createElement("div");
+  container.className = "container";
 
-  // Prepare cards container
-  const cardsContainer = document.createElement('div');
-  cardsContainer.className = 'commitment-cards-container';
+  // Section title
+  if (sectionTitle) {
+    const h2 = document.createElement("h2");
+    h2.className = "title text-center fw-normal mb-5";
+    h2.textContent = sectionTitle;
+    container.appendChild(h2);
+  }
 
-  // Process each card (child block)
-  children.forEach((card) => {
-    card.classList.add('commitment-card');
+  const row = document.createElement("div");
+  row.className = "row";
 
-    // Button enhancement
-    const btnText = card.querySelector('[data-aue-prop="buttonText"]');
-    const btnLink = card.querySelector('[data-aue-prop="buttonLink"]');
+  // Remaining rows → Cards
+  rows.forEach((card) => {
+    const cols = [...card.children];
 
-    if (btnText && btnLink) {
-      const button = document.createElement('a');
-      button.textContent = btnText.textContent.trim();
-      button.href = btnLink.textContent.trim();
-      button.className = 'commitment-btn';
-      card.append(button);
-    }
+    const image = cols[0]?.querySelector("img");
+    const title = cols[1]?.textContent?.trim();
+    const description = cols[2]?.innerHTML;
+    const buttonText = cols[3]?.textContent?.trim();
+    const buttonLink = cols[4]?.querySelector("a")?.href;
 
-    cardsContainer.append(card);
+    const col = document.createElement("div");
+    col.className = "col-md-6";
+
+    col.innerHTML = `
+      <div class="comm-card">
+        <div class="comm-card-img">
+          ${image ? image.outerHTML : ""}
+        </div>
+        <div class="comm-card-body">
+          <h3>${title || ""}</h3>
+          <p>${description || ""}</p>
+          ${
+            buttonText && buttonLink
+              ? `<a href="${buttonLink}" class="btn btn-primary">${buttonText}</a>`
+              : ""
+          }
+        </div>
+      </div>
+    `;
+
+    row.appendChild(col);
   });
 
-  // Rebuild block
-  block.innerHTML = '';
-  block.append(header, cardsContainer);
+  container.appendChild(row);
+  section.appendChild(container);
+
+  // Replace authored content
+  block.replaceWith(section);
 }
-    
