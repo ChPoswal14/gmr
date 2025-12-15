@@ -1,6 +1,6 @@
 /**
- * Content Listing – EDS / Franklin
- * Configuration via TEXT inside section (NO JSON, NO MODEL)
+ * Content Listing – FINAL (EDS-safe, metadata-optional)
+ * Configuration via TEXT inside section
  */
 
 function readConfig(block) {
@@ -21,7 +21,7 @@ function readConfig(block) {
     }
   });
 
-  // remove config text from DOM
+  // Remove config text from DOM
   first.remove();
   return config;
 }
@@ -37,34 +37,43 @@ async function fetchPageMeta(url) {
     const meta = (name) =>
       doc.querySelector(`meta[name="${name}"]`)?.content || '';
 
+    const pageTitle =
+      meta('listingTitle') ||
+      doc.querySelector('title')?.textContent ||
+      'Untitled';
+
     return {
       url,
-      title: meta('listingTitle'),
+      title: pageTitle,
       description: meta('listingDescription'),
       image: meta('listingImage'),
-      type: meta('listingType'),
+      type: meta('listingType') || null,
       audience: meta('listingAudience')
-        ? meta('listingAudience').split(',')
+        ? meta('listingAudience').split(',').map(a => a.trim())
         : [],
       featured: meta('listingFeatured') === 'true',
       priority: parseInt(meta('listingPriority') || '100', 10),
       show: meta('showInListing') !== 'false'
     };
   } catch (e) {
-    console.error('Failed to fetch meta for', url, e);
+    console.error('Content Listing: metadata fetch failed for', url, e);
     return null;
   }
 }
 
 export default async function decorate(block) {
-  // 1️⃣ Read config from TEXT
+  // 1️⃣ Read config from text
   const config = readConfig(block);
 
   const limit = parseInt(config.limit || '999', 10);
-  const types = config.type ? config.type.split(',') : [];
-  const audiences = config.audience ? config.audience.split(',') : [];
+  const types = config.type
+    ? config.type.split(',').map(t => t.trim())
+    : [];
+  const audiences = config.audience
+    ? config.audience.split(',').map(a => a.trim())
+    : [];
 
-  // 2️⃣ Read links (manual discovery – safest)
+  // 2️⃣ Read links
   const links = [...block.querySelectorAll('a')].map(a => a.href);
 
   if (!links.length) {
@@ -77,14 +86,17 @@ export default async function decorate(block) {
     .filter(Boolean)
     .filter(item => item.show);
 
-  // 4️⃣ Filter by type
+  // 4️⃣ Filter by type (ONLY if filter is present)
   if (types.length) {
-    items = items.filter(item => types.includes(item.type));
+    items = items.filter(item =>
+      item.type && types.includes(item.type)
+    );
   }
 
-  // 5️⃣ Filter by audience
+  // 5️⃣ Filter by audience (ONLY if filter is present)
   if (audiences.length) {
     items = items.filter(item =>
+      item.audience.length &&
       item.audience.some(a => audiences.includes(a))
     );
   }
@@ -98,7 +110,7 @@ export default async function decorate(block) {
   // 7️⃣ Limit
   items = items.slice(0, limit);
 
-  // 8️⃣ Render cards
+  // 8️⃣ Render
   block.innerHTML = `
     <div class="content-list">
       ${items.map(item => `
@@ -112,7 +124,7 @@ export default async function decorate(block) {
             <h3>
               <a href="${item.url}">${item.title}</a>
             </h3>
-            <p>${item.description}</p>
+            ${item.description ? `<p>${item.description}</p>` : ''}
           </div>
         </article>
       `).join('')}
