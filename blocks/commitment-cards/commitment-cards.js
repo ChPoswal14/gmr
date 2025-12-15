@@ -1,10 +1,11 @@
 export default function decorate(block) {
   const rows = [...block.children];
 
-  // Create container
+  // Outer section container (inside .section)
   const outerContainer = document.createElement("div");
   outerContainer.className = "sec-commitment spacer";
 
+  // Bootstrap container
   const container = document.createElement("div");
   container.className = "container";
 
@@ -21,22 +22,38 @@ export default function decorate(block) {
 
     const cells = [...row.children];
 
-    cells[0]?.classList.add("commitment-card-image");
-    cells[1]?.classList.add("commitment-card-title");
-    cells[2]?.classList.add("commitment-card-desc");
+    const imageCell = cells[0];
+    const titleCell = cells[1];
+    const descCell = cells[2];
+    const ctaCell = cells[4];
+
+    // Image
+    imageCell?.classList.add("comm-card-img");
+
+    // ---- Body wrapper (title + desc + CTA) ----
+    const body = document.createElement("div");
+    body.className = "comm-card-body";
+
+    titleCell?.classList.add("comm-card-title");
+    descCell?.classList.add("comm-card-desc");
+    ctaCell?.classList.add("commitment-card-cta");
 
     // remove plain CTA text row safely
     cells[3]?.remove();
 
-    cells[4]?.classList.add("commitment-card-cta");
+    // Move existing nodes into body (UE-safe)
+    if (titleCell) body.append(titleCell);
+    if (descCell) body.append(descCell);
+    if (ctaCell) body.append(ctaCell);
 
-    grid.append(row); // MOVE node
+    // Append body after image
+    row.append(body);
+
+    grid.append(row);
   });
 
-  // ---- Assemble container ----
+  // ---- Assemble ----
   container.append(headerRow, grid);
-
-  // ---- Append container (do NOT clear block) ----
   outerContainer.append(container);
   block.append(outerContainer);
 }
