@@ -4,59 +4,50 @@ export default function decorate(block) {
 
   const children = [...block.children];
 
-  // --- BUILD HEADER ---
+  // --- HEADER ---
   const header = document.createElement("header");
   header.className = "business-accordion-header";
 
-  // H2 + span (from first two divs)
+  // Section Title + Subtitle
   const h2 = document.createElement("h2");
   const title = children[0]?.textContent || "";
   const subtitle = children[1]?.textContent || "";
   h2.innerHTML = `<span class="title">${title}</span> <span class="subtitle">${subtitle}</span>`;
   header.appendChild(h2);
 
-  // Intro text wrapper (from third div)
+  // Intro text
   const intro = document.createElement("div");
   intro.className = "intro-text";
-  const introText = children[2]?.innerHTML || "";
-  if (introText) intro.innerHTML = introText;
+  intro.innerHTML = children[2]?.innerHTML || "";
   header.appendChild(intro);
 
   wrapper.appendChild(header);
 
-  // --- CREATE ACCORDION CONTAINER ---
+  // --- ACCORDION CONTAINER ---
   const accordionContainer = document.createElement("div");
   accordionContainer.className = "business-accordion-container";
 
-  // Extract business items (remaining children starting from index 3)
-  const businessItems = children.slice(3);
+  const businessItems = children.slice(3); // remaining children are business items
 
-  // --- CREATE DESKTOP IMAGE PREVIEW SECTION ---
+  // --- DESKTOP IMAGE PREVIEW ---
   const imagePreview = document.createElement("div");
   imagePreview.className = "business-image-preview";
 
   const imageContainer = document.createElement("div");
   imageContainer.className = "business-image-container";
 
+  // Build desktop images
   businessItems.forEach((item, index) => {
     const desktopImageDiv = document.createElement("div");
     desktopImageDiv.className = `desktop-business-image ${index === 0 ? "active" : ""}`;
     desktopImageDiv.setAttribute("data-index", index);
 
-    const pictureElement = item.children[0]?.querySelector("picture");
-    if (pictureElement) {
+    const picture = item.querySelector("picture");
+    if (picture) {
       const img = document.createElement("img");
-      const imgElement = pictureElement.querySelector("img");
+      const imgElement = picture.querySelector("img");
       if (imgElement) {
-        let src = imgElement.src;
-        const sources = pictureElement.querySelectorAll("source");
-        sources.forEach(source => {
-          if (source.media && source.media.includes("min-width: 600")) {
-            const srcset = source.srcset.split(",")[0].split(" ")[0];
-            if (srcset) src = srcset;
-          }
-        });
-        img.src = src;
+        img.src = imgElement.src;
         img.alt = imgElement.alt || "";
         img.setAttribute("data-aue-prop", "image");
         img.setAttribute("data-aue-label", "Business Image");
@@ -64,10 +55,8 @@ export default function decorate(block) {
         desktopImageDiv.appendChild(img);
       }
     }
-
     imageContainer.appendChild(desktopImageDiv);
   });
-
   imagePreview.appendChild(imageContainer);
   accordionContainer.appendChild(imagePreview);
 
@@ -95,24 +84,22 @@ export default function decorate(block) {
 
     const titleSpan = document.createElement("span");
     titleSpan.className = "business-title";
-    titleSpan.textContent = item.children[1]?.textContent || "";
+    titleSpan.textContent = item.querySelector("h3")?.textContent || "";
     button.appendChild(titleSpan);
 
-    // Accordion icon
+    // Icons
     const iconSpan = document.createElement("span");
     iconSpan.className = "accordion-icon";
-    iconSpan.setAttribute("aria-hidden", "true");
-
     const iconWrapper = document.createElement("span");
     iconWrapper.className = "icon-wrapper";
 
     const plusIcon = document.createElement("span");
     plusIcon.className = `plus-icon ${index === 0 ? "d-none" : ""}`;
-    plusIcon.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/></svg>`;
+    plusIcon.innerHTML = `<svg ...>...</svg>`; // plus icon SVG
 
     const minusIcon = document.createElement("span");
     minusIcon.className = `minus-icon ${index === 0 ? "" : "d-none"}`;
-    minusIcon.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14"/></svg>`;
+    minusIcon.innerHTML = `<svg ...>...</svg>`; // minus icon SVG
 
     iconWrapper.appendChild(plusIcon);
     iconWrapper.appendChild(minusIcon);
@@ -122,7 +109,7 @@ export default function decorate(block) {
     accordionHeader.appendChild(button);
     accordionItem.appendChild(accordionHeader);
 
-    // --- ACCORDION COLLAPSE ---
+    // --- ACCORDION BODY ---
     const collapseDiv = document.createElement("div");
     collapseDiv.id = `collapse${index}`;
     collapseDiv.className = `accordion-collapse collapse ${index === 0 ? "show" : ""}`;
@@ -132,44 +119,34 @@ export default function decorate(block) {
     const accordionBody = document.createElement("div");
     accordionBody.className = "accordion-body";
 
-    // Business description
-    const descriptionDiv = document.createElement("div");
-    descriptionDiv.className = "business-description";
-    if (item.children[2]?.textContent) {
-      const p = document.createElement("p");
-      p.textContent = item.children[2].textContent;
-      descriptionDiv.appendChild(p);
-    }
-    accordionBody.appendChild(descriptionDiv);
+    // Business Description
+    const descDiv = document.createElement("div");
+    descDiv.className = "business-description";
+    const description = item.querySelector("p")?.textContent || "";
+    descDiv.textContent = description;
+    accordionBody.appendChild(descDiv);
 
-    // CTA
+    // CTA Button
     const ctaDiv = document.createElement("div");
     ctaDiv.className = "business-cta";
-
-    let linkUrl = "#";
-    let linkTitle = "#";
-    const buttonContainer = item.children[4];
-    if (buttonContainer) {
-      const buttonLink = buttonContainer.querySelector("a");
-      if (buttonLink) {
-        linkUrl = buttonLink.href || "#";
-        linkTitle = buttonLink.title || buttonLink.textContent || "#";
-      }
+    const link = item.querySelector("a");
+    if (link) {
+      const ctaLink = document.createElement("a");
+      ctaLink.href = link.href || "#";
+      ctaLink.textContent = link.textContent || "READ MORE";
+      ctaLink.className = "btn btn-transparent";
+      ctaDiv.appendChild(ctaLink);
     }
-    const ctaLink = document.createElement("a");
-    ctaLink.href = linkUrl;
-    ctaLink.title = linkTitle;
-    ctaLink.className = "btn btn-transparent";
-    ctaLink.textContent = item.children[3]?.textContent || "READ MORE";
-    ctaDiv.appendChild(ctaLink);
     accordionBody.appendChild(ctaDiv);
 
-    // Mobile image
+    // Mobile Image
     const mobileImageDiv = document.createElement("div");
     mobileImageDiv.className = "mobile-business-image";
     mobileImageDiv.setAttribute("data-index", index);
-    const mobilePicture = item.children[0]?.querySelector("picture")?.cloneNode(true);
-    if (mobilePicture) mobileImageDiv.appendChild(mobilePicture);
+    const pictureElement = item.querySelector("picture");
+    if (pictureElement) {
+      mobileImageDiv.appendChild(pictureElement.cloneNode(true));
+    }
     accordionBody.appendChild(mobileImageDiv);
 
     collapseDiv.appendChild(accordionBody);
@@ -179,12 +156,10 @@ export default function decorate(block) {
 
   accordionContainer.appendChild(accordion);
   wrapper.appendChild(accordionContainer);
-
-  // Replace original block
   block.innerHTML = "";
   block.appendChild(wrapper);
 
-  // --- RESPONSIVE CSS ---
+  // --- Responsive CSS & Event Listeners ---
   const style = document.createElement("style");
   style.textContent = `
     @media (max-width: 767px) {
