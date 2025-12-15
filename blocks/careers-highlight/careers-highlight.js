@@ -136,26 +136,41 @@ export default function decorate(block) {
     col3.appendChild(wrap3);
   }
 
-  /* -------------------------
-   CTA – UE SAFE
+/* -------------------------
+   CTA – <a href="ctaLink">ctaLabel</a>
 ------------------------- */
 
 const ctaWrap = document.createElement('div');
 ctaWrap.className = 'cta careerBtn';
 
-/* CTA LABEL (TEXT FIELD) */
+let ctaText = '';
+
+/* Get CTA LABEL text (keep original node for UE) */
 if (ctaLabelNode) {
   const p = ctaLabelNode.querySelector('p');
   if (p) {
     p.setAttribute('data-aue-prop', 'ctaLabel');
     p.setAttribute('data-aue-label', 'CTA Button Label');
-    p.classList.add('btn', 'btn-orange', 'w-100');
+    ctaText = p.textContent.trim();
+  }
+}
 
-    ctaWrap.appendChild(p); // ✅ move original node
+/* CTA LINK (anchor is the button) */
+if (ctaLinkNode) {
+  const a = ctaLinkNode.querySelector('a');
+  if (a) {
+    a.setAttribute('data-aue-prop', 'ctaLink');
+    a.setAttribute('data-aue-label', 'CTA Link URL');
+
+    a.classList.add('btn', 'btn-orange', 'w-100');
+    a.textContent = ctaText || a.textContent;
+
+    ctaWrap.appendChild(a);
   }
 }
 
 col3.appendChild(ctaWrap);
+
 
 
 
