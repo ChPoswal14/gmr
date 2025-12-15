@@ -11,46 +11,32 @@ export default function decorate(block) {
   const entryContainer = document.createElement('div');
   entryContainer.className = 'entry-container';
 
-  // Section Title
+  // Title + description (wrap first child in <h2>)
   if (children[0]) {
     const h2 = document.createElement('h2');
-    h2.appendChild(children[0]); // MOVE node, do not read text
+    while (children[0].childNodes.length > 0) {
+      h2.appendChild(children[0].childNodes[0]);
+    }
     entryContainer.appendChild(h2);
   }
 
-  // Description
-  if (children[1]) {
-    entryContainer.appendChild(children[1]);
-  }
+  // Append second child (description) as-is
+  if (children[1]) entryContainer.appendChild(children[1]);
 
   header.appendChild(entryContainer);
 
-  /* ===============================
-     HEADER CTA (UE SAFE)
-     <a href="ctaUrl">ctaText</a>
-  =============================== */
-
+  // CTA button (children[2] = label, children[3] = href)
   if (children[2] && children[3]) {
-    const labelNode = children[2]; // Top Button Label
-    const linkNode = children[3];  // Top Button Link
+    const btnLabel = children[2].textContent.trim();
+    const btnHref  = children[3].textContent.trim() || '#';
 
-    const labelP = labelNode.querySelector('p');
-    const linkP = linkNode.querySelector('p');
+    const btnAnchor = document.createElement('a');
+    btnAnchor.href = btnHref;
+    btnAnchor.title = btnLabel;
+    btnAnchor.className = 'btn btn-orange';
+    btnAnchor.textContent = btnLabel;
 
-    if (labelP && linkP) {
-      const a = document.createElement('a');
-      a.className = 'btn btn-orange';
-
-      // Preserve UE bindings
-      a.setAttribute('data-aue-prop', 'ctaText');
-      a.href = linkP.textContent.trim() || '#';
-      a.setAttribute('data-aue-prop-url', 'ctaUrl');
-
-      // Move text content into anchor, remove <p>
-      a.textContent = labelP.textContent.trim();
-
-      header.appendChild(a);
-    }
+    header.appendChild(btnAnchor);
   }
 
   /* ===============================
@@ -65,7 +51,8 @@ export default function decorate(block) {
 
   for (let i = 4; i < children.length; i++) {
     const companyItem = children[i];
-    if (!companyItem) continue;
+
+    if (!companyItem || companyItem.children.length < 3) continue;
 
     companyItem.classList.add('listed-company-item');
 
@@ -75,59 +62,58 @@ export default function decorate(block) {
     const companiesGrid = document.createElement('div');
     companiesGrid.className = 'companiesGrid';
 
-    /* ---------- Company Name ---------- */
+    // Wrap the first child in <h3>
     const firstChild = companyItem.children[0];
-    if (firstChild && firstChild.tagName !== 'H3') {
+    if (firstChild) {
       const h3 = document.createElement('h3');
-      h3.appendChild(firstChild); // MOVE node
-      companyItem.insertBefore(h3, companyItem.firstChild);
+      const p = firstChild.querySelector('p');
+      h3.textContent = p ? p.textContent.trim() : firstChild.textContent.trim();
+      companyItem.replaceChild(h3, firstChild);
     }
 
-    /* ---------- Stock Symbol ---------- */
-    const stockNode = companyItem.children[2];
+    // Move third child out to companiesStock div
+    const thirdChild = companyItem.children[2];
     let companiesStock = null;
-
-    if (stockNode) {
+    if (thirdChild) {
       companiesStock = document.createElement('div');
       companiesStock.className = 'companiesStock';
-      companiesStock.appendChild(stockNode); // MOVE node
+      companiesStock.textContent = thirdChild.textContent.trim();
+      companyItem.removeChild(thirdChild);
     }
 
-    /* ---------- Buttons ---------- */
+    // Process buttons (child 3+4, 5+6) into single companies-links div
     const btnContainer = document.createElement('div');
     btnContainer.className = 'companies-links mt-5 mb-4';
 
     const buttonPairs = [
-      [companyItem.children[2], companyItem.children[3]],
-      [companyItem.children[4], companyItem.children[5]],
+      [companyItem.children[2], companyItem.children[3]], // Visit Website
+      [companyItem.children[4], companyItem.children[5]]  // Explore Highlights
     ];
 
-    buttonPairs.forEach(([labelEl, hrefEl]) => {
-      if (!labelEl || !hrefEl) return;
+    buttonPairs.forEach(pair => {
+      const [labelEl, hrefEl] = pair;
+      if (labelEl && hrefEl) {
+        const btnAnchor = document.createElement('a');
+        btnAnchor.href = hrefEl.textContent.trim() || '#';
+        btnAnchor.title = labelEl.textContent.trim();
+        btnAnchor.className = 'btn btn-link';
+        btnAnchor.textContent = labelEl.textContent.trim();
+        btnContainer.appendChild(btnAnchor);
 
-      const labelP = labelEl.querySelector('p');
-      const linkP = hrefEl.querySelector('p');
-
-      if (!labelP || !linkP) return;
-
-      const a = document.createElement('a');
-      a.className = 'btn btn-link';
-      a.href = linkP.textContent.trim() || '#';
-
-      // Preserve UE bindings
-      a.setAttribute('data-aue-prop', 'ctaText');
-      a.setAttribute('data-aue-prop-url', 'ctaUrl');
-
-      // Move text content into anchor, remove <p>
-      a.textContent = labelP.textContent.trim();
-
-      btnContainer.appendChild(a);
+        // Remove original nodes
+        labelEl.remove();
+        hrefEl.remove();
+      }
     });
 
+    // Append companyItem into companiesGrid
     companiesGrid.appendChild(companyItem);
+    // Append button container after content
     companiesGrid.appendChild(btnContainer);
 
     col.appendChild(companiesGrid);
+
+    // Append companiesStock outside of companiesGrid
     if (companiesStock) col.appendChild(companiesStock);
 
     row.appendChild(col);
