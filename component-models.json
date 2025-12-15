@@ -1,151 +1,25 @@
 [
   {
-    "id": "page",
-    "title": "Page"
-  },
-  {
     "id": "page-metadata",
-    "title": "Page Metadata",
     "fields": [
       {
         "component": "text",
         "valueType": "string",
         "name": "jcr:title",
-        "label": "Page Title"
+        "label": "Title"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "jcr:description",
-        "label": "Page Description"
+        "label": "Description"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "cardTitle",
-        "label": "Card Title",
-        "description": "Headline shown on listing cards"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "cardTeaser",
-        "label": "Card Teaser (optional)"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "cardImage",
-        "label": "Card Image (DAM Path)",
-        "description": "Example: /content/dam/gmr/news/delhi-airport.jpg"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "publishDate",
-        "label": "Publish Date (YYYY-MM-DD)"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "contentType",
-        "label": "Content Type",
-        "description": "news, blog, story, case-study"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "contentAudience",
-        "label": "Audience / Sections",
-        "description": "Comma-separated values (aero, energy, corporate)"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "featured",
-        "label": "Featured Content",
-        "description": "true or false",
-        "default": "false"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "showInListing",
-        "label": "Show in Listings",
-        "description": "true or false",
-        "default": "true"
-      },
-      {
-        "component": "number",
-        "valueType": "number",
-        "name": "cardPriority",
-        "label": "Card Priority (1 = highest)",
-        "default": 100
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaLabel",
-        "label": "CTA Label",
-        "default": "Read More"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaLink",
-        "label": "CTA Link (optional)"
-      }
-    ]
-  },
-  {
-    "id": "news-page",
-    "fields": [
-      {
-        "component": "tab",
-        "name": "tab-meta",
-        "label": "Settings & Tags",
-        "fields": [
-          {
-            "component": "text",
-            "name": "tags",
-            "label": "Category Tag (Filter)",
-            "valueType": "string",
-            "required": true,
-            "comment": "Type Aero, Energy, or Corporate"
-          },
-          {
-            "component": "reference",
-            "name": "image",
-            "label": "Thumbnail Image",
-            "valueType": "string"
-          },
-          {
-            "component": "text",
-            "name": "publicationDate",
-            "label": "Date",
-            "valueType": "string",
-            "defaultValue": "YYYY-MM-DD"
-          }
-        ]
-      },
-      {
-        "component": "tab",
-        "name": "tab-content",
-        "label": "Article Content",
-        "fields": [
-          {
-            "component": "text",
-            "name": "title",
-            "label": "Headline",
-            "valueType": "string"
-          },
-          {
-            "component": "richtext",
-            "name": "body",
-            "label": "Story Body",
-            "valueType": "string"
-          }
-        ]
+        "name": "keywords",
+        "multi": true,
+        "label": "Keywords"
       }
     ]
   },
@@ -158,50 +32,24 @@
         "label": "Image",
         "multi": false
       },
-      {
-        "component": "text",
-        "name": "imageAlt",
-        "label": "Alt Text"
-      }
+      { "component": "text", "name": "imageAlt", "label": "Alt Text" }
     ]
   },
   {
     "id": "title",
     "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Title"
-      },
+      { "component": "text", "name": "title", "label": "Title" },
       {
         "component": "select",
         "name": "titleType",
         "label": "Title Type",
         "options": [
-          {
-            "name": "h1",
-            "value": "h1"
-          },
-          {
-            "name": "h2",
-            "value": "h2"
-          },
-          {
-            "name": "h3",
-            "value": "h3"
-          },
-          {
-            "name": "h4",
-            "value": "h4"
-          },
-          {
-            "name": "h5",
-            "value": "h5"
-          },
-          {
-            "name": "h6",
-            "value": "h6"
-          }
+          { "name": "h1", "value": "h1" },
+          { "name": "h2", "value": "h2" },
+          { "name": "h3", "value": "h3" },
+          { "name": "h4", "value": "h4" },
+          { "name": "h5", "value": "h5" },
+          { "name": "h6", "value": "h6" }
         ]
       }
     ]
@@ -209,38 +57,17 @@
   {
     "id": "button",
     "fields": [
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link"
-      },
-      {
-        "component": "text",
-        "name": "linkText",
-        "label": "Text"
-      },
-      {
-        "component": "text",
-        "name": "linkTitle",
-        "label": "Title"
-      },
+      { "component": "aem-content", "name": "link", "label": "Link" },
+      { "component": "text", "name": "linkText", "label": "Text" },
+      { "component": "text", "name": "linkTitle", "label": "Title" },
       {
         "component": "select",
         "name": "linkType",
         "label": "Type",
         "options": [
-          {
-            "name": "default",
-            "value": ""
-          },
-          {
-            "name": "primary",
-            "value": "primary"
-          },
-          {
-            "name": "secondary",
-            "value": "secondary"
-          }
+          { "name": "default", "value": "" },
+          { "name": "primary", "value": "primary" },
+          { "name": "secondary", "value": "secondary" }
         ]
       },
       {
@@ -248,18 +75,9 @@
         "name": "linkTarget",
         "label": "Target",
         "options": [
-          {
-            "name": "parent",
-            "value": "_parent"
-          },
-          {
-            "name": "blank",
-            "value": "_blank"
-          },
-          {
-            "name": "self",
-            "value": "_self"
-          }
+          { "name": "parent", "value": "_parent" },
+          { "name": "blank", "value": "_blank" },
+          { "name": "self", "value": "_self" }
         ]
       }
     ]
@@ -278,14 +96,8 @@
         "name": "style",
         "label": "Style",
         "options": [
-          {
-            "name": "Highlight",
-            "value": "highlight"
-          },
-          {
-            "name": "Background Blue",
-            "value": "bg-primary"
-          }
+          { "name": "Highlight", "value": "highlight" },
+          { "name": "Background Blue", "value": "bg-primary" }
         ]
       }
     ]
@@ -310,7 +122,7 @@
         "valueType": "string",
         "name": "tabs",
         "label": "Airport Tabs",
-        "description": "Add the airport names to appear at the top navigation (e.g. Delhi Airport, Hyderabad Airport, Goa Airport...)."
+        "description": "Add the airport names to appear at the top navigation."
       },
       {
         "component": "select",
@@ -318,14 +130,8 @@
         "name": "selectorType",
         "label": "Airport Type Selector",
         "options": [
-          {
-            "name": "Domestic",
-            "value": "Domestic"
-          },
-          {
-            "name": "International",
-            "value": "International"
-          }
+          { "name": "Domestic", "value": "Domestic" },
+          { "name": "International", "value": "International" }
         ],
         "value": "Domestic"
       },
@@ -333,8 +139,7 @@
         "component": "text",
         "valueType": "string",
         "name": "selectorLabel",
-        "label": "Selector Label",
-        "description": "Optional text label for the selector dropdown."
+        "label": "Selector Label"
       }
     ]
   },
@@ -345,15 +150,58 @@
         "component": "text",
         "valueType": "string",
         "name": "statNumber",
-        "label": "Statistic Number",
-        "description": "Example: 79M+, 150+, 4"
+        "label": "Statistic Number"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "statLabel",
-        "label": "Statistic Label",
-        "description": "Example: Passengers handled annually"
+        "label": "Statistic Label"
+      }
+    ]
+  },
+  {
+    "id": "article-body",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Main Content",
+        "valueType": "string",
+        "required": true,
+        "comment": "Write the full article here. Use H2/H3 for subsections."
+      }
+    ]
+  },
+  {
+    "id": "article-header",
+    "fields": [
+      {
+        "component": "text",
+        "name": "category",
+        "label": "Category / Tag",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Article Title",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Short Summary",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Featured Image",
+        "valueType": "string",
+        "multi": false
       }
     ]
   },
@@ -450,22 +298,19 @@
         "component": "text-input",
         "valueType": "string",
         "name": "sectionTitle",
-        "label": "Section Title",
-        "comment": "The main heading (e.g., OUR BUSINESSES)"
+        "label": "Section Title"
       },
       {
         "component": "text-input",
         "valueType": "string",
         "name": "sectionSubtitle",
-        "label": "Section Subtitle",
-        "comment": "The secondary heading (e.g., Pillars Of Value Creation)"
+        "label": "Section Subtitle"
       },
       {
         "component": "richtext",
         "valueType": "string",
         "name": "introText",
-        "label": "Intro Text",
-        "comment": "Global description text appearing above the accordion"
+        "label": "Intro Text"
       }
     ]
   },
@@ -476,29 +321,25 @@
         "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Business Image",
-        "comment": "The large image displayed on the left when this item is active"
+        "label": "Business Image"
       },
       {
         "component": "text-input",
         "valueType": "string",
         "name": "title",
-        "label": "Business Title",
-        "comment": "e.g., Airports & Aero Services"
+        "label": "Business Title"
       },
       {
         "component": "richtext",
         "valueType": "string",
         "name": "description",
-        "label": "Business Description",
-        "comment": "The content shown when the accordion is expanded"
+        "label": "Business Description"
       },
       {
         "component": "text-input",
         "valueType": "string",
         "name": "ctaLabel",
-        "label": "CTA Label",
-        "comment": "e.g., READ MORE"
+        "label": "CTA Label"
       },
       {
         "component": "text-input",
@@ -541,30 +382,25 @@
         "component": "reference",
         "name": "imageOffice",
         "label": "Image 1 (Top Left)",
-        "valueType": "string",
-        "comment": "The office interior shot (e.g., Green Wall)"
+        "valueType": "string"
       },
       {
         "component": "reference",
         "name": "imageTeamSmall",
         "label": "Image 2 (Bottom Left)",
-        "valueType": "string",
-        "comment": "The smaller group photo (e.g., Team in suits)"
+        "valueType": "string"
       },
       {
         "component": "reference",
         "name": "imageTeamLarge",
         "label": "Image 3 (Right Side)",
-        "valueType": "string",
-        "comment": "The large vertical group photo"
+        "valueType": "string"
       },
       {
         "component": "richtext",
         "name": "cardContent",
         "label": "Blue Card Text",
-        "valueType": "string",
-        "defaultValue": "<h2>Be part of a team that values Innovation...</h2><p>Build your career in a company...</p>",
-        "comment": "The content inside the center blue box"
+        "valueType": "string"
       },
       {
         "component": "text",
@@ -637,52 +473,6 @@
     ]
   },
   {
-    "id": "commitment-cards",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "sectionTitle",
-        "label": "Section Title"
-      }
-    ]
-  },
-  {
-    "id": "commitment-card",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Card Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Description"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "buttonText",
-        "label": "CTA Button Text"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "buttonLink",
-        "label": "CTA Button Link"
-      }
-    ]
-  },
-  {
     "id": "committed-banner",
     "fields": [
       {
@@ -702,57 +492,6 @@
         "valueType": "string",
         "name": "description",
         "label": "Description"
-      }
-    ]
-  },
-  {
-    "id": "content-listing",
-    "fields": [
-      {
-        "component": "number",
-        "name": "limit",
-        "label": "Max items",
-        "default": 6
-      },
-      {
-        "component": "checkbox",
-        "name": "types",
-        "label": "Content Types",
-        "multi": true,
-        "options": [
-          {
-            "value": "news",
-            "label": "News"
-          },
-          {
-            "value": "blog",
-            "label": "Blog"
-          },
-          {
-            "value": "story",
-            "label": "Story"
-          }
-        ]
-      },
-      {
-        "component": "checkbox",
-        "name": "audiences",
-        "label": "Audience",
-        "multi": true,
-        "options": [
-          {
-            "value": "aero",
-            "label": "Aero"
-          },
-          {
-            "value": "energy",
-            "label": "Energy"
-          },
-          {
-            "value": "group",
-            "label": "Group"
-          }
-        ]
       }
     ]
   },
@@ -777,8 +516,7 @@
         "component": "text",
         "name": "policyLink",
         "label": "Policy Page URL",
-        "valueType": "string",
-        "comment": "Link to your privacy page (e.g. /privacy-policy)"
+        "valueType": "string"
       },
       {
         "component": "text",
@@ -920,11 +658,7 @@
   {
     "id": "fragment",
     "fields": [
-      {
-        "component": "aem-content",
-        "name": "reference",
-        "label": "Reference"
-      }
+      { "component": "aem-content", "name": "reference", "label": "Reference" }
     ]
   },
   {
@@ -1009,7 +743,7 @@
         "name": "blockName",
         "label": "Block Name",
         "valueType": "string",
-        "comment": "Internal field to make the parent a valid model"
+        "comment": "Internal field"
       }
     ]
   },
@@ -1075,93 +809,38 @@
         "component": "richtext",
         "name": "text",
         "label": "Banner Text",
-        "valueType": "string",
-        "comment": "Main heading or content for the banner"
+        "valueType": "string"
       },
       {
         "component": "text",
         "name": "buttonLabel",
         "label": "Button Label",
-        "valueType": "string",
-        "comment": "Text shown on the CTA button"
+        "valueType": "string"
       },
       {
         "component": "text",
         "name": "buttonLink",
         "label": "Button Link",
-        "valueType": "string",
-        "comment": "URL or page link for the CTA button"
+        "valueType": "string"
       },
       {
-        "component": "file",
+        "component": "reference",
         "name": "video",
         "label": "Background Video",
         "valueType": "string",
-        "accept": [
-          ".mp4",
-          ".webm"
-        ],
-        "comment": "Optional video for desktop view"
+        "accept": [".mp4", ".webm"]
       },
-      {
-        "component": "image",
-        "name": "desktopBanner",
-        "label": "Desktop Banner Image",
-        "valueType": "string",
-        "comment": "Recommended size: 1920px width"
-      },
-      {
-        "component": "image",
-        "name": "mobileBanner",
-        "label": "Mobile Banner Image",
-        "valueType": "string",
-        "comment": "Recommended size: 768px width"
-      }
-    ]
-  },
-  {
-    "id": "innovation-cards",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "sectionTitle",
-        "label": "Section Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "sectionDescription",
-        "label": "Section Description"
-      }
-    ]
-  },
-  {
-    "id": "innovation-card-item",
-    "fields": [
       {
         "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Card Image"
+        "name": "desktopBanner",
+        "label": "Desktop Banner Image",
+        "valueType": "string"
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Card Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Card Description"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaText",
-        "label": "CTA Text"
+        "component": "reference",
+        "name": "mobileBanner",
+        "label": "Mobile Banner Image",
+        "valueType": "string"
       }
     ]
   },
@@ -1183,16 +862,23 @@
       },
       {
         "component": "text",
-        "name": "ctaText",
+        "name": "ctaLabel",
         "label": "Top Button Label",
         "valueType": "string",
         "defaultValue": "Visit Investor Relations"
       },
       {
         "component": "text",
-        "name": "ctaUrl",
+        "name": "ctaLink",
         "label": "Top Button Link",
         "valueType": "string"
+      },
+      {
+        "component": "multifield",
+        "name": "companies",
+        "label": "Company Cards List",
+        "valueType": "string[]",
+        "type": "listed-company-item"
       }
     ]
   },
@@ -1214,7 +900,7 @@
       {
         "component": "text",
         "name": "stockSymbol",
-        "label": "Stock API Symbol / IDD",
+        "label": "Stock API Symbol / ID",
         "valueType": "string",
         "required": true
       },
@@ -1227,7 +913,7 @@
       },
       {
         "component": "text",
-        "name": "visitWebsiteUrl",
+        "name": "websiteLink",
         "label": "Visit Website URL",
         "valueType": "string"
       },
@@ -1240,8 +926,46 @@
       },
       {
         "component": "text",
-        "name": "exploreHighlightsUrl",
+        "name": "highlightsLink",
         "label": "Explore Highlights URL",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "news-updates",
+    "fields": [
+      {
+        "component": "text",
+        "name": "filterTag",
+        "label": "Filter Tag",
+        "valueType": "string"
+      },
+      {
+        "component": "number",
+        "name": "limit",
+        "label": "Number of Items",
+        "valueType": "long",
+        "defaultValue": 3
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string",
+        "defaultValue": "News & Updates"
+      },
+      {
+        "component": "text",
+        "name": "ctaLabel",
+        "label": "Button Label",
+        "valueType": "string",
+        "defaultValue": "Go to Newsroom"
+      },
+      {
+        "component": "text",
+        "name": "ctaLink",
+        "label": "Button Link",
         "valueType": "string"
       }
     ]
@@ -1301,7 +1025,7 @@
         "name": "description",
         "label": "Description",
         "valueType": "string",
-        "defaultValue": "Enter your Record ID to permanently erase your data from our systems."
+        "defaultValue": "Enter your Record ID..."
       },
       {
         "component": "text",
@@ -1381,5 +1105,310 @@
         "label": "CTA Link"
       }
     ]
+  },
+  {
+    "id": "news-page",
+    "fields": [
+      {
+        "component": "tab",
+        "name": "tab-meta",
+        "label": "Settings & Tags",
+        "fields": [
+          {
+            "component": "text",
+            "name": "tags",
+            "label": "Category Tag (Filter)",
+            "valueType": "string",
+            "required": true,
+            "comment": "Type Aero, Energy, or Corporate"
+          },
+          {
+            "component": "reference",
+            "name": "image",
+            "label": "Thumbnail Image",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "publicationDate",
+            "label": "Date",
+            "valueType": "string",
+            "defaultValue": "YYYY-MM-DD"
+          }
+        ]
+      },
+      {
+        "component": "tab",
+        "name": "tab-content",
+        "label": "Article Content",
+        "fields": [
+          {
+            "component": "text",
+            "name": "title",
+            "label": "Headline",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "body",
+            "label": "Story Body",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "innovation-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "sectionDescription",
+        "label": "Section Description"
+      }
+    ]
+  },
+  {
+    "id": "innovation-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Card Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Card Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Card Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      }
+    ]
+  },
+  {
+    "id": "commitment-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      }
+    ]
+  },
+  {
+    "id": "commitment-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Card Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "buttonText",
+        "label": "CTA Button Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "buttonLink",
+        "label": "CTA Button Link"
+      }
+    ]
+  },
+  {
+    "id": "recognition-awards",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      }
+    ]
+  },
+  {
+    "id": "innovation-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "sectionDescription",
+        "label": "Section Description"
+      }
+    ]
+  },
+  {
+    "id": "innovation-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Card Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Card Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Card Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      }
+    ]
+  },
+  {
+    "id": "commitment-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      }
+    ]
+  },
+  {
+    "id": "commitment-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Card Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "buttonText",
+        "label": "CTA Button Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "buttonLink",
+        "label": "CTA Button Link"
+      }
+    ]
+  },
+  {
+    "id": "recognition-awards",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "multifield",
+        "name": "items",
+        "label": "Awards",
+        "fields": [
+          {
+            "component": "reference",
+            "name": "image",
+            "label": "Award Image",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "desc",
+            "label": "Award Description",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "content-fragment-block",
+    "fields": []
   }
 ]
