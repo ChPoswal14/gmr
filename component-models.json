@@ -919,10 +919,7 @@
         "name": "video",
         "label": "Background Video",
         "valueType": "string",
-        "accept": [
-          ".mp4",
-          ".webm"
-        ],
+        "accept": [".mp4", ".webm"],
         "comment": "Optional video for desktop view"
       },
       {
@@ -1331,5 +1328,23 @@
   {
     "id": "content-fragment-block",
     "fields": []
+  },
+  {
+    "id": "news",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "itemsToShow",
+        "label": "Number of News Items",
+        "default": 5
+      }
+    ]
   }
 ]

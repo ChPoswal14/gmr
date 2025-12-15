@@ -1,9 +1,7 @@
 [
   {
     "id": "main",
-    "components": [
-      "section"
-    ]
+    "components": ["section"]
   },
   {
     "id": "section",
@@ -44,14 +42,13 @@
       "committed-banner",
       "passenger-experience",
       "commitment-cards",
-      "innovation-cards"
+      "innovation-cards",
+      "news"
     ]
   },
   {
     "id": "airport-overview",
-    "components": [
-      "airport-overview-item"
-    ]
+    "components": ["airport-overview-item"]
   },
   {
     "id": "article-body",
@@ -63,48 +60,31 @@
   },
   {
     "id": "aviation-expertise",
-    "components": [
-      "aviation-item"
-    ]
+    "components": ["aviation-item"]
   },
   {
     "id": "awards-carousel",
-    "components": [
-      "award-item"
-    ]
+    "components": ["award-item"]
   },
   {
     "id": "businesses-section",
-    "components": [
-      "business-item"
-    ]
+    "components": ["business-item"]
   },
   {
     "id": "cards",
-    "components": [
-      "card"
-    ]
+    "components": ["card"]
   },
   {
     "id": "carousel",
-    "components": [
-      "slide"
-    ]
+    "components": ["slide"]
   },
   {
     "id": "columns",
-    "components": [
-      "column"
-    ]
+    "components": ["column"]
   },
   {
     "id": "column",
-    "components": [
-      "text",
-      "image",
-      "button",
-      "title"
-    ]
+    "components": ["text", "image", "button", "title"]
   },
   {
     "id": "committed-banner",
@@ -116,45 +96,31 @@
   },
   {
     "id": "footerbottoms",
-    "components": [
-      "footerbottom"
-    ]
+    "components": ["footerbottom"]
   },
   {
     "id": "footerlinks",
-    "components": [
-      "footerlinks"
-    ]
+    "components": ["footerlinks"]
   },
   {
     "id": "footertopbars",
-    "components": [
-      "footertopbar"
-    ]
+    "components": ["footertopbar"]
   },
   {
     "id": "header-img",
-    "components": [
-      "menu-img"
-    ]
+    "components": ["menu-img"]
   },
   {
     "id": "header",
-    "components": [
-      "nav-item"
-    ]
+    "components": ["nav-item"]
   },
   {
     "id": "nav-item",
-    "components": [
-      "nav-child"
-    ]
+    "components": ["nav-child"]
   },
   {
     "id": "hero-banner",
-    "components": [
-      "hero-banner-items"
-    ]
+    "components": ["hero-banner-items"]
   },
   {
     "id": "inner-banner",
@@ -162,21 +128,15 @@
   },
   {
     "id": "listed-companies",
-    "components": [
-      "listed-company-item"
-    ]
+    "components": ["listed-company-item"]
   },
   {
     "id": "passenger-experience",
-    "components": [
-      "experience-item"
-    ]
+    "components": ["experience-item"]
   },
   {
     "id": "success-stories",
-    "components": [
-      "story-item"
-    ]
+    "components": ["story-item"]
   },
   {
     "id": "careers-highlight",
@@ -197,5 +157,9 @@
   {
     "id": "innovation-cards",
     "components": ["innovation-card-item"]
+  },
+  {
+    "id": "news",
+    "components": ["news"]
   }
 ]
