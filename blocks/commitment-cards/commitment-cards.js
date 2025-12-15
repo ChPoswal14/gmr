@@ -1,65 +1,64 @@
 export default function decorate(block) {
-  // Get all rows
   const rows = [...block.children];
   if (!rows.length) return;
 
-  // Add classes directly to block (instead of section)
-  block.classList.add("sec-commitment", "spacer");
+  block.classList.add("commitment-cards");
 
-  // First row → Section Title
-  const sectionTitle = rows.shift()?.textContent?.trim();
+  /* ---------------- Section Title ---------------- */
+  const sectionTitleRow = rows.shift();
+  const sectionTitleWrapper = document.createElement("div");
+  sectionTitleWrapper.className = "section-title";
 
-  const container = document.createElement("div");
-  container.className = "container";
-
-  // Section title
-  if (sectionTitle) {
-    const h2 = document.createElement("h2");
-    h2.className = "title text-center fw-normal mb-5";
-    h2.textContent = sectionTitle;
-    container.appendChild(h2);
+  if (sectionTitleRow) {
+    sectionTitleWrapper.append(...sectionTitleRow.childNodes);
   }
 
-  const row = document.createElement("div");
-  row.className = "row";
+  /* ---------------- Cards Wrapper ---------------- */
+  const cardsWrapper = document.createElement("div");
+  cardsWrapper.className = "cards-wrapper";
 
-  // Remaining rows → Cards
-  rows.forEach((card) => {
-    const cols = [...card.children];
+  rows.forEach((cardRow) => {
+    const cols = [...cardRow.children];
     if (cols.length < 5) return;
 
-    const image = cols[0]?.querySelector("img");
-    const title = cols[1]?.textContent?.trim();
-    const description = cols[2]?.innerHTML;
-    const buttonText = cols[3]?.textContent?.trim();
-    const buttonLink = cols[4]?.querySelector("a")?.href;
+    // Hide original row but keep it for UE
+    cardRow.style.display = "none";
 
-    const col = document.createElement("div");
-    col.className = "col-md-6";
+    const card = document.createElement("div");
+    card.className = "commitment-card";
 
-    col.innerHTML = `
-      <div class="comm-card">
-        <div class="comm-card-img">
-          ${image ? image.outerHTML : ""}
-        </div>
-        <div class="comm-card-body">
-          <h3>${title || ""}</h3>
-          <p>${description || ""}</p>
-          ${
-            buttonText && buttonLink
-              ? `<a href="${buttonLink}" class="btn btn-primary">${buttonText}</a>`
-              : ""
-          }
-        </div>
-      </div>
-    `;
+    /* -------- Image -------- */
+    const imageDiv = document.createElement("div");
+    imageDiv.className = "card-image";
+    if (cols[0].firstElementChild) {
+      imageDiv.append(cols[0].firstElementChild);
+    }
 
-    row.appendChild(col);
+    /* -------- Title -------- */
+    const titleDiv = document.createElement("div");
+    titleDiv.className = "card-title";
+    titleDiv.append(...cols[1].childNodes);
+
+    /* -------- Description -------- */
+    const descDiv = document.createElement("div");
+    descDiv.className = "card-description";
+    descDiv.append(...cols[2].childNodes);
+
+    /* -------- CTA -------- */
+    const ctaDiv = document.createElement("div");
+    ctaDiv.className = "card-cta";
+
+    const link = cols[4].querySelector("a");
+    if (link) {
+      link.textContent = cols[3].textContent.trim();
+      ctaDiv.append(link);
+    }
+
+    card.append(imageDiv, titleDiv, descDiv, ctaDiv);
+    cardsWrapper.append(card);
   });
 
-  container.appendChild(row);
-
-  // Replace block content ONLY (not the block itself)
+  /* ---------------- Final DOM ---------------- */
   block.innerHTML = "";
-  block.appendChild(container);
+  block.append(sectionTitleWrapper, cardsWrapper);
 }
