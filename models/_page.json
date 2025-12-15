@@ -32,8 +32,7 @@
           "component": "text",
           "valueType": "string",
           "name": "cardTeaser",
-          "label": "Card Teaser (optional)",
-          "description": "Optional teaser text (not always displayed)"
+          "label": "Card Teaser (optional)"
         },
 
         {
@@ -64,23 +63,25 @@
           "valueType": "string",
           "name": "contentAudience",
           "label": "Audience / Sections",
-          "description": "Comma-separated: aero, energy, corporate"
+          "description": "Comma-separated values (aero, energy, corporate)"
         },
 
         {
-          "component": "checkbox",
-          "valueType": "boolean",
+          "component": "text",
+          "valueType": "string",
           "name": "featured",
           "label": "Featured Content",
-          "default": false
+          "description": "true or false",
+          "default": "false"
         },
 
         {
-          "component": "checkbox",
-          "valueType": "boolean",
+          "component": "text",
+          "valueType": "string",
           "name": "showInListing",
           "label": "Show in Listings",
-          "default": true
+          "description": "true or false",
+          "default": "true"
         },
 
         {
@@ -102,8 +103,7 @@
           "component": "text",
           "valueType": "string",
           "name": "ctaLink",
-          "label": "CTA Link (optional)",
-          "description": "Leave empty to auto-link to the page"
+          "label": "CTA Link (optional)"
         }
       ]
     }
