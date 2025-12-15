@@ -28,7 +28,7 @@ export default function decorate(block) {
   wrapper.appendChild(header);
 
   /* ===============================
-     CONTAINER (NEW)
+     CONTAINER
   =============================== */
 
   const container = document.createElement("div");
@@ -120,11 +120,15 @@ export default function decorate(block) {
     const accordionBody = document.createElement("div");
     accordionBody.className = "accordion-body";
 
+    /* ---------- Description ---------- */
+
     const descDiv = document.createElement("div");
     descDiv.className = "business-description";
     const descEl = item.querySelector('[name="description"]') || itemChildren[2];
     if (descEl) descDiv.innerHTML = descEl.innerHTML || "";
     accordionBody.appendChild(descDiv);
+
+    /* ---------- CTA ---------- */
 
     const ctaDiv = document.createElement("div");
     ctaDiv.className = "business-cta";
@@ -139,11 +143,29 @@ export default function decorate(block) {
     }
     accordionBody.appendChild(ctaDiv);
 
-    const imgDiv = document.createElement("div");
-    imgDiv.className = "business-image";
-    const imgEl = item.querySelector('[name="image"]') || itemChildren[0];
-    if (imgEl) imgDiv.appendChild(imgEl.cloneNode(true));
-    accordionBody.appendChild(imgDiv);
+    /* ---------- Image (shared logic) ---------- */
+
+    const imgEl =
+      item.querySelector('[name="image"]') || itemChildren[0];
+
+    let imageClone = null;
+
+    if (imgEl) {
+      imageClone = imgEl.cloneNode(true);
+
+      // Image inside accordion
+      const imgDiv = document.createElement("div");
+      imgDiv.className = "business-image";
+      imgDiv.appendChild(imageClone.cloneNode(true));
+      accordionBody.appendChild(imgDiv);
+    }
+
+    /* ---------- Default preview image ---------- */
+
+    if (index === 0 && imageClone) {
+      imagePreview.innerHTML = "";
+      imagePreview.appendChild(imageClone.cloneNode(true));
+    }
 
     collapseDiv.appendChild(accordionBody);
     item.appendChild(collapseDiv);
@@ -156,6 +178,14 @@ export default function decorate(block) {
         item.classList.add("active");
         plusIcon.classList.add("d-none");
         minusIcon.classList.remove("d-none");
+
+        if (imageClone) {
+          imagePreview.innerHTML = "";
+          imagePreview.appendChild(imageClone.cloneNode(true));
+          imagePreview.classList.remove("fade-in");
+          void imagePreview.offsetWidth;
+          imagePreview.classList.add("fade-in");
+        }
       });
 
       collapseDiv.addEventListener("hide.bs.collapse", () => {
@@ -167,10 +197,10 @@ export default function decorate(block) {
   });
 
   /* ===============================
-     FINAL APPEND (IMPORTANT)
+     FINAL APPEND
   =============================== */
 
-  container.appendChild(accordion);   // ✅ accordion wrapped
+  container.appendChild(accordion);
   wrapper.appendChild(container);
 
   block.innerHTML = "";
