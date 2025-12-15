@@ -69,6 +69,6 @@ export default function decorate(block) {
   =============================== */
   grid.append(leftCol, centerCol, rightCol);
 
-  block.innerHTML = "";
+  // block.innerHTML = "";
   block.append(sectionTitleRow, grid);
 }
