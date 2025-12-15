@@ -1,6 +1,11 @@
 [
   {
     "id": "page",
+    "title": "Page"
+  },
+  {
+    "id": "page-metadata",
+    "title": "Page Metadata",
     "fields": [
       {
         "component": "text",
