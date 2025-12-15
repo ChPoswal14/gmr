@@ -1,69 +1,57 @@
 export default function decorate(block) {
-  // Create section wrapper
-  const section = document.createElement("section");
-  section.className = "sec-commitment spacer";
+  const rows = [...block.children];
 
-  // Outer container
-  const container = document.createElement("div");
-  container.className = "container";
+  // -------- Section Title --------
+  const titleRow = rows.shift();
+  const sectionTitle = titleRow?.querySelector("p")?.textContent || "";
 
-  // Section title (parent model field)
-  const sectionRow = block.querySelector(":scope > div");
-  let sectionTitle = "";
+  const sectionHeader = document.createElement("h2");
+  sectionHeader.className = "commitment-cards-title";
+  sectionHeader.textContent = sectionTitle;
 
-  if (sectionRow) {
-    sectionTitle = sectionRow.textContent.trim();
-    sectionRow.remove();
-  }
+  // -------- Cards Wrapper --------
+  const cardsWrapper = document.createElement("div");
+  cardsWrapper.className = "commitment-cards-grid";
 
-  // Title
-  if (sectionTitle) {
-    const h2 = document.createElement("h2");
-    h2.className = "title text-center fw-normal mb-5";
-    h2.textContent = sectionTitle;
-    container.appendChild(h2);
-  }
+  rows.forEach((row) => {
+    const cells = [...row.children];
 
-  // Row wrapper
-  const row = document.createElement("div");
-  row.className = "row";
+    const image = cells[0]?.querySelector("picture");
+    const title = cells[1]?.textContent || "";
+    const description = cells[2]?.innerHTML || "";
+    const buttonText = cells[3]?.textContent || "";
+    const link = cells[4]?.querySelector("a")?.getAttribute("href");
 
-  // Card processing
-  [...block.children].forEach((card) => {
-    // col wrapper
-    // card.classList.add("col-md-6", "comm-card");
+    const card = document.createElement("div");
+    card.className = "commitment-card";
 
-    const cols = [...card.children];
+    // image
+    if (image) {
+      const imgWrap = document.createElement("div");
+      imgWrap.className = "commitment-card-image";
+      imgWrap.append(image);
+      card.append(imgWrap);
+    }
 
-    const image = cols[0]?.querySelector("img");
-    const title = cols[1]?.textContent?.trim();
-    const description = cols[2]?.innerHTML;
-    const buttonText = cols[3]?.textContent?.trim();
-    const buttonLink = cols[4]?.querySelector("a")?.href;
-    const col = document.createElement("div");
-    col.className = "col-md-6";
+    // body
+    const body = document.createElement("div");
+    body.className = "commitment-card-body";
 
-    col.innerHTML = `
-      <div class="comm-card">
-        <div class="comm-card-img">
-          ${image ? image.outerHTML : ""}
-        </div>
-        <div class="comm-card-body">
-          <h3>${title || ""}</h3>
-          <p>${description || ""}</p>
-          ${
-            buttonText && buttonLink
-              ? `<a href="${buttonLink}" class="btn btn-primary">${buttonText}</a>`
-              : ""
-          }
-        </div>
-      </div>
+    body.innerHTML = `
+      <h3>${title}</h3>
+      <p>${description}</p>
+      ${
+        buttonText && link
+          ? `<a href="${link}" class="commitment-btn">${buttonText}</a>`
+          : ""
+      }
     `;
 
-    row.appendChild(col);
+    card.append(body);
+    cardsWrapper.append(card);
   });
 
-  container.appendChild(row);
-  section.appendChild(container);
-  block.appendChild(section);
+  // -------- Replace Block --------
+  block.innerHTML = "";
+  block.append(sectionHeader, cardsWrapper);
 }
