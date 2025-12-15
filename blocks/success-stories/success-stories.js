@@ -1,43 +1,36 @@
+import { getApiHost } from '../../scripts/api.js';
+
 export default async function decorate(block) {
-  // Create container for results
   const wrapper = document.createElement('div');
-  wrapper.classList.add('news-results');
+  wrapper.className = 'news-results';
   block.appendChild(wrapper);
 
   try {
-    // Call YOUR serverless backend via EDS proxy
-    const res = await fetch('/tools/hello');
+    const apiUrl = `${getApiHost()}/api/v1/web/gmr/hello`;
+    const res = await fetch(apiUrl);
 
     if (!res.ok) {
-      wrapper.innerHTML = `<p>Error loading news: ${res.status}</p>`;
-      return;
+      throw new Error(`API error ${res.status}`);
     }
 
     const json = await res.json();
+    const items = json?.data?.data?.newsList_2?.items || [];
 
-    console.log("CF Data from serverless:", json);
-
-    // Your AEM CF GraphQL response will be inside:
-    const items = json?.data?.data?.newsListApi || [];
-
-    if (items.length === 0) {
-      wrapper.innerHTML = `<p>No news found.</p>`;
+    if (!items.length) {
+      wrapper.innerHTML = '<p>No news found.</p>';
       return;
     }
 
-    // Render news items
     items.forEach((item) => {
       const card = document.createElement('div');
-      card.classList.add('news-card');
-
+      card.className = 'news-card';
       card.innerHTML = `
         <h3>${item.title}</h3>
-        <p>${item.summary || ''}</p>
+        <p>${item.description?.plaintext || ''}</p>
       `;
-
       wrapper.appendChild(card);
     });
-  } catch (error) {
-    wrapper.innerHTML = `<p>Error: ${error.message}</p>`;
+  } catch (err) {
+    wrapper.innerHTML = `<p>${err.message}</p>`;
   }
 }
