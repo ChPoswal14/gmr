@@ -32,6 +32,9 @@ export default function decorate(block) {
     item.classList.add("accordion-item");
     if (index === 0) item.classList.add("active");
 
+    // Store the original content before we modify the structure
+    const itemChildren = [...item.children];
+    
     // --- Accordion Header ---
     const accordionHeader = document.createElement("h2");
     accordionHeader.className = "accordion-header";
@@ -48,11 +51,14 @@ export default function decorate(block) {
     button.setAttribute("aria-expanded", index === 0 ? "true" : "false");
     button.setAttribute("aria-controls", `collapse${index}`);
 
-    // Title
-    const titleElement = item.querySelector(".business-title") || item.children[1];
+    // Title - extract from the correct position in original content
+    // Assuming title is in the second child (index 1) based on your HTML
+    const titleElement = itemChildren[1]?.querySelector("p") || itemChildren[1];
     const titleSpan = document.createElement("span");
     titleSpan.className = "business-title";
-    if (titleElement) titleSpan.textContent = titleElement.textContent;
+    if (titleElement) {
+      titleSpan.textContent = titleElement.textContent || titleElement.innerHTML || "";
+    }
     button.appendChild(titleSpan);
 
     // Accordion icons
@@ -83,7 +89,10 @@ export default function decorate(block) {
     button.appendChild(iconSpan);
 
     accordionHeader.appendChild(button);
-    item.prepend(accordionHeader);
+    
+    // Clear the item and add only the header first
+    item.innerHTML = "";
+    item.appendChild(accordionHeader);
 
     // --- Collapse Body ---
     const collapseDiv = document.createElement("div");
@@ -99,21 +108,24 @@ export default function decorate(block) {
     // --- Business Description ---
     const descDiv = document.createElement("div");
     descDiv.className = "business-description";
-    const desc = item.querySelector(".business-description") || item.children[2];
-    if (desc) descDiv.innerHTML = desc.innerHTML;
+    // Assuming description is in the third child (index 2) based on your HTML
+    const desc = itemChildren[2]?.querySelector("p") || itemChildren[2];
+    if (desc) {
+      descDiv.innerHTML = desc.innerHTML || desc.textContent || "";
+    }
     accordionBody.appendChild(descDiv);
 
     // --- CTA ---
     const ctaDiv = document.createElement("div");
     ctaDiv.className = "business-cta";
-    const cta = item.querySelector(".business-cta") || item.children[4];
+    // Assuming CTA is in the fifth child (index 4) based on your HTML
+    const cta = itemChildren[4];
     if (cta) {
-      const a = cta.querySelector("a") || document.createElement("a");
-      if (!cta.querySelector("a")) {
-        a.href = "#";
-        a.className = "btn btn-transparent";
-        a.textContent = cta.textContent || "READ MORE";
-      }
+      const ctaContent = itemChildren[4]?.querySelector("p") || itemChildren[4];
+      const a = document.createElement("a");
+      a.href = "#";
+      a.className = "btn btn-transparent";
+      a.textContent = ctaContent?.textContent?.trim() || "READ MORE";
       ctaDiv.appendChild(a);
     }
     accordionBody.appendChild(ctaDiv);
@@ -123,8 +135,12 @@ export default function decorate(block) {
     mobileImageDiv.className = "mobile-business-image";
     mobileImageDiv.setAttribute("data-index", index);
     mobileImageDiv.style.display = "none";
-    const picture = item.children[0]?.querySelector("picture");
-    if (picture) mobileImageDiv.appendChild(picture.cloneNode(true));
+    
+    // Assuming image is the first child (index 0) based on your HTML
+    const picture = itemChildren[0]?.querySelector("picture");
+    if (picture) {
+      mobileImageDiv.appendChild(picture.cloneNode(true));
+    }
     accordionBody.appendChild(mobileImageDiv);
 
     collapseDiv.appendChild(accordionBody);
@@ -136,4 +152,4 @@ export default function decorate(block) {
   wrapper.appendChild(accordion);
   block.innerHTML = "";
   block.appendChild(wrapper);
-};
+}
