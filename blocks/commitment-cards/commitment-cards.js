@@ -1,4 +1,8 @@
 export default function decorate(block) {
+  // Create section wrapper
+  const section = document.createElement("section");
+  section.className = "sec-commitment spacer";
+
   // Container
   const container = document.createElement("div");
   container.className = "container";
@@ -34,5 +38,6 @@ export default function decorate(block) {
   container.appendChild(row);
 
   // Attach container to block
-  block.appendChild(container);
+  section.appendChild(container);
+  block.appendChild(section);
 }
