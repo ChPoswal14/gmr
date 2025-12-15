@@ -174,7 +174,7 @@ export default function decorate(block) {
   container.appendChild(row);
 
   // Clear AEM block first
-  block.innerHTML = '';
+  //block.innerHTML = '';
 
   // Add header wrapper
   if (sectionTitleNode) {
