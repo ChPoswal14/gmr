@@ -11,31 +11,27 @@
         "component": "text",
         "valueType": "string",
         "name": "jcr:title",
-        "label": "Title"
+        "label": "Page Title"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "jcr:description",
-        "label": "Description"
+        "label": "Page Description"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "cardTitle",
-        "label": "Card Title"
-      },
-      {
-        "component": "textarea",
-        "valueType": "string",
-        "name": "cardTeaser",
-        "label": "Card Teaser"
+        "label": "Card Title",
+        "description": "Title shown in listing cards"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "cardImage",
-        "label": "Card Image (DAM path)"
+        "name": "cardTeaser",
+        "label": "Card Teaser",
+        "description": "Optional teaser text for cards (not always displayed)"
       },
       {
         "component": "text",
@@ -47,14 +43,15 @@
         "component": "text",
         "valueType": "string",
         "name": "contentType",
-        "label": "Content Type (news, blog, story, case-study)"
+        "label": "Content Type",
+        "description": "news, blog, story, case-study"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "contentAudience",
-        "label": "Show In Sections (comma separated)",
-        "description": "Example: aero, energy, corporate"
+        "label": "Audience / Sections",
+        "description": "Comma-separated: aero, energy, corporate"
       },
       {
         "component": "checkbox",
@@ -67,27 +64,28 @@
         "component": "checkbox",
         "valueType": "boolean",
         "name": "showInListing",
-        "label": "Show in Listings",
+        "label": "Show in Content Listings",
         "default": true
       },
       {
         "component": "number",
         "valueType": "number",
         "name": "cardPriority",
-        "label": "Card Priority (1 = highest)",
-        "default": 100
+        "label": "Card Priority (1 = highest)"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "ctaLabel",
-        "label": "CTA Label"
+        "label": "CTA Label",
+        "default": "Read More"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "ctaLink",
-        "label": "CTA Link URL"
+        "label": "CTA Link (optional)",
+        "description": "Leave empty to auto-link to page"
       }
     ]
   },
