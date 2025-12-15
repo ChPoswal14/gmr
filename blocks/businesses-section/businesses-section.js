@@ -85,23 +85,42 @@ export default function decorate(block) {
     accordionBody.appendChild(descDiv);
 
     // --- CTA ---
-    const ctaDiv = document.createElement("div");
-    ctaDiv.className = "business-cta";
-    const ctaEl = item.querySelector('[name="ctaLabel"]') || itemChildren[4];
-    const ctaLinkEl = item.querySelector('[name="ctaLink"]') || null;
-    if (ctaEl) {
-      const a = document.createElement("a");
-      a.href = ctaLinkEl?.textContent?.trim() || "#";
-      a.className = "btn btn-transparent";
-      a.textContent = ctaEl.textContent?.trim() || "READ MORE";
-      ctaDiv.appendChild(a);
-    }
-    accordionBody.appendChild(ctaDiv);
+    // --- CTA ---
+const ctaDiv = document.createElement("div");
+ctaDiv.className = "business-cta";
+
+// Fallback to children[3] for ctaLabel
+const ctaLabelEl = itemChildren[3];
+const ctaLinkEl = itemChildren[4]; // optional link
+if (ctaLabelEl) {
+  const a = document.createElement("a");
+  a.href = (ctaLinkEl?.textContent || "#").trim();
+  a.className = "btn btn-transparent";
+  a.textContent = (ctaLabelEl?.textContent || "READ MORE").trim();
+  ctaDiv.appendChild(a);
+}
+accordionBody.appendChild(ctaDiv);
+
 
     collapseDiv.appendChild(accordionBody);
     item.appendChild(collapseDiv);
 
     accordion.appendChild(item);
+
+    // --- Event listeners for active class ---
+    if (window.bootstrap) {
+      const bsCollapse = new bootstrap.Collapse(collapseDiv, { toggle: false });
+
+      collapseDiv.addEventListener("show.bs.collapse", () => {
+        item.classList.add("active");
+        button.classList.remove("collapsed");
+      });
+
+      collapseDiv.addEventListener("hide.bs.collapse", () => {
+        item.classList.remove("active");
+        button.classList.add("collapsed");
+      });
+    }
   });
 
   wrapper.appendChild(accordion);
