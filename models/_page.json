@@ -1,7 +1,8 @@
 {
   "models": [
     {
-      "id": "page-metadata",
+      "id": "page",
+      "title": "Page",
       "fields": [
         {
           "component": "text",
@@ -22,6 +23,7 @@
           "multi": true,
           "label": "Keywords"
         },
+
         {
           "component": "text",
           "valueType": "string",
