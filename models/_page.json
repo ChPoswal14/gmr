@@ -56,14 +56,14 @@
           "description": "Comma separated values. Example: aero, energy, corporate"
         },
         {
-          "component": "boolean",
+          "component": "checkbox",
           "valueType": "boolean",
           "name": "featured",
           "label": "Featured Content",
           "default": false
         },
         {
-          "component": "boolean",
+          "component": "checkbox",
           "valueType": "boolean",
           "name": "showInListing",
           "label": "Show in Listings",
