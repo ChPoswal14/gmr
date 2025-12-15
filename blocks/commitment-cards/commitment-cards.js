@@ -1,16 +1,13 @@
 export default function decorate(block) {
-  /* ----------------------------
-   * Section wrapper
-   * ---------------------------- */
+  // Create section wrapper
   const section = document.createElement("section");
   section.className = "sec-commitment spacer";
 
+  // Outer container
   const container = document.createElement("div");
   container.className = "container";
 
-  /* ----------------------------
-   * Section title (parent model)
-   * ---------------------------- */
+  // Section title (parent model field)
   const sectionRow = block.querySelector(":scope > div");
   let sectionTitle = "";
 
@@ -19,6 +16,7 @@ export default function decorate(block) {
     sectionRow.remove();
   }
 
+  // Title
   if (sectionTitle) {
     const h2 = document.createElement("h2");
     h2.className = "title text-center fw-normal mb-5";
@@ -26,13 +24,15 @@ export default function decorate(block) {
     container.appendChild(h2);
   }
 
-  /* ----------------------------
-   * Cards row
-   * ---------------------------- */
+  // Row wrapper
   const row = document.createElement("div");
   row.className = "row";
 
+  // Card processing
   [...block.children].forEach((card) => {
+    // col wrapper
+    // card.classList.add("col-md-6", "comm-card");
+
     const cols = [...card.children];
 
     const image = cols[0]?.querySelector("img");
@@ -40,7 +40,6 @@ export default function decorate(block) {
     const description = cols[2]?.innerHTML;
     const buttonText = cols[3]?.textContent?.trim();
     const buttonLink = cols[4]?.querySelector("a")?.href;
-
     const col = document.createElement("div");
     col.className = "col-md-6";
 
@@ -51,7 +50,7 @@ export default function decorate(block) {
         </div>
         <div class="comm-card-body">
           <h3>${title || ""}</h3>
-          ${description || ""}
+          <p>${description || ""}</p>
           ${
             buttonText && buttonLink
               ? `<a href="${buttonLink}" class="btn btn-primary">${buttonText}</a>`
@@ -66,9 +65,5 @@ export default function decorate(block) {
 
   container.appendChild(row);
   section.appendChild(container);
-
-  /* ----------------------------
-   * IMPORTANT: replace block
-   * ---------------------------- */
-  block.replaceWith(section);
+  block.appendChild(section);
 }
