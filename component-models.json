@@ -4,6 +4,199 @@
     "title": "Page"
   },
   {
+    "id": "news-page",
+    "fields": [
+      {
+        "component": "tab",
+        "name": "tab-meta",
+        "label": "Settings & Tags",
+        "fields": [
+          {
+            "component": "text",
+            "name": "tags",
+            "label": "Category Tag (Filter)",
+            "valueType": "string",
+            "required": true,
+            "comment": "Type Aero, Energy, or Corporate"
+          },
+          {
+            "component": "reference",
+            "name": "image",
+            "label": "Thumbnail Image",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "publicationDate",
+            "label": "Date",
+            "valueType": "string",
+            "defaultValue": "YYYY-MM-DD"
+          }
+        ]
+      },
+      {
+        "component": "tab",
+        "name": "tab-content",
+        "label": "Article Content",
+        "fields": [
+          {
+            "component": "text",
+            "name": "title",
+            "label": "Headline",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "body",
+            "label": "Story Body",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "image",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "imageAlt",
+        "label": "Alt Text"
+      }
+    ]
+  },
+  {
+    "id": "title",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "select",
+        "name": "titleType",
+        "label": "Title Type",
+        "options": [
+          {
+            "name": "h1",
+            "value": "h1"
+          },
+          {
+            "name": "h2",
+            "value": "h2"
+          },
+          {
+            "name": "h3",
+            "value": "h3"
+          },
+          {
+            "name": "h4",
+            "value": "h4"
+          },
+          {
+            "name": "h5",
+            "value": "h5"
+          },
+          {
+            "name": "h6",
+            "value": "h6"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "button",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Text"
+      },
+      {
+        "component": "text",
+        "name": "linkTitle",
+        "label": "Title"
+      },
+      {
+        "component": "select",
+        "name": "linkType",
+        "label": "Type",
+        "options": [
+          {
+            "name": "default",
+            "value": ""
+          },
+          {
+            "name": "primary",
+            "value": "primary"
+          },
+          {
+            "name": "secondary",
+            "value": "secondary"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "linkTarget",
+        "label": "Target",
+        "options": [
+          {
+            "name": "parent",
+            "value": "_parent"
+          },
+          {
+            "name": "blank",
+            "value": "_blank"
+          },
+          {
+            "name": "self",
+            "value": "_self"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "section",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "multiselect",
+        "name": "style",
+        "label": "Style",
+        "options": [
+          {
+            "name": "Highlight",
+            "value": "highlight"
+          },
+          {
+            "name": "Background Blue",
+            "value": "bg-primary"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "airport-overview",
     "fields": [
       {

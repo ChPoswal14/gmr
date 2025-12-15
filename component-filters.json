@@ -1,5 +1,35 @@
 [
   {
+    "id": "main",
+    "components": [
+      "section"
+    ]
+  },
+  {
+    "id": "section",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "hero",
+      "cards",
+      "columns",
+      "fragment",
+      "businesses-section",
+      "hero-banner",
+      "article-header",
+      "article-body",
+      "inner-banner",
+      "listed-companies",
+      "cookie-consent",
+      "privacy-request",
+      "news-updates",
+      "careers-highlight",
+      "content-listing"
+    ]
+  },
+  {
     "id": "airport-overview",
     "components": [
       "airport-overview-item"
