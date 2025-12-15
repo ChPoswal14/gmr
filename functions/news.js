@@ -1,6 +1,6 @@
 export async function handler(request) {
   const GRAPHQL_URL =
-    'https://author-p597-e1803019.adobeaemcloud.com/graphql/execute.json/GMR/news-list';
+    'https://author-p168597-e1803019.adobeaemcloud.com/graphql/execute.json/GMR/news-list';
 
   try {
     const response = await fetch(GRAPHQL_URL, {
