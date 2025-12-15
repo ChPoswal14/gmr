@@ -14,7 +14,7 @@
         "label": "Title"
       },
       {
-        "component": "text",
+        "component": "multiline",
         "valueType": "string",
         "name": "jcr:description",
         "label": "Description"
@@ -23,8 +23,8 @@
         "component": "text",
         "valueType": "string",
         "name": "keywords",
-        "multi": true,
-        "label": "Keywords"
+        "label": "Keywords",
+        "multi": true
       },
       {
         "component": "text",
@@ -33,7 +33,7 @@
         "label": "News Title"
       },
       {
-        "component": "textarea",
+        "component": "multiline",
         "valueType": "string",
         "name": "newsTeaser",
         "label": "News Teaser"
@@ -60,7 +60,7 @@
         "rootPath": "/content/cq:tags"
       },
       {
-        "component": "checkbox",
+        "component": "boolean",
         "valueType": "boolean",
         "name": "cardEnabled",
         "label": "Show in News Listing",
