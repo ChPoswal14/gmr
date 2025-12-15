@@ -2,7 +2,7 @@ export default async function decorate(block) {
   block.innerHTML = '<p>Loading news...</p>';
 
   try {
-    const response = await fetch('/api/news');
+    const response = await fetch('functions/news');
     const data = await response.json();
 
     if (!data.items || data.items.length === 0) {
