@@ -1,41 +1,88 @@
 export default function decorate(block) {
-  block.classList.add('commitment-cards');
+  const rows = [...block.children];
 
-  const children = [...block.children];
+  const outerContainer = document.createElement("div");
+  outerContainer.className = "sec-commitment spacer";
 
-  // Extract Section Title
-  const titleWrapper = children.shift();
-  const sectionTitle = titleWrapper?.querySelector('[data-aue-prop="sectionTitle"]');
+  const container = document.createElement("div");
+  container.className = "container";
 
-  const header = document.createElement('div');
-  header.className = 'commitment-header';
-  if (sectionTitle) header.append(sectionTitle);
+  // ---- Header ----
+  const headerRow = rows.shift();
+  headerRow.classList.add("sec-head", "h2", "mb-5", "fw-normal", "text-center");
 
-  // Prepare cards container
-  const cardsContainer = document.createElement('div');
-  cardsContainer.className = 'commitment-cards-container';
+  // ---- Grid ----
+  const grid = document.createElement("div");
+  grid.className = "row";
 
-  // Process each card (child block)
-  children.forEach((card) => {
-    card.classList.add('commitment-card');
+  rows.forEach((row) => {
+    row.classList.add("col-md-6", "comm-card");
 
-    // Button enhancement
-    const btnText = card.querySelector('[data-aue-prop="buttonText"]');
-    const btnLink = card.querySelector('[data-aue-prop="buttonLink"]');
+    const cells = [...row.children];
 
-    if (btnText && btnLink) {
-      const button = document.createElement('a');
-      button.textContent = btnText.textContent.trim();
-      button.href = btnLink.textContent.trim();
-      button.className = 'commitment-btn';
-      card.append(button);
+    const imageCell = cells[0];
+    const titleCell = cells[1];
+    const descCell = cells[2];
+    const buttonTextCell = cells[3];
+    const buttonLinkCell = cells[4];
+
+    // Image
+    imageCell?.classList.add("comm-card-img");
+
+    // ---- Title: <p> → <h3> ----
+    if (titleCell) {
+      titleCell.classList.add("comm-card-title");
+      const p = titleCell.querySelector("p");
+      if (p) {
+        const h3 = document.createElement("h3");
+        h3.innerHTML = p.innerHTML;
+        p.replaceWith(h3);
+      }
     }
 
-    cardsContainer.append(card);
+    // ---- Body wrapper ----
+    const body = document.createElement("div");
+    body.className = "comm-card-body";
+
+    descCell?.classList.add("comm-card-desc");
+
+    // ---- CTA handling ----
+    let ctaWrapper;
+    let ctaLink;
+
+    if (buttonLinkCell) {
+      ctaWrapper = buttonLinkCell;
+      ctaWrapper.classList.add("button-container");
+
+      ctaLink = ctaWrapper.querySelector("a");
+      if (!ctaLink) {
+        ctaLink = document.createElement("a");
+        ctaWrapper.append(ctaLink);
+      }
+
+      const linkHref =
+        buttonLinkCell.querySelector("a")?.getAttribute("href") || "";
+      const buttonText = buttonTextCell?.textContent?.trim() || "";
+
+      if (linkHref) ctaLink.href = linkHref;
+      if (buttonText) ctaLink.textContent = buttonText;
+
+      ctaLink.classList.add("btn", "btn-primary");
+    }
+
+    // remove plain button text row
+    buttonTextCell?.remove();
+
+    // Move nodes into body (UE-safe)
+    if (titleCell) body.append(titleCell);
+    if (descCell) body.append(descCell);
+    if (ctaWrapper) body.append(ctaWrapper);
+
+    row.append(body);
+    grid.append(row);
   });
 
-  // Rebuild block
-  block.innerHTML = '';
-  block.append(header, cardsContainer);
+  container.append(headerRow, grid);
+  outerContainer.append(container);
+  block.append(outerContainer);
 }
-    
