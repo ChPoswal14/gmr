@@ -20,6 +20,46 @@
         "name": "keywords",
         "multi": true,
         "label": "Keywords"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "newsTitle",
+        "label": "News Title"
+      },
+      {
+        "component": "textarea",
+        "valueType": "string",
+        "name": "newsTeaser",
+        "label": "News Teaser"
+      },
+      {
+        "component": "asset",
+        "valueType": "string",
+        "name": "newsImage",
+        "label": "News Image",
+        "rootPath": "/content/dam"
+      },
+      {
+        "component": "date",
+        "valueType": "string",
+        "name": "publishDate",
+        "label": "Publish Date"
+      },
+      {
+        "component": "tags",
+        "valueType": "string",
+        "name": "newsTags",
+        "label": "News Tags",
+        "multi": true,
+        "rootPath": "/content/cq:tags"
+      },
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "cardEnabled",
+        "label": "Show in News Listing",
+        "default": true
       }
     ]
   },
