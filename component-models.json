@@ -699,6 +699,10 @@
     ]
   },
   {
+    "id": "content-listing",
+    "fields": []
+  },
+  {
     "id": "cookie-consent",
     "fields": [
       {
