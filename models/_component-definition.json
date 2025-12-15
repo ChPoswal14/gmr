@@ -6,6 +6,9 @@
       "components": [
         {
           "...": "./_page.json#/definitions"
+        },
+        {
+          "...": "./_news-page.json#/definitions"
         }
       ]
     },
