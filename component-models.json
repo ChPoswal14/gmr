@@ -22,21 +22,14 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "keywords",
-        "label": "Keywords",
-        "multi": true
+        "name": "cardTitle",
+        "label": "Card Title"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "newsTitle",
-        "label": "News Title"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "newsTeaser",
-        "label": "News Teaser"
+        "name": "cardTeaser",
+        "label": "Card Teaser"
       },
       {
         "component": "text",
@@ -47,22 +40,35 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "newsCategory",
-        "label": "News Category (e.g. Aviation, Corporate)"
+        "name": "contentType",
+        "label": "Content Type (news, blog, story, case-study)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "contentAudience",
+        "label": "Show In Sections (comma separated)",
+        "description": "Example: aero, energy, corporate"
       },
       {
         "component": "boolean",
         "valueType": "boolean",
-        "name": "featuredNews",
-        "label": "Featured News",
+        "name": "featured",
+        "label": "Featured Content",
         "default": false
       },
       {
         "component": "boolean",
         "valueType": "boolean",
-        "name": "showInNewsListing",
-        "label": "Show in News Listing",
+        "name": "showInListing",
+        "label": "Show in Listings",
         "default": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cardPriority",
+        "label": "Card Priority (1 = highest)"
       },
       {
         "component": "text",
@@ -75,20 +81,6 @@
         "valueType": "string",
         "name": "ctaLink",
         "label": "CTA Link URL"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "newsAudience",
-        "label": "Show In Sections (comma separated)",
-        "description": "Example: aero, energy, corporate"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "newsPriority",
-        "label": "News Priority (1 = highest)",
-        "description": "Lower number appears first. Leave empty for normal order."
       }
     ]
   },
