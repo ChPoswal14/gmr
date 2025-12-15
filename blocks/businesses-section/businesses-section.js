@@ -47,18 +47,14 @@ export default function decorate(block) {
     button.setAttribute("aria-expanded", index === 0 ? "true" : "false");
     button.setAttribute("aria-controls", `collapse${index}`);
 
-    // --- Title from item ---
+    // --- Title ---
     const titleEl = item.querySelector('[name="title"]') || itemChildren[1] || itemChildren[0];
     const titleSpan = document.createElement("span");
     titleSpan.className = "business-title";
     titleSpan.textContent = titleEl?.textContent?.trim() || `Business ${index + 1}`;
     button.appendChild(titleSpan);
 
-    accordionHeader.appendChild(button);
-    item.innerHTML = "";
-    item.appendChild(accordionHeader);
-
-    // Accordion icon
+    // --- Icons ---
     const iconSpan = document.createElement("span");
     iconSpan.className = "accordion-icon";
     iconSpan.setAttribute("aria-hidden", "true");
@@ -66,14 +62,12 @@ export default function decorate(block) {
     const iconWrapper = document.createElement("span");
     iconWrapper.className = "icon-wrapper";
 
-    // Plus icon SVG
     const plusIcon = document.createElement("span");
     plusIcon.className = `plus-icon ${index === 0 ? "d-none" : ""}`;
     plusIcon.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
 </svg>`;
 
-    // Minus icon SVG
     const minusIcon = document.createElement("span");
     minusIcon.className = `minus-icon ${index === 0 ? "" : "d-none"}`;
     minusIcon.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -84,6 +78,10 @@ export default function decorate(block) {
     iconWrapper.appendChild(minusIcon);
     iconSpan.appendChild(iconWrapper);
     button.appendChild(iconSpan);
+
+    accordionHeader.appendChild(button);
+    item.innerHTML = "";
+    item.appendChild(accordionHeader);
 
     // --- Collapse Body ---
     const collapseDiv = document.createElement("div");
@@ -114,10 +112,8 @@ export default function decorate(block) {
     // --- CTA ---
     const ctaDiv = document.createElement("div");
     ctaDiv.className = "business-cta";
-
-    // Fallback to children[3] for ctaLabel
     const ctaLabelEl = itemChildren[3];
-    const ctaLinkEl = itemChildren[4]; // optional link
+    const ctaLinkEl = itemChildren[4];
     if (ctaLabelEl) {
       const a = document.createElement("a");
       a.href = (ctaLinkEl?.textContent || "#").trim();
@@ -127,24 +123,27 @@ export default function decorate(block) {
     }
     accordionBody.appendChild(ctaDiv);
 
-
     collapseDiv.appendChild(accordionBody);
     item.appendChild(collapseDiv);
 
     accordion.appendChild(item);
 
-    // --- Event listeners for active class ---
+    // --- Event listeners for active class and icon toggle ---
     if (window.bootstrap) {
       const bsCollapse = new bootstrap.Collapse(collapseDiv, { toggle: false });
 
       collapseDiv.addEventListener("show.bs.collapse", () => {
         item.classList.add("active");
         button.classList.remove("collapsed");
+        plusIcon.classList.add("d-none");
+        minusIcon.classList.remove("d-none");
       });
 
       collapseDiv.addEventListener("hide.bs.collapse", () => {
         item.classList.remove("active");
         button.classList.add("collapsed");
+        plusIcon.classList.remove("d-none");
+        minusIcon.classList.add("d-none");
       });
     }
   });
