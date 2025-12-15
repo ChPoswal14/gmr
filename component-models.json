@@ -1,50 +1,93 @@
 [
   {
+    "id": "page",
+    "title": "Page"
+  },
+  {
     "id": "page-metadata",
+    "title": "Page Metadata",
     "fields": [
       {
         "component": "text",
-        "name": "listingTitle",
-        "label": "Listing Title"
+        "valueType": "string",
+        "name": "jcr:title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "jcr:description",
+        "label": "Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cardTitle",
+        "label": "Card Title"
       },
       {
         "component": "textarea",
-        "name": "listingDescription",
-        "label": "Listing Description"
-      },
-      {
-        "component": "asset",
-        "name": "listingImage",
-        "label": "Listing Image",
-        "rootPath": "/content/dam"
+        "valueType": "string",
+        "name": "cardTeaser",
+        "label": "Card Teaser"
       },
       {
         "component": "text",
-        "name": "listingType",
-        "label": "Listing Type (news, blog, story)"
+        "valueType": "string",
+        "name": "cardImage",
+        "label": "Card Image (DAM path)"
       },
       {
         "component": "text",
-        "name": "listingAudience",
-        "label": "Audience (aero, energy, group)"
+        "valueType": "string",
+        "name": "publishDate",
+        "label": "Publish Date (YYYY-MM-DD)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "contentType",
+        "label": "Content Type (news, blog, story, case-study)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "contentAudience",
+        "label": "Show In Sections (comma separated)",
+        "description": "Example: aero, energy, corporate"
       },
       {
         "component": "checkbox",
-        "name": "listingFeatured",
-        "label": "Featured",
+        "valueType": "boolean",
+        "name": "featured",
+        "label": "Featured Content",
         "default": false
       },
       {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "showInListing",
+        "label": "Show in Listings",
+        "default": true
+      },
+      {
         "component": "number",
-        "name": "listingPriority",
-        "label": "Priority",
+        "valueType": "number",
+        "name": "cardPriority",
+        "label": "Card Priority (1 = highest)",
         "default": 100
       },
       {
-        "component": "checkbox",
-        "name": "showInListing",
-        "label": "Show in Listing",
-        "default": true
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLabel",
+        "label": "CTA Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link URL"
       }
     ]
   },
