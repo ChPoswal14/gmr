@@ -1,58 +1,69 @@
 export default function decorate(block) {
-  // Only decorate on published/preview, NOT in authoring (Universal Editor)
-  if (document.querySelector('html[data-aue-mode]')) {
-    // We're in Universal Editor - do NOT decorate, keep original structure
-    return;
-  }
-
-  // Create outer wrapper for published site
-  const preview = document.createElement("div");
-  preview.className = "innovation-cards";
+  block.classList.add('innovation-cards');
 
   const rows = [...block.children];
 
-  // Extract content from rows
-  const titleText = rows[0]?.textContent?.trim() || "";
-  const descHTML = rows[1]?.innerHTML || "";
+  // ---- Section Title ----
+  const titleRow = rows[0];
+  const titleText = titleRow?.querySelector(':scope > div')?.textContent || '';
+  const titleEl = document.createElement('h2');
+  titleEl.className = 'section-title';
+  titleEl.textContent = titleText;
 
-  // Header for published site
-  const headerHTML = `
-    <h2 class="section-title">${titleText}</h2>
-    <div class="section-description">
-      ${descHTML}
-    </div>
-  `;
+  // ---- Section Description ----
+  const descRow = rows[1];
+  const descText = descRow?.querySelector(':scope > div')?.innerHTML || '';
+  const descEl = document.createElement('div');
+  descEl.className = 'section-description';
+  descEl.innerHTML = descText;
 
-  preview.innerHTML = headerHTML + `<div class="innovation-card-grid"></div>`;
+  // ---- Card Grid ----
+  const grid = document.createElement('div');
+  grid.className = 'innovation-card-grid';
 
-  const grid = preview.querySelector(".innovation-card-grid");
+  // Remaining rows = card items
+  rows.slice(2).forEach((cardRow) => {
+    const cols = [...cardRow.children];
+    const img = cols[0]?.querySelector('img');
+    const title = cols[1]?.textContent || '';
+    const desc = cols[2]?.innerHTML || '';
+    const cta = cols[3]?.textContent || '';
 
-  // Build cards from remaining rows
-  rows.slice(2).forEach(row => {
-    const cells = [...row.children];
-    if (cells.length < 4) return;
+    const card = document.createElement('div');
+    card.className = 'innovation-card';
 
-    const picture = cells[0]?.querySelector("picture")?.cloneNode(true)?.outerHTML || "";
-    const title = cells[1]?.textContent?.trim() || "";
-    const description = cells[2]?.innerHTML || "";
-    const ctaText = cells[3]?.textContent?.trim() || "";
+    // Image
+    if (img) {
+      const picture = document.createElement('picture');
+      picture.append(img.cloneNode(true));
+      card.append(picture);
+    }
 
-    const card = document.createElement("div");
-    card.className = "innovation-card";
+    // Text section
+    const content = document.createElement('div');
+    content.className = 'innovation-card-content';
 
-    card.innerHTML = `
-      ${picture}
-      <div class="innovation-card-content">
-        <h3>${title}</h3>
-        <p>${description}</p>
-        <div class="innovation-card-cta">${ctaText}</div>
-      </div>
-    `;
+    const h3 = document.createElement('h3');
+    h3.textContent = title;
+    content.append(h3);
 
+    const p = document.createElement('p');
+    p.innerHTML = desc;
+    content.append(p);
+
+    // CTA
+    if (cta) {
+      const ctaEl = document.createElement('div');
+      ctaEl.className = 'innovation-card-cta';
+      ctaEl.textContent = cta;
+      content.append(ctaEl);
+    }
+
+    card.append(content);
     grid.append(card);
   });
 
-  // Replace block content with decorated version
-  block.textContent = '';
-  block.append(preview);
+  // ---- Assemble final structure ----
+  block.innerHTML = '';
+  block.append(titleEl, descEl, grid);
 }
