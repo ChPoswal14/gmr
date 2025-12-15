@@ -17,7 +17,8 @@
 .business-accordion-header .title:after{content:'/';color:var(--blue)}
 .intro-text{font-size:1.5rem;color:var(--charcoal);max-width:900px;margin:0;line-height:1.6}
 .business-accordion-container{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
-.business-image-preview{position:sticky;top:2rem;height:500px}
+.business-image-preview picture{border-radius:8px;overflow:hidden;display: block;}
+.business-image { display: none; }
 .business-image-container{position:relative;width:100%;height:100%;border-radius:10px;overflow:hidden}
 .desktop-business-image{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;transition:opacity .5s ease-in-out,visibility .5s ease-in-out;z-index:1}
 .desktop-business-image.active{opacity:1;visibility:visible;z-index:2}
@@ -35,7 +36,8 @@
 .business-accordion-header h2{font-size:2rem}
 .business-accordion-header h2 span{font-size:1.25rem}
 .accordion-button{padding:1.25rem 0;font-size:1.125rem}
-.business-image img {margin:1.5rem 0; }
+.business-image-preview{display: none;}
+.business-image { display: block; }
 }
 @media (max-width:767px){
 .businesses-section-wrapper{background-color:var(--sky-blue)}
