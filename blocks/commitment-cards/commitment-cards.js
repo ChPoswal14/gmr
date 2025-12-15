@@ -1,13 +1,9 @@
 export default function decorate(block) {
-  // Create section
-  const section = document.createElement("section");
-  section.className = "sec-commitment spacer";
-
-  // Create container
+  // Container
   const container = document.createElement("div");
   container.className = "container";
 
-  // Read section title (first row, first cell)
+  // Section title (first row)
   const sectionRow = block.querySelector(":scope > div");
   let sectionTitle = "";
 
@@ -16,7 +12,7 @@ export default function decorate(block) {
     sectionRow.remove();
   }
 
-  // Create H2 if title exists
+  // H2 title
   if (sectionTitle) {
     const h2 = document.createElement("h2");
     h2.className = "title text-center fw-normal mb-5";
@@ -24,10 +20,19 @@ export default function decorate(block) {
     container.appendChild(h2);
   }
 
-  // Move remaining cards into container
-  container.append(...block.children);
+  // Row wrapper (before loop)
+  const row = document.createElement("div");
+  row.className = "row";
 
-  // Append container back to block
-  section.appendChild(container);
-  block.appendChild(section);
+  // Remaining cards
+  [...block.children].forEach((card) => {
+    card.classList.add("col-md-6");
+    row.appendChild(card);
+  });
+
+  // Append row after loop
+  container.appendChild(row);
+
+  // Attach container to block
+  block.appendChild(container);
 }
