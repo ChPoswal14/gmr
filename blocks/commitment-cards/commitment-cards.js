@@ -1,16 +1,9 @@
 export default function decorate(block) {
-  /** -----------------------------
-   * Section wrapper
-   * ----------------------------- */
-  const section = document.createElement("section");
-  section.className = "bg-primary";
-
+  // Outer container
   const container = document.createElement("div");
-  container.className = "container";
+  container.className = "commitment-cards__container";
 
-  /** -----------------------------
-   * Section title (parent model)
-   * ----------------------------- */
+  // Section title (parent model field)
   const sectionRow = block.querySelector(":scope > div");
   let sectionTitle = "";
 
@@ -19,68 +12,45 @@ export default function decorate(block) {
     sectionRow.remove();
   }
 
+  // Title
   if (sectionTitle) {
     const h2 = document.createElement("h2");
-    h2.className = "title";
+    h2.className = "commitment-cards__title";
     h2.textContent = sectionTitle;
     container.appendChild(h2);
   }
 
-  /** -----------------------------
-   * Cards row
-   * ----------------------------- */
+  // Row wrapper
   const row = document.createElement("div");
   row.className = "row";
 
+  // Card processing
   [...block.children].forEach((card) => {
-    const [imgEl, titleEl, descEl, btnTextEl, btnLinkEl] = card.children;
+    // col wrapper
+    card.classList.add("col-md-6", "commitment-card");
 
-    /* column */
-    const col = document.createElement("div");
-    col.className = "col-md-6";
+    const cols = [...card.children];
 
-    /* card */
-    const blockCard = document.createElement("div");
-    blockCard.className = "block-card";
-
-    /* image */
-    const imgWrap = document.createElement("div");
-    imgWrap.className = "block-card-img";
-
-    if (imgEl?.querySelector("img")) {
-      imgWrap.appendChild(imgEl.querySelector("img"));
+    // First div → media
+    const media = cols.shift();
+    if (media) {
+      media.classList.add("comm-card-img");
     }
 
-    /* body */
-    const body = document.createElement("div");
-    body.className = "block-card-body";
+    // Remaining elements → content wrapper
+    const content = document.createElement("div");
+    content.className = "comm-card-body";
 
-    if (titleEl) {
-      const h3 = document.createElement("h3");
-      h3.textContent = titleEl.textContent;
-      body.appendChild(h3);
+    cols.forEach((el) => content.appendChild(el));
+
+    if (media) {
+      card.appendChild(media);
     }
+    card.appendChild(content);
 
-    if (descEl) body.appendChild(descEl);
-
-    if (btnTextEl && btnLinkEl) {
-      const a = document.createElement("a");
-      a.href = btnLinkEl.textContent;
-      a.className = "btn btn-primary";
-      a.textContent = btnTextEl.textContent;
-      body.appendChild(a);
-    }
-
-    blockCard.append(imgWrap, body);
-    col.appendChild(blockCard);
-    row.appendChild(col);
+    row.appendChild(card);
   });
 
   container.appendChild(row);
-  section.appendChild(container);
-
-  /** -----------------------------
-   * Replace block
-   * ----------------------------- */
-  block.replaceWith(section);
+  block.appendChild(container);
 }
