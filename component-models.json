@@ -14,7 +14,7 @@
         "label": "Title"
       },
       {
-        "component": "multiline",
+        "component": "text",
         "valueType": "string",
         "name": "jcr:description",
         "label": "Description"
@@ -33,38 +33,48 @@
         "label": "News Title"
       },
       {
-        "component": "multiline",
+        "component": "text",
         "valueType": "string",
         "name": "newsTeaser",
         "label": "News Teaser"
       },
       {
-        "component": "asset",
-        "valueType": "string",
-        "name": "newsImage",
-        "label": "News Image",
-        "rootPath": "/content/dam"
-      },
-      {
-        "component": "date",
+        "component": "text",
         "valueType": "string",
         "name": "publishDate",
-        "label": "Publish Date"
+        "label": "Publish Date (YYYY-MM-DD)"
       },
       {
-        "component": "tags",
+        "component": "text",
         "valueType": "string",
-        "name": "newsTags",
-        "label": "News Tags",
-        "multi": true,
-        "rootPath": "/content/cq:tags"
+        "name": "newsCategory",
+        "label": "News Category (e.g. Aviation, Corporate)"
       },
       {
         "component": "boolean",
         "valueType": "boolean",
-        "name": "cardEnabled",
+        "name": "featuredNews",
+        "label": "Featured News",
+        "default": false
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "showInNewsListing",
         "label": "Show in News Listing",
         "default": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLabel",
+        "label": "CTA Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link URL"
       }
     ]
   },
