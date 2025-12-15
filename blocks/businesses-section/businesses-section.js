@@ -1,7 +1,10 @@
 export default function decorate(block) {
   const children = [...block.children];
 
-  // --- HEADER ---
+  /* ===============================
+     HEADER
+  =============================== */
+
   const header = document.createElement("header");
   header.className = "business-accordion-header";
 
@@ -16,25 +19,34 @@ export default function decorate(block) {
   intro.innerHTML = children[2]?.innerHTML || "";
   header.appendChild(intro);
 
-  // --- WRAPPER ---
+  /* ===============================
+     WRAPPER
+  =============================== */
+
   const wrapper = document.createElement("div");
   wrapper.className = "business-accordion-wrapper";
   wrapper.appendChild(header);
+
+  /* ===============================
+     CONTAINER (NEW)
+  =============================== */
 
   const container = document.createElement("div");
   container.className = "business-accordion-container";
 
   const imagePreview = document.createElement("div");
   imagePreview.className = "business-image-preview";
-
   container.appendChild(imagePreview);
 
-  // --- ACCORDION ---
+  /* ===============================
+     ACCORDION
+  =============================== */
+
   const accordion = document.createElement("div");
   accordion.className = "accordion";
   accordion.id = "businessAccordion";
 
-  const businessItems = children.slice(3); // skip header & intro
+  const businessItems = children.slice(3); // skip header + intro
 
   businessItems.forEach((item, index) => {
     item.classList.add("accordion-item");
@@ -42,7 +54,8 @@ export default function decorate(block) {
 
     const itemChildren = [...item.children];
 
-    // --- Accordion Header ---
+    /* ---------- Header ---------- */
+
     const accordionHeader = document.createElement("h2");
     accordionHeader.className = "accordion-header";
     accordionHeader.id = `heading${index}`;
@@ -55,32 +68,36 @@ export default function decorate(block) {
     button.setAttribute("aria-expanded", index === 0 ? "true" : "false");
     button.setAttribute("aria-controls", `collapse${index}`);
 
-    // --- Title ---
-    const titleEl = item.querySelector('[name="title"]') || itemChildren[1] || itemChildren[0];
+    const titleEl =
+      item.querySelector('[name="title"]') || itemChildren[1] || itemChildren[0];
+
     const titleSpan = document.createElement("span");
     titleSpan.className = "business-title";
-    titleSpan.textContent = titleEl?.textContent?.trim() || `Business ${index + 1}`;
+    titleSpan.textContent =
+      titleEl?.textContent?.trim() || `Business ${index + 1}`;
     button.appendChild(titleSpan);
 
-    // --- Icons ---
+    /* ---------- Icons ---------- */
+
     const iconSpan = document.createElement("span");
     iconSpan.className = "accordion-icon";
-    iconSpan.setAttribute("aria-hidden", "true");
 
     const iconWrapper = document.createElement("span");
     iconWrapper.className = "icon-wrapper";
 
     const plusIcon = document.createElement("span");
     plusIcon.className = `plus-icon ${index === 0 ? "d-none" : ""}`;
-    plusIcon.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
-</svg>`;
+    plusIcon.innerHTML = `
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M5 12h14m-7 7V5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>`;
 
     const minusIcon = document.createElement("span");
     minusIcon.className = `minus-icon ${index === 0 ? "" : "d-none"}`;
-    minusIcon.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14"/>
-</svg>`;
+    minusIcon.innerHTML = `
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>`;
 
     iconWrapper.appendChild(plusIcon);
     iconWrapper.appendChild(minusIcon);
@@ -91,24 +108,24 @@ export default function decorate(block) {
     item.innerHTML = "";
     item.appendChild(accordionHeader);
 
-    // --- Collapse Body ---
+    /* ---------- Collapse ---------- */
+
     const collapseDiv = document.createElement("div");
-    collapseDiv.className = `accordion-collapse collapse ${index === 0 ? "show" : ""}`;
+    collapseDiv.className = `accordion-collapse collapse ${
+      index === 0 ? "show" : ""
+    }`;
     collapseDiv.id = `collapse${index}`;
-    collapseDiv.setAttribute("aria-labelledby", `heading${index}`);
     collapseDiv.setAttribute("data-bs-parent", "#businessAccordion");
 
     const accordionBody = document.createElement("div");
     accordionBody.className = "accordion-body";
 
-    // --- Description ---
     const descDiv = document.createElement("div");
     descDiv.className = "business-description";
     const descEl = item.querySelector('[name="description"]') || itemChildren[2];
-    if (descEl) descDiv.innerHTML = descEl.innerHTML || descEl.textContent || "";
+    if (descEl) descDiv.innerHTML = descEl.innerHTML || "";
     accordionBody.appendChild(descDiv);
 
-    // --- CTA ---
     const ctaDiv = document.createElement("div");
     ctaDiv.className = "business-cta";
     const ctaLabelEl = itemChildren[3];
@@ -117,54 +134,45 @@ export default function decorate(block) {
       const a = document.createElement("a");
       a.href = (ctaLinkEl?.textContent || "#").trim();
       a.className = "btn btn-transparent";
-      a.textContent = (ctaLabelEl?.textContent || "READ MORE").trim();
+      a.textContent = ctaLabelEl.textContent.trim();
       ctaDiv.appendChild(a);
     }
     accordionBody.appendChild(ctaDiv);
 
-    collapseDiv.appendChild(accordionBody);
-    item.appendChild(collapseDiv);
-
-    accordion.appendChild(item);
-
-    // --- Image ---
     const imgDiv = document.createElement("div");
     imgDiv.className = "business-image";
     const imgEl = item.querySelector('[name="image"]') || itemChildren[0];
-    if (imgEl) {
-      imgDiv.appendChild(imgEl.cloneNode(true));
-    }
+    if (imgEl) imgDiv.appendChild(imgEl.cloneNode(true));
     accordionBody.appendChild(imgDiv);
 
-    // --- Event listeners for active class and icon toggle ---
-    if (window.bootstrap) {
-      const bsCollapse = new bootstrap.Collapse(collapseDiv, { toggle: false });
+    collapseDiv.appendChild(accordionBody);
+    item.appendChild(collapseDiv);
+    accordion.appendChild(item);
 
+    /* ---------- Bootstrap events ---------- */
+
+    if (window.bootstrap) {
       collapseDiv.addEventListener("show.bs.collapse", () => {
         item.classList.add("active");
-        button.classList.remove("collapsed");
         plusIcon.classList.add("d-none");
         minusIcon.classList.remove("d-none");
       });
 
       collapseDiv.addEventListener("hide.bs.collapse", () => {
         item.classList.remove("active");
-        button.classList.add("collapsed");
         plusIcon.classList.remove("d-none");
         minusIcon.classList.add("d-none");
       });
     }
   });
 
-  wrapper.appendChild(accordion);
+  /* ===============================
+     FINAL APPEND (IMPORTANT)
+  =============================== */
+
+  container.appendChild(accordion);   // ✅ accordion wrapped
+  wrapper.appendChild(container);
+
   block.innerHTML = "";
   block.appendChild(wrapper);
-
-  // --- Initialize Bootstrap collapse manually ---
-  const collapseElements = wrapper.querySelectorAll('.collapse');
-  collapseElements.forEach((el) => {
-    if (window.bootstrap) {
-      new bootstrap.Collapse(el, { toggle: false });
-    }
-  });
 }
