@@ -1,35 +1,30 @@
 export default function decorate(block) {
   const rows = [...block.children];
 
-  // ---- Extract authored content ----
-  const sectionTitle = rows[0]?.querySelector("p");
-
-  const imageOffice = rows[1]?.querySelector("picture");
-  const imageTeamSmall = rows[2]?.querySelector("picture");
-  const imageTeamLarge = rows[3]?.querySelector("picture");
-
-  const cardContent = rows[4]?.querySelector("div");
-  const ctaText = rows[5]?.querySelector("p")?.textContent?.trim();
-  const ctaLink = rows[6]?.querySelector("a")?.getAttribute("href");
-
-  // ---- Clear block ----
-  block.innerHTML = "";
+  const sectionTitleRow = rows[0];
+  const imageOfficeRow = rows[1];
+  const imageTeamSmallRow = rows[2];
+  const imageTeamLargeRow = rows[3];
+  const cardContentRow = rows[4];
+  const ctaTextRow = rows[5];
+  const ctaLinkRow = rows[6];
 
   /* ===============================
      Section Title
   =============================== */
-  if (sectionTitle) {
-    const title = document.createElement("h2");
-    title.className = "careers-highlight-title";
-    title.textContent = sectionTitle.textContent;
-    block.append(title);
+  const titleP = sectionTitleRow?.querySelector("p");
+  if (titleP) {
+    const h2 = document.createElement("h2");
+    h2.className = "careers-highlight-title";
+    h2.textContent = titleP.textContent;
+    titleP.replaceWith(h2);
   }
 
   /* ===============================
-     Main Layout Container
+     Main Grid
   =============================== */
-  const container = document.createElement("div");
-  container.className = "careers-highlight-grid";
+  const grid = document.createElement("div");
+  grid.className = "careers-highlight-grid";
 
   /* ===============================
      Left Images
@@ -37,52 +32,43 @@ export default function decorate(block) {
   const leftCol = document.createElement("div");
   leftCol.className = "left-images";
 
-  if (imageOffice) {
-    const topImg = document.createElement("div");
-    topImg.className = "image-large";
-    topImg.append(imageOffice);
-    leftCol.append(topImg);
-  }
-
-  if (imageTeamSmall) {
-    const bottomImg = document.createElement("div");
-    bottomImg.className = "image-small";
-    bottomImg.append(imageTeamSmall);
-    leftCol.append(bottomImg);
-  }
+  imageOfficeRow && leftCol.append(imageOfficeRow);
+  imageTeamSmallRow && leftCol.append(imageTeamSmallRow);
 
   /* ===============================
-     Center Blue Card
+     Center Card
   =============================== */
   const centerCol = document.createElement("div");
   centerCol.className = "center-card";
 
-  if (cardContent) {
-    centerCol.append(cardContent);
-  }
+  cardContentRow && centerCol.append(cardContentRow);
 
   /* ===============================
-     Right Image + CTA
+     Right Content
   =============================== */
   const rightCol = document.createElement("div");
   rightCol.className = "right-content";
 
-  if (imageTeamLarge) {
-    const rightImg = document.createElement("div");
-    rightImg.className = "image-vertical";
-    rightImg.append(imageTeamLarge);
-    rightCol.append(rightImg);
+  imageTeamLargeRow && rightCol.append(imageTeamLargeRow);
+
+  /* ===============================
+     CTA (MOVE — DO NOT RECREATE)
+  =============================== */
+  const ctaAnchor = ctaLinkRow?.querySelector("a");
+  const ctaText = ctaTextRow?.querySelector("p");
+
+  if (ctaAnchor && ctaText) {
+    ctaAnchor.textContent = ctaText.textContent;
+    ctaAnchor.classList.add("cta-button");
+
+    rightCol.append(ctaAnchor);
   }
 
-  if (ctaText && ctaLink) {
-    const cta = document.createElement("a");
-    cta.href = ctaLink;
-    cta.className = "cta-button";
-    cta.textContent = ctaText;
-    rightCol.append(cta);
-  }
+  /* ===============================
+     Assemble
+  =============================== */
+  grid.append(leftCol, centerCol, rightCol);
 
-  // ---- Assemble layout ----
-  container.append(leftCol, centerCol, rightCol);
-  block.append(container);
+  block.innerHTML = "";
+  block.append(sectionTitleRow, grid);
 }
