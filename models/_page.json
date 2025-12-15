@@ -84,6 +84,13 @@
           "name": "newsAudience",
           "label": "Show In Sections (comma separated)",
           "description": "Example: aero, energy, corporate"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "newsPriority",
+          "label": "News Priority (1 = highest)",
+          "description": "Lower number appears first. Leave empty for normal order."
         }
       ]
     }
