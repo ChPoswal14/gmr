@@ -35,24 +35,32 @@ export default function decorate(block) {
 
     const cols = [...card.children];
 
-    // First div → media
-    const media = cols.shift();
-    if (media) {
-      media.classList.add("comm-card-img");
-    }
+    const image = cols[0]?.querySelector("img");
+    const title = cols[1]?.textContent?.trim();
+    const description = cols[2]?.innerHTML;
+    const buttonText = cols[3]?.textContent?.trim();
+    const buttonLink = cols[4]?.querySelector("a")?.href;
+    const col = document.createElement("div");
+    col.className = "col-md-6";
 
-    // Remaining elements → content wrapper
-    const content = document.createElement("div");
-    content.className = "comm-card-body";
+    col.innerHTML = `
+      <div class="comm-card">
+        <div class="comm-card-img">
+          ${image ? image.outerHTML : ""}
+        </div>
+        <div class="comm-card-body">
+          <h3>${title || ""}</h3>
+          <p>${description || ""}</p>
+          ${
+            buttonText && buttonLink
+              ? `<a href="${buttonLink}" class="btn btn-primary">${buttonText}</a>`
+              : ""
+          }
+        </div>
+      </div>
+    `;
 
-    cols.forEach((el) => content.appendChild(el));
-
-    if (media) {
-      card.appendChild(media);
-    }
-    card.appendChild(content);
-
-    row.appendChild(card);
+    row.appendChild(col);
   });
 
   container.appendChild(row);
