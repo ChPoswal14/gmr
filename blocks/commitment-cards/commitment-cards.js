@@ -60,5 +60,5 @@ export default function decorate(block) {
   section.appendChild(container);
 
   // Replace authored content
-  block.replaceWith(section);
+  // block.replaceWith(section);
 }
