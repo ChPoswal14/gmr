@@ -58,6 +58,33 @@ export default function decorate(block) {
     item.innerHTML = "";
     item.appendChild(accordionHeader);
 
+    // Accordion icon
+    const iconSpan = document.createElement("span");
+    iconSpan.className = "accordion-icon";
+    iconSpan.setAttribute("aria-hidden", "true");
+
+    const iconWrapper = document.createElement("span");
+    iconWrapper.className = "icon-wrapper";
+
+    // Plus icon SVG
+    const plusIcon = document.createElement("span");
+    plusIcon.className = `plus-icon ${index === 0 ? "d-none" : ""}`;
+    plusIcon.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+</svg>`;
+
+    // Minus icon SVG
+    const minusIcon = document.createElement("span");
+    minusIcon.className = `minus-icon ${index === 0 ? "" : "d-none"}`;
+    minusIcon.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14"/>
+</svg>`;
+
+    iconWrapper.appendChild(plusIcon);
+    iconWrapper.appendChild(minusIcon);
+    iconSpan.appendChild(iconWrapper);
+    button.appendChild(iconSpan);
+
     // --- Collapse Body ---
     const collapseDiv = document.createElement("div");
     collapseDiv.className = `accordion-collapse collapse ${index === 0 ? "show" : ""}`;
@@ -85,21 +112,20 @@ export default function decorate(block) {
     accordionBody.appendChild(descDiv);
 
     // --- CTA ---
-    // --- CTA ---
-const ctaDiv = document.createElement("div");
-ctaDiv.className = "business-cta";
+    const ctaDiv = document.createElement("div");
+    ctaDiv.className = "business-cta";
 
-// Fallback to children[3] for ctaLabel
-const ctaLabelEl = itemChildren[3];
-const ctaLinkEl = itemChildren[4]; // optional link
-if (ctaLabelEl) {
-  const a = document.createElement("a");
-  a.href = (ctaLinkEl?.textContent || "#").trim();
-  a.className = "btn btn-transparent";
-  a.textContent = (ctaLabelEl?.textContent || "READ MORE").trim();
-  ctaDiv.appendChild(a);
-}
-accordionBody.appendChild(ctaDiv);
+    // Fallback to children[3] for ctaLabel
+    const ctaLabelEl = itemChildren[3];
+    const ctaLinkEl = itemChildren[4]; // optional link
+    if (ctaLabelEl) {
+      const a = document.createElement("a");
+      a.href = (ctaLinkEl?.textContent || "#").trim();
+      a.className = "btn btn-transparent";
+      a.textContent = (ctaLabelEl?.textContent || "READ MORE").trim();
+      ctaDiv.appendChild(a);
+    }
+    accordionBody.appendChild(ctaDiv);
 
 
     collapseDiv.appendChild(accordionBody);
