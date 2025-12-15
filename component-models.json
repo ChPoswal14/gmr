@@ -75,6 +75,13 @@
         "valueType": "string",
         "name": "ctaLink",
         "label": "CTA Link URL"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "newsAudience",
+        "label": "Show In Sections (comma separated)",
+        "description": "Example: aero, energy, corporate"
       }
     ]
   },
