@@ -9,7 +9,7 @@ export default function decorate(block) {
 
   // ---- Header ----
   const headerRow = rows.shift();
-  headerRow.classList.add("commitment-cards-header");
+  headerRow.classList.add("sec-head", "h2", "mb-5", "fw-normal", "text-center");
 
   // ---- Grid ----
   const grid = document.createElement("div");

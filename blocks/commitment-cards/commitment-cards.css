@@ -1,9 +1,11 @@
 .sec-commitment {
     background: var(--blue);
     background: linear-gradient(180deg, var(--royal-blue) 0, var(--blue) 100%);
-    padding: 80px 0;
     color: var(--white);
     position: relative;
+}
+.spacer {
+    padding: 80px 0;
 }
 .sec-commitment:before {
     position: absolute;
