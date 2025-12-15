@@ -136,32 +136,43 @@ export default function decorate(block) {
     col3.appendChild(wrap3);
   }
 
-  // --- CTA MERGE FIX ---
-  const ctaWrap = document.createElement('div');
-  ctaWrap.className = 'cta careerBtn';
+  /* -------------------------
+   CTA – UE SAFE
+------------------------- */
 
-  const finalBtn = document.createElement('a');
-  finalBtn.className = 'btn btn-orange w-100';
+const ctaWrap = document.createElement('div');
+ctaWrap.className = 'cta careerBtn';
 
-  // CTA LABEL (from text field)
-  if (ctaLabelNode) {
-    const p = ctaLabelNode.querySelector('p');
-    if (p) {
-      finalBtn.textContent = p.textContent.trim();
-    }
+/* CTA LABEL (TEXT FIELD) */
+if (ctaLabelNode) {
+  const p = ctaLabelNode.querySelector('p');
+  if (p) {
+    p.setAttribute('data-aue-prop', 'ctaLabel');
+    p.setAttribute('data-aue-label', 'CTA Button Label');
+    p.classList.add('btn', 'btn-orange', 'w-100');
+
+    ctaWrap.appendChild(p); // ✅ move original node
   }
+}
 
-  // CTA URL/TITLE (from button field)
-  if (ctaLinkNode) {
-    const a = ctaLinkNode.querySelector('a');
-    if (a) {
-      finalBtn.href = a.href;
-      if (a.title) finalBtn.title = a.title;
+/* CTA LINK (URL FIELD) */
+if (ctaLinkNode) {
+  const a = ctaLinkNode.querySelector('a');
+  if (a) {
+    a.setAttribute('data-aue-prop', 'ctaLink');
+    a.setAttribute('data-aue-label', 'CTA Link URL');
+
+    // Wrap link around label (UE supports this)
+    if (ctaWrap.firstChild) {
+      a.appendChild(ctaWrap.firstChild);
     }
-  }
 
-  ctaWrap.appendChild(finalBtn);
-  col3.appendChild(ctaWrap);
+    ctaWrap.appendChild(a);
+  }
+}
+
+col3.appendChild(ctaWrap);
+
 
 
   /* -------------------------
@@ -174,7 +185,7 @@ export default function decorate(block) {
   container.appendChild(row);
 
   // Clear AEM block first
-  //block.innerHTML = '';
+  block.innerHTML = '';
 
   // Add header wrapper
   if (sectionTitleNode) {
