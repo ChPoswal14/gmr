@@ -137,8 +137,8 @@ export default function decorate(block) {
   }
 
 /* -------------------------
-   CTA – Single UE Field (Label Only)
-   <a href="ctaLink">ctaLabel</a>
+   CTA – UE SAFE
+   <a data-aue-prop="ctaLabel" href="ctaLink">Label</a>
 ------------------------- */
 
 const ctaWrap = document.createElement('div');
@@ -147,17 +147,15 @@ ctaWrap.className = 'cta careerBtn';
 let ctaHref = '';
 let ctaText = '';
 
-/* CTA LABEL (ONLY UE FIELD) */
+/* Get CTA LABEL (TEXT FIELD) */
 if (ctaLabelNode) {
   const p = ctaLabelNode.querySelector('p');
   if (p) {
-    p.setAttribute('data-aue-prop', 'ctaLabel');
-    p.setAttribute('data-aue-label', 'CTA Button Label');
     ctaText = p.textContent.trim();
   }
 }
 
-/* CTA LINK (USED BUT NOT EXPOSED TO UE) */
+/* Get CTA LINK (VALUE ONLY, NOT UE FIELD) */
 if (ctaLinkNode) {
   const a = ctaLinkNode.querySelector('a');
   if (a) {
@@ -165,11 +163,16 @@ if (ctaLinkNode) {
   }
 }
 
-/* Final Anchor */
-if (ctaText && ctaHref) {
+/* Final UE-editable anchor */
+if (ctaText) {
   const a = document.createElement('a');
-  a.href = ctaHref;
+  a.href = ctaHref || '#';
   a.textContent = ctaText;
+
+  // 🔑 THIS is what makes UE show the field
+  a.setAttribute('data-aue-prop', 'ctaLabel');
+  a.setAttribute('data-aue-label', 'CTA Button Label');
+
   a.className = 'btn btn-orange w-100';
 
   ctaWrap.appendChild(a);
