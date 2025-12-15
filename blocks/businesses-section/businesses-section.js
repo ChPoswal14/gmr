@@ -93,15 +93,6 @@ export default function decorate(block) {
     const accordionBody = document.createElement("div");
     accordionBody.className = "accordion-body";
 
-    // --- Image ---
-    const imgDiv = document.createElement("div");
-    imgDiv.className = "business-image";
-    const imgEl = item.querySelector('[name="image"]') || itemChildren[0];
-    if (imgEl) {
-      imgDiv.appendChild(imgEl.cloneNode(true));
-    }
-    accordionBody.appendChild(imgDiv);
-
     // --- Description ---
     const descDiv = document.createElement("div");
     descDiv.className = "business-description";
@@ -127,6 +118,15 @@ export default function decorate(block) {
     item.appendChild(collapseDiv);
 
     accordion.appendChild(item);
+
+    // --- Image ---
+    const imgDiv = document.createElement("div");
+    imgDiv.className = "business-image";
+    const imgEl = item.querySelector('[name="image"]') || itemChildren[0];
+    if (imgEl) {
+      imgDiv.appendChild(imgEl.cloneNode(true));
+    }
+    accordionBody.appendChild(imgDiv);
 
     // --- Event listeners for active class and icon toggle ---
     if (window.bootstrap) {
