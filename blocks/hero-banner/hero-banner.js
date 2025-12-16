@@ -96,6 +96,7 @@ export default async function decorate(block) {
       watchLink,
     ] = cells;
 
+    /* ---------- Slide ---------- */
     const slide = document.createElement("div");
     slide.className = "swiper-slide hero-slide";
 
@@ -151,11 +152,13 @@ export default async function decorate(block) {
     }
 
     content.append(actions);
+
     slide.append(media, content);
     wrapper.append(slide);
   });
 
   swiper.append(wrapper);
+
   block.append(swiper);
   block.classList.add("hero-banner-initialized");
 
@@ -164,6 +167,5 @@ export default async function decorate(block) {
     speed: 800,
   });
 
-  /* ---------- Custom Nav + Numbers ---------- */
   buildHeroNavigation(swiperInstance, rows.length);
 }
