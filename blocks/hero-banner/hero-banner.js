@@ -1,8 +1,7 @@
 import { loadCSS, loadScript } from "../../scripts/aem.js";
 
-const SWIPER_JS = "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-const SWIPER_CSS =
-  "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+const SWIPER_JS = "../../scripts/swiper-bundle.min.js";
+const SWIPER_CSS = "../../styles/swiper-bundle.min.css";
 
 function isValidRow(row) {
   return (
@@ -10,63 +9,6 @@ function isValidRow(row) {
     row.querySelector("picture") ||
     row.querySelector("a")
   );
-}
-
-/* ---------------- Custom Nav Builder ---------------- */
-function buildHeroNavigation(swiper, totalSlides) {
-  const nav = document.createElement("div");
-  nav.className = "hero-nav";
-
-  const prev = document.createElement("button");
-  prev.className = "hero-prev";
-  prev.setAttribute("aria-label", "Previous slide");
-  prev.innerHTML = "←";
-
-  const next = document.createElement("button");
-  next.className = "hero-next";
-  next.setAttribute("aria-label", "Next slide");
-  next.innerHTML = "→";
-
-  const numbers = document.createElement("div");
-  numbers.className = "hero-numbers";
-
-  const line = document.createElement("span");
-  line.className = "hero-line";
-
-  const nums = [];
-
-  for (let i = 0; i < totalSlides; i += 1) {
-    const num = document.createElement("span");
-    num.className = "hero-num";
-    num.textContent = String(i + 1).padStart(2, "0");
-
-    num.addEventListener("click", () => {
-      swiper.slideToLoop(i);
-    });
-
-    nums.push(num);
-    numbers.append(num);
-  }
-
-  numbers.append(line);
-  nav.append(prev, numbers, next);
-  swiper.el.append(nav);
-
-  prev.addEventListener("click", () => swiper.slidePrev());
-  next.addEventListener("click", () => swiper.slideNext());
-
-  function updateActive() {
-    nums.forEach((n) => n.classList.remove("active"));
-
-    const index = swiper.realIndex;
-    nums[index]?.classList.add("active");
-
-    const percent = totalSlides > 1 ? (index / (totalSlides - 1)) * 100 : 0;
-    line.style.width = `${percent}%`;
-  }
-
-  swiper.on("slideChange", updateActive);
-  updateActive();
 }
 
 export default async function decorate(block) {
@@ -159,13 +101,30 @@ export default async function decorate(block) {
 
   swiper.append(wrapper);
 
+  swiper.insertAdjacentHTML(
+    "beforeend",
+    `
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  `
+  );
+
   block.append(swiper);
   block.classList.add("hero-banner-initialized");
 
-  const swiperInstance = new Swiper(swiper, {
+  new Swiper(swiper, {
     loop: rows.length > 1,
     speed: 800,
+    // autoplay:
+    //   rows.length > 1 ? { delay: 5000, disableOnInteraction: false } : false,
+    pagination: {
+      el: swiper.querySelector(".swiper-pagination"),
+      clickable: true,
+    },
+    navigation: {
+      nextEl: swiper.querySelector(".swiper-button-next"),
+      prevEl: swiper.querySelector(".swiper-button-prev"),
+    },
   });
-
-  buildHeroNavigation(swiperInstance, rows.length);
 }
