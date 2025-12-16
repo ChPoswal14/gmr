@@ -65,3 +65,57 @@
 .hero-actions .btn {
     min-width: 180px;
 }
+
+/*  */
+
+.hero-nav {
+    position: absolute;
+    bottom: 6rem;
+    left: 90px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    z-index: 5;
+}
+
+/* Arrows */
+.hero-prev,
+.hero-next {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    border: 2px solid #f5b335;
+    background: transparent;
+    color: #f5b335;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Numbers */
+.hero-numbers {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+
+.hero-num {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+}
+
+.hero-num.active {
+    color: #f5b335;
+}
+
+/* Line */
+.hero-line {
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 2px;
+    background: #f5b335;
+    width: 0%;
+    transition: width 0.4s ease;
+}
