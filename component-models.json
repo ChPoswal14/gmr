@@ -1153,12 +1153,6 @@
         "valueType": "string",
         "name": "sectionCTALink",
         "label": "Section CTA Link"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "tag",
-        "label": "Section Tag"
       }
     ]
   },
@@ -1166,34 +1160,10 @@
     "id": "story-item",
     "fields": [
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Card Image"
-      },
-      {
         "component": "text",
         "valueType": "string",
-        "name": "title",
-        "label": "Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Description"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaText",
-        "label": "CTA Text"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaLink",
-        "label": "CTA Link"
+        "name": "category",
+        "label": "Section Category"
       }
     ]
   },
