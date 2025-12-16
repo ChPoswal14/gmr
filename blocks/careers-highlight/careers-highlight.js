@@ -1,213 +1,193 @@
 export default function decorate(block) {
-  // Create the main container
-  const container = document.createElement('div');
-  container.className = 'careerSection';
+  // keep original nodes (AEM editable fields)
+  const original = [...block.children];
+
+  // helpers
+  const hasPicture = (node) => !!node.querySelector && !!node.querySelector('picture');
+
+  // FIELD HOLDERS
+  let sectionTitleNode = null;
+  const pictureNodes = [];
+  let blueCardNode = null;
+
+  // NEW: CTA fields captured separately  
+  let ctaLabelNode = null; // The p tag: CTA Button Label
+  let ctaLinkNode = null;  // The <a class="button">
   
-  // Create the row
-  const row = document.createElement('div');
-  row.className = 'row';
-  
-  // Create three columns
-  const col1 = document.createElement('div');
-  col1.className = 'col-md-4';
-  
-  const col2 = document.createElement('div');
-  col2.className = 'col-md-4';
-  
-  const col3 = document.createElement('div');
-  col3.className = 'col-md-4';
-  
-  // Get all child divs from the original block
-  const children = Array.from(block.children);
-  
-  // Arrays to store different types of content
-  const images = [];
-  let headerText = '';
-  let contentH2 = null;
-  let contentH3 = null;  // Changed from contentH2 to contentH3
-  let contentP = null;
-  let ctaText = '';
-  let ctaLink = null;
-  
-  // Process each child div
-  children.forEach((child) => {
-    // Check for header text (first text content)
-    if (child.querySelector('p') && !headerText && !child.querySelector('a.button')) {
-      const p = child.querySelector('p');
-      if (p && p.textContent && !p.textContent.includes('Explore Life at')) {
-        headerText = p.textContent.trim();
-      }
+  // CLASSIFY ALL CHILD NODES
+  original.forEach((child) => {
+    const p = child.querySelector && child.querySelector('p');
+    const a = child.querySelector && child.querySelector('a.button');
+
+    // Section title (first text node but not CTA)
+    if (!sectionTitleNode && p && !p.textContent.includes('Explore Life')) {
+      sectionTitleNode = child;
+      return;
     }
-    
-    // Check for images
-    const picture = child.querySelector('picture');
-    if (picture) {
-      images.push(child);
+
+    // Pictures
+    if (hasPicture(child)) {
+      pictureNodes.push(child);
+      return;
     }
-    
-    // Check for content H2 or H3
-    const h2 = child.querySelector('h2');
-    const h3 = child.querySelector('h3'); // Also check for h3
-    
-    if (h2 && h2.id === 'be-part-of-a-team-that-values-innovation-growth-and-impact') {
-      contentH2 = h2;
-      
-      // Get the paragraph that follows this h2
-      const nextSibling = child.querySelector('p');
-      if (nextSibling && nextSibling.textContent.includes('Build your career')) {
-        contentP = nextSibling;
-      }
-    } else if (h3 && h3.textContent.includes('Be part of a team')) {
-      // Check for h3 with the specific text
-      contentH3 = h3;
-      
-      // Get the paragraph that follows this h3
-      const nextSibling = child.querySelector('p');
-      if (nextSibling && nextSibling.textContent.includes('Build your career')) {
-        contentP = nextSibling;
-      }
+
+    // CTA label text (p field)
+    if (p && p.textContent.includes('Explore Life')) {
+      ctaLabelNode = child;
+      return;
     }
-    
-    // Check for CTA text (Explore Life at GMR)
-    const p = child.querySelector('p');
-    if (p && p.textContent.includes('Explore Life at')) {
-      ctaText = p.textContent.trim();
+
+    // CTA button link (a field)
+    if (a) {
+      ctaLinkNode = child;
+      return;
     }
-    
-    // Check for CTA button
-    const buttonLink = child.querySelector('a.button');
-    if (buttonLink) {
-      ctaLink = buttonLink;
+
+    // Blue card content
+    if (!blueCardNode && (child.querySelector('h2') || child.querySelector('h3') || child.querySelector('p'))) {
+      blueCardNode = child;
+      return;
     }
   });
-  
-  // Build Column 1 - Two images
-  if (images.length >= 2) {
-    // First image (top left)
-    const imgDiv1 = document.createElement('div');
-    imgDiv1.className = 'careerImg picone';
-    const picture1 = images[0].querySelector('picture');
-    if (picture1) {
-      const img1 = document.createElement('img');
-      const imgSrc = picture1.querySelector('img').src;
-      img1.src = imgSrc;
-      img1.setAttribute('data-aue-prop', 'imageOffice');
-      img1.setAttribute('data-aue-label', 'Image 1 (Top Left)');
-      img1.setAttribute('data-aue-type', 'media');
-      imgDiv1.appendChild(img1);
+
+  // MAIN WRAPPERS
+  const container = document.createElement('div');
+  container.className = 'careerSection';
+
+  const row = document.createElement('div');
+  row.className = 'row';
+
+  const col1 = document.createElement('div');
+  col1.className = 'col-md-4';
+
+  const col2 = document.createElement('div');
+  col2.className = 'col-md-4';
+
+  const col3 = document.createElement('div');
+  col3.className = 'col-md-4';
+
+
+  /* -------------------------
+     COLUMN 1 – TWO IMAGES
+  ------------------------- */
+
+  // Image 1 (top left)
+  if (pictureNodes[0]) {
+    const wrap1 = document.createElement('div');
+    wrap1.className = 'careerImg picone';
+    wrap1.appendChild(pictureNodes[0]);
+
+    const img = wrap1.querySelector('img');
+    if (img) {
+      img.setAttribute('data-aue-prop', 'imageOffice');
+      img.setAttribute('data-aue-label', 'Image 1 (Top Left)');
+      img.setAttribute('data-aue-type', 'media');
     }
-    col1.appendChild(imgDiv1);
-    
-    // Second image (bottom left)
-    const imgDiv2 = document.createElement('div');
-    imgDiv2.className = 'careerImg pictwo';
-    const picture2 = images[1].querySelector('picture');
-    if (picture2) {
-      const img2 = document.createElement('img');
-      const imgSrc = picture2.querySelector('img').src;
-      img2.src = imgSrc;
-      img2.setAttribute('data-aue-prop', 'imageTeamSmall');
-      img2.setAttribute('data-aue-label', 'Image 2 (Bottom Left)');
-      img2.setAttribute('data-aue-type', 'media');
-      imgDiv2.appendChild(img2);
+
+    col1.appendChild(wrap1);
+  }
+
+  // Image 2 (bottom left)
+  if (pictureNodes[1]) {
+    const wrap2 = document.createElement('div');
+    wrap2.className = 'careerImg pictwo';
+    wrap2.appendChild(pictureNodes[1]);
+
+    const img = wrap2.querySelector('img');
+    if (img) {
+      img.setAttribute('data-aue-prop', 'imageTeamSmall');
+      img.setAttribute('data-aue-label', 'Image 2 (Bottom Left)');
+      img.setAttribute('data-aue-type', 'media');
     }
-    col1.appendChild(imgDiv2);
+
+    col1.appendChild(wrap2);
   }
-  
-  // Build Column 2 - Content
-  const cardContent = document.createElement('div');
-  cardContent.className = 'cardContent';
-  
-  // Use H3 if available, otherwise use H2
-  if (contentH3) {
-    const h3 = document.createElement('h3'); // Create h3 element
-    h3.textContent = contentH3.textContent;
-    cardContent.appendChild(h3);
-  } else if (contentH2) {
-    const h2 = document.createElement('h2');
-    h2.textContent = contentH2.textContent;
-    cardContent.appendChild(h2);
+
+
+  /* -------------------------
+     COLUMN 2 – BLUE CARD
+  ------------------------- */
+
+  if (blueCardNode) {
+    const cardContent = document.createElement('div');
+    cardContent.className = 'cardContent';
+    cardContent.appendChild(blueCardNode);
+    col2.appendChild(cardContent);
   }
-  
-  if (contentP) {
-    const p = document.createElement('p');
-    p.textContent = contentP.textContent;
-    cardContent.appendChild(p);
-  } else if (!contentP && (contentH3 || contentH2)) {
-    // If paragraph is missing, add a fallback
-    const p = document.createElement('p');
-    p.textContent = 'Build your career in a company where your ambition meets opportunity.';
-    cardContent.appendChild(p);
-  }
-  
-  col2.appendChild(cardContent);
-  
-  // Build Column 3 - Large image and CTA
-  if (images.length >= 3) {
-    const imgDiv3 = document.createElement('div');
-    imgDiv3.className = 'careerImg picthree';
-    const picture3 = images[2].querySelector('picture');
-    if (picture3) {
-      const img3 = document.createElement('img');
-      const imgSrc = picture3.querySelector('img').src;
-      img3.src = imgSrc;
-      img3.setAttribute('data-aue-prop', 'imageTeamLarge');
-      img3.setAttribute('data-aue-label', 'Image 3 (Right Side)');
-      img3.setAttribute('data-aue-type', 'media');
-      imgDiv3.appendChild(img3);
+
+
+  /* -------------------------
+     COLUMN 3 – LARGE IMAGE + CTA
+  ------------------------- */
+
+  // Image 3 (right side)
+  if (pictureNodes[2]) {
+    const wrap3 = document.createElement('div');
+    wrap3.className = 'careerImg picthree';
+    wrap3.appendChild(pictureNodes[2]);
+
+    const img = wrap3.querySelector('img');
+    if (img) {
+      img.setAttribute('data-aue-prop', 'imageTeamLarge');
+      img.setAttribute('data-aue-label', 'Image 3 (Right Side)');
+      img.setAttribute('data-aue-type', 'media');
     }
-    col3.appendChild(imgDiv3);
+
+    col3.appendChild(wrap3);
   }
-  
-  // Add CTA button
-  const ctaDiv = document.createElement('div');
-  ctaDiv.className = 'cta careerBtn';
-  
-  const link = document.createElement('a');
-  if (ctaLink) {
-    link.href = ctaLink.href || '#';
-    link.textContent = ctaText || ctaLink.textContent || 'Explore Life at GMR';
-    link.setAttribute('title', ctaLink.getAttribute('title') || '#');
-  } else {
-    link.href = '#';
-    link.textContent = ctaText || 'Explore Life at GMR';
-    link.setAttribute('title', '#');
+
+  // --- CTA MERGE FIX ---
+  const ctaWrap = document.createElement('div');
+  ctaWrap.className = 'cta careerBtn';
+
+  const finalBtn = document.createElement('a');
+  finalBtn.className = 'btn btn-orange w-100';
+
+  // CTA LABEL (from text field)
+  if (ctaLabelNode) {
+    const p = ctaLabelNode.querySelector('p');
+    if (p) {
+      finalBtn.textContent = p.textContent.trim();
+    }
   }
-  
-  ctaDiv.appendChild(link);
-  col3.appendChild(ctaDiv);
-  
-  // Assemble the structure
+
+  // CTA URL/TITLE (from button field)
+  if (ctaLinkNode) {
+    const a = ctaLinkNode.querySelector('a');
+    if (a) {
+      finalBtn.href = a.href;
+      if (a.title) finalBtn.title = a.title;
+    }
+  }
+
+  ctaWrap.appendChild(finalBtn);
+  col3.appendChild(ctaWrap);
+
+
+  /* -------------------------
+     ASSEMBLE FINAL STRUCTURE
+  ------------------------- */
+
   row.appendChild(col1);
   row.appendChild(col2);
   row.appendChild(col3);
   container.appendChild(row);
-  
-  // Clear the original block
+
+  // Clear AEM block first
   block.innerHTML = '';
-  
-  // Create and prepend the header
-  if (headerText) {
+
+  // Add header wrapper
+  if (sectionTitleNode) {
     const header = document.createElement('header');
-    header.className = 'entry-container';
-    
-    const headerH2 = document.createElement('h2');
-    headerH2.textContent = headerText;
-    
-    header.appendChild(headerH2);
-    block.appendChild(header);
-  } else {
-    // Fallback header
-    const header = document.createElement('header');
-    header.className = 'entry-container';
-    
-    const headerH2 = document.createElement('h2');
-    headerH2.textContent = 'Grow With a Purpose-Driven Team';
-    
-    header.appendChild(headerH2);
+    header.className = 'entry-container text-center';
+
+    const p = sectionTitleNode.querySelector('p');
+    if (p) p.classList.add('title');
+    else sectionTitleNode.classList.add('title');
+
+    header.appendChild(sectionTitleNode);
     block.appendChild(header);
   }
-  
-  // Add the main container
+
   block.appendChild(container);
 }
