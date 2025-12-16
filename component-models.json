@@ -33,16 +33,9 @@
         "label": "Card Teaser (optional)"
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "cardImage",
-        "label": "Card Image (DAM Path)",
-        "description": "Example: /content/dam/gmr/news/delhi-airport.jpg"
-      },
-      {
         "component": "reference",
         "label": "Reference",
-        "name": "reference",
+        "name": "cardImage",
         "valueType": "string"
       },
       {

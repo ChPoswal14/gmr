@@ -33,3 +33,49 @@ indices:
       publicationDate:
         select: head > meta[name="publicationDate"]
         value: attribute(el, "content")
+
+  pages2:
+    include:
+      - '/en/news/*'
+    exclude:
+      - '/en/news/'
+    target: /news-index.json
+    properties:
+      # --- NEW: PROPERTIES FOR NEWS & SEARCH ---
+      cardTitle:
+        select: head > meta[name="cardTitle"]
+        value: attribute(el, "content")
+      cardTeaser:
+        select: head > meta[name="cardTeaser"]
+        value: attribute(el, "content")
+      cardImage:
+        select: head > meta[name="cardImage"]
+        value: attribute(el, "content")
+      publishDate:
+        select: head > meta[name="publishDate"]
+        value: attribute(el, "content")
+      contentType:
+        select: head > meta[name="contentType"]
+        value: attribute(el, "content")
+      featured:
+        select: head > meta[name="featured"]
+        value: attribute(el, "content")
+      showInListing:
+        select: head > meta[name="showInListing"]
+        value: attribute(el, "content")
+      cardPriority:
+        select: head > meta[name="cardPriority"]
+        value: attribute(el, "content")
+      ctaLabel:
+        select: head > meta[name="ctaLabel"]
+        value: attribute(el, "content")
+      ctaLink:
+        select: head > meta[name="ctaLink"]
+        value: attribute(el, "content")
+      tags:
+        # This matches the <meta property="article:tag"> we injected in your news-page.js
+        select: head > meta[property="article:tag"]
+        value: attribute(el, "content")
+      publicationDate:
+        select: head > meta[name="publicationDate"]
+        value: attribute(el, "content")
