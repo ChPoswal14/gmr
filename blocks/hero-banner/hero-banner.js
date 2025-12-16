@@ -11,26 +11,53 @@ function isValidRow(row) {
   );
 }
 
-/* ---------- Custom Arrows ---------- */
-function buildHeroArrows(swiper) {
+/* ---------- Custom Nav: Arrows + Numbers ---------- */
+function buildHeroNav(swiper, total) {
   const nav = document.createElement("div");
-  nav.className = "hero-arrows";
+  nav.className = "hero-nav";
 
+  /* Prev */
   const prev = document.createElement("button");
   prev.className = "hero-arrow hero-prev";
   prev.setAttribute("aria-label", "Previous slide");
   prev.innerHTML = "&#8592;";
 
+  /* Next */
   const next = document.createElement("button");
   next.className = "hero-arrow hero-next";
   next.setAttribute("aria-label", "Next slide");
   next.innerHTML = "&#8594;";
 
-  prev.addEventListener("click", () => swiper.slidePrev());
-  next.addEventListener("click", () => swiper.slideNext());
+  /* Numbers */
+  const numbers = document.createElement("div");
+  numbers.className = "hero-numbers";
 
-  nav.append(prev, next);
+  const nums = [];
+
+  for (let i = 0; i < total; i += 1) {
+    const num = document.createElement("span");
+    num.className = "hero-num";
+    num.textContent = String(i + 1).padStart(2, "0");
+
+    num.addEventListener("click", () => swiper.slideToLoop(i));
+
+    nums.push(num);
+    numbers.append(num);
+  }
+
+  nav.append(prev, numbers, next);
   swiper.el.append(nav);
+
+  prev.onclick = () => swiper.slidePrev();
+  next.onclick = () => swiper.slideNext();
+
+  function updateActive() {
+    nums.forEach((n) => n.classList.remove("active"));
+    nums[swiper.realIndex]?.classList.add("active");
+  }
+
+  swiper.on("slideChange", updateActive);
+  updateActive();
 }
 
 export default async function decorate(block) {
@@ -122,25 +149,13 @@ export default async function decorate(block) {
   });
 
   swiper.append(wrapper);
-
-  swiper.insertAdjacentHTML(
-    "beforeend",
-    `
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  `
-  );
-
   block.append(swiper);
   block.classList.add("hero-banner-initialized");
 
-  /* ---------- Init Swiper ---------- */
   const swiperInstance = new Swiper(swiper, {
     loop: rows.length > 1,
     speed: 800,
   });
 
-  /* ---------- Custom Prev / Next ---------- */
-  buildHeroArrows(swiperInstance);
+  buildHeroNav(swiperInstance, rows.length);
 }
