@@ -33,11 +33,10 @@
         "label": "Card Teaser (optional)"
       },
       {
-        "component": "text",
-        "valueType": "string",
+        "component": "reference",
+        "label": "Reference",
         "name": "cardImage",
-        "label": "Card Image (DAM Path)",
-        "description": "Example: /content/dam/gmr/news/delhi-airport.jpg"
+        "valueType": "string"
       },
       {
         "component": "text",
@@ -94,58 +93,6 @@
         "valueType": "string",
         "name": "ctaLink",
         "label": "CTA Link (optional)"
-      }
-    ]
-  },
-  {
-    "id": "news-page",
-    "fields": [
-      {
-        "component": "tab",
-        "name": "tab-meta",
-        "label": "Settings & Tags",
-        "fields": [
-          {
-            "component": "text",
-            "name": "tags",
-            "label": "Category Tag (Filter)",
-            "valueType": "string",
-            "required": true,
-            "comment": "Type Aero, Energy, or Corporate"
-          },
-          {
-            "component": "reference",
-            "name": "image",
-            "label": "Thumbnail Image",
-            "valueType": "string"
-          },
-          {
-            "component": "text",
-            "name": "publicationDate",
-            "label": "Date",
-            "valueType": "string",
-            "defaultValue": "YYYY-MM-DD"
-          }
-        ]
-      },
-      {
-        "component": "tab",
-        "name": "tab-content",
-        "label": "Article Content",
-        "fields": [
-          {
-            "component": "text",
-            "name": "title",
-            "label": "Headline",
-            "valueType": "string"
-          },
-          {
-            "component": "richtext",
-            "name": "body",
-            "label": "Story Body",
-            "valueType": "string"
-          }
-        ]
       }
     ]
   },

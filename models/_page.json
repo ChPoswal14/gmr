@@ -34,13 +34,11 @@
           "name": "cardTeaser",
           "label": "Card Teaser (optional)"
         },
-
         {
-          "component": "text",
-          "valueType": "string",
+          "component": "reference",
+          "label": "Reference",
           "name": "cardImage",
-          "label": "Card Image (DAM Path)",
-          "description": "Example: /content/dam/gmr/news/delhi-airport.jpg"
+          "valueType": "string"
         },
 
         {
@@ -91,7 +89,6 @@
           "label": "Card Priority (1 = highest)",
           "default": 100
         },
-
         {
           "component": "text",
           "valueType": "string",
