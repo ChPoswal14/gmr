@@ -743,21 +743,6 @@
               }
             }
           }
-        },
-        {
-          "title": "Story Item",
-          "id": "story-item",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Story Item",
-                  "model": "story-item"
-                }
-              }
-            }
-          }
         }
       ]
     }

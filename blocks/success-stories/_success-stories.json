@@ -15,21 +15,6 @@
           }
         }
       }
-    },
-    {
-      "title": "Story Item",
-      "id": "story-item",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Story Item",
-              "model": "story-item"
-            }
-          }
-        }
-      }
     }
   ],
 
@@ -40,16 +25,9 @@
         { "component": "text", "valueType": "string", "name": "sectionTitle", "label": "Section Title" },
         { "component": "richtext", "valueType": "string", "name": "sectionDescription", "label": "Section Description" },
         { "component": "text", "valueType": "string", "name": "sectionCTA", "label": "Section CTA Text" },
-        { "component": "text", "valueType": "string", "name": "sectionCTALink", "label": "Section CTA Link" }
-        
-      ]
-    },
-
-    {
-      "id": "story-item",
-      "fields": [
+        { "component": "text", "valueType": "string", "name": "sectionCTALink", "label": "Section CTA Link" },
         { "component": "text", "valueType": "string", "name": "category", "label": "Section Category" }
-     
+        
       ]
     }
   ],
@@ -57,7 +35,7 @@
   "filters": [
     {
       "id": "success-stories",
-      "components": ["story-item"]
+      "components": []
     }
   ]
 }

@@ -1153,12 +1153,7 @@
         "valueType": "string",
         "name": "sectionCTALink",
         "label": "Section CTA Link"
-      }
-    ]
-  },
-  {
-    "id": "story-item",
-    "fields": [
+      },
       {
         "component": "text",
         "valueType": "string",
