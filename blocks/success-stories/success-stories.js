@@ -23,15 +23,15 @@ export default async function decorate(block) {
       return;
     }
  
-    items.forEach((item) => {
+    items.forEach((item) => {console.log(item);
       const card = document.createElement('div');
       card.className = 'story-card';
  
-      const imagePath = item.storyimage?._path || '';
+      const imagePath = item.storyImage?._path || '';
       const title = item.title || '';
       const description = item.description?.html || '';
-      const ctaText = item.ctatext?.html || '';
-      const ctaLink = item.ctalink || '#';
+      const ctaText = item.ctaText?.html || '';
+      const ctaLink = item.ctaLink || '#';
  
       card.innerHTML = `
 <div class="story-image">
