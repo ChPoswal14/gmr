@@ -1,36 +1,60 @@
 import { getApiHost } from '../../scripts/api.js';
-
+ 
 export default async function decorate(block) {
   const wrapper = document.createElement('div');
-  wrapper.className = 'news-results';
+  wrapper.className = 'success-stories-cards';
   block.appendChild(wrapper);
-
+ 
   try {
-    const apiUrl = `${getApiHost()}/api/v1/web/gmr/hello`;
+    const apiUrl = `${getApiHost()}/api/v1/web/gmr/success-story`;
     const res = await fetch(apiUrl);
 
     if (!res.ok) {
       throw new Error(`API error ${res.status}`);
     }
-
+ 
     const json = await res.json();
-    const items = json?.data?.data?.newsList_2?.items || [];
 
+    const items =
+      json?.data?.data?.successStoryList?.items || [];
+ 
     if (!items.length) {
-      wrapper.innerHTML = '<p>No news found.</p>';
+      wrapper.innerHTML = '<p>No success stories found.</p>';
       return;
     }
-
+ 
     items.forEach((item) => {
       const card = document.createElement('div');
-      card.className = 'news-card';
+      card.className = 'story-card';
+ 
+      const imagePath = item.storyimage?._path || '';
+      const title = item.title || '';
+      const description = item.description?.html || '';
+      const ctaText = item.ctatext?.html || '';
+      const ctaLink = item.ctalink || '#';
+ 
       card.innerHTML = `
-        <h3>${item.title}</h3>
-        <p>${item.description?.plaintext || ''}</p>
+<div class="story-image">
+<img src="${imagePath}" alt="${title}">
+</div>
+<div class="story-content">
+<h3>${title}</h3>
+<div class="description">${description}</div>
+<a class="read-more" href="${ctaLink}">
+            ${stripHtml(ctaText)} →
+</a>
+</div>
       `;
+ 
       wrapper.appendChild(card);
     });
   } catch (err) {
-    wrapper.innerHTML = `<p>${err.message}</p>`;
+    wrapper.innerHTML = `<p>Error: ${err.message}</p>`;
   }
+}
+ 
+function stripHtml(html) {
+  const div = document.createElement('div');
+  div.innerHTML = html || '';
+  return div.textContent || '';
 }

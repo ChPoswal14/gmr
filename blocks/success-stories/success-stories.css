@@ -1,11 +1,21 @@
-.news-results {
-  display: grid;
-  gap: 1rem;
+.success-stories-cards {
+  display: flex;
+  gap: 32px;
 }
-
-.news-card {
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #fafafa;
+ 
+.story-card {
+  width: 420px;
+  background: #f2f8ff;
+  border-radius: 16px;
+  overflow: hidden;
+}
+ 
+.story-image img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+ 
+.story-content {
+  padding: 24px;
 }
