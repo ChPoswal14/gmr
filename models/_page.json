@@ -1,21 +1,117 @@
 {
-  "definitions": [
-    {
-      "id": "page",
-      "title": "Page",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/page/v1/page"
-          }
-        }
-      }
-    }
-  ],
   "models": [
     {
       "id": "page",
       "title": "Page"
+    },
+    {
+      "id": "page-metadata",
+      "title": "Page Metadata",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "jcr:title",
+          "label": "Page Title"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "jcr:description",
+          "label": "Page Description"
+        },
+
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "cardTitle",
+          "label": "Card Title",
+          "description": "Headline shown on listing cards"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "cardTeaser",
+          "label": "Card Teaser (optional)"
+        },
+
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "cardImage",
+          "label": "Card Image (DAM Path)",
+          "description": "Example: /content/dam/gmr/news/delhi-airport.jpg"
+        },
+        {
+          "component": "reference",
+          "label": "Reference",
+          "name": "reference",
+          "valueType": "string"
+        },
+
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "publishDate",
+          "label": "Publish Date (YYYY-MM-DD)"
+        },
+
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "contentType",
+          "label": "Content Type",
+          "description": "news, blog, story, case-study"
+        },
+
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "contentAudience",
+          "label": "Audience / Sections",
+          "description": "Comma-separated values (aero, energy, corporate)"
+        },
+
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "featured",
+          "label": "Featured Content",
+          "description": "true or false",
+          "default": "false"
+        },
+
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "showInListing",
+          "label": "Show in Listings",
+          "description": "true or false",
+          "default": "true"
+        },
+
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "cardPriority",
+          "label": "Card Priority (1 = highest)",
+          "default": 100
+        },
+
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "ctaLabel",
+          "label": "CTA Label",
+          "default": "Read More"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "ctaLink",
+          "label": "CTA Link (optional)"
+        }
+      ]
     }
   ]
 }
