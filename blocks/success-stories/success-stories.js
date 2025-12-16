@@ -27,7 +27,7 @@ export default async function decorate(block) {
       const card = document.createElement('div');
       card.className = 'story-card';
  
-      const imagePath = item.storyImage?._path || '';
+      const imagePath = item.storyImage?._publishUrl || '';
       const title = item.title || '';
       const description = item.description?.html || '';
       const ctaText = item.ctaText?.html || '';
