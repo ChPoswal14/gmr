@@ -4,13 +4,28 @@ const SWIPER_JS = "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
 const SWIPER_CSS =
   "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
 
+/* ---------- Helper ---------- */
+function isValidSlide(row) {
+  // must contain text, picture, or link
+  return (
+    row.textContent.trim().length > 0 ||
+    row.querySelector("picture") ||
+    row.querySelector("a")
+  );
+}
+
 export default async function decorate(block) {
   await loadCSS(SWIPER_CSS);
   await loadScript(SWIPER_JS);
 
-  const rows = [...block.children];
+  const allRows = [...block.children];
 
-  /* ---------- Create Swiper Structure ---------- */
+  /* ---------- Filter Real Slides ---------- */
+  const rows = allRows.filter(isValidSlide);
+
+  if (!rows.length) return;
+
+  /* ---------- Swiper Wrapper ---------- */
   const swiper = document.createElement("div");
   swiper.className = "swiper hero-swiper";
 
@@ -19,12 +34,11 @@ export default async function decorate(block) {
 
   rows.forEach((row) => {
     row.classList.add("swiper-slide", "hero-slide");
-    wrapper.append(row); // 🔥 MOVE original node, don't recreate
+    wrapper.append(row); // keep original node
   });
 
   swiper.append(wrapper);
 
-  /* ---------- Add Controls ---------- */
   swiper.insertAdjacentHTML(
     "beforeend",
     `
@@ -34,20 +48,15 @@ export default async function decorate(block) {
   `
   );
 
-  /* ---------- Wrap without destroying ---------- */
   block.append(swiper);
-
-  /* ---------- Hide original table look ---------- */
   block.classList.add("hero-banner-initialized");
 
   /* ---------- Init Swiper ---------- */
   new Swiper(swiper, {
-    loop: true,
+    loop: rows.length > 1,
     speed: 800,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false,
-    },
+    autoplay:
+      rows.length > 1 ? { delay: 5000, disableOnInteraction: false } : false,
     pagination: {
       el: swiper.querySelector(".swiper-pagination"),
       clickable: true,
