@@ -1,5 +1,18 @@
 import { getApiHost } from '../../scripts/api.js';
 
+/* --------------------------------------------------
+   DAM URL helper (MUST be at top)
+-------------------------------------------------- */
+const DAM_HOST = 'https://publish-p168597-e1803019.adobeaemcloud.com';
+
+function getDamUrl(path) {
+  if (!path) return '';
+  return `${DAM_HOST}${path}`;
+}
+
+/* --------------------------------------------------
+   Block decorate
+-------------------------------------------------- */
 export default async function decorate(block) {
   const wrapper = document.createElement('div');
   wrapper.className = 'success-stories-cards';
@@ -14,9 +27,7 @@ export default async function decorate(block) {
     }
 
     const json = await res.json();
-
-    const items =
-      json?.data?.data?.successStoryList?.items || [];
+    const items = json?.data?.data?.successStoryList?.items || [];
 
     if (!items.length) {
       wrapper.innerHTML = '<p>No success stories found.</p>';
@@ -27,9 +38,7 @@ export default async function decorate(block) {
       const card = document.createElement('div');
       card.className = 'story-card';
 
-      const imagePath = item.storyImage?._path || '';
-      const imageUrl = getDamUrl(imagePath);
-
+      const imageUrl = getDamUrl(item.storyImage?._path);
       const title = item.title || '';
       const description = item.description?.html || '';
       const ctaText = item.ctaText?.html || '';
@@ -51,17 +60,16 @@ export default async function decorate(block) {
       wrapper.appendChild(card);
     });
   } catch (err) {
-    wrapper.innerHTML = `<p>Error: ${err.message}</p>`;
+    console.error('Success stories error:', err);
+    wrapper.innerHTML = `<p>Error loading success stories</p>`;
   }
 }
 
+/* --------------------------------------------------
+   Utility
+-------------------------------------------------- */
 function stripHtml(html) {
   const div = document.createElement('div');
   div.innerHTML = html || '';
   return div.textContent || '';
-}
-
-function getDamUrl(path) {
-  if (!path) return '';
-  return `https://publish-p168597-e1803019.adobeaemcloud.com${path}`;
 }
