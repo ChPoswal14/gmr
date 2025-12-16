@@ -22,28 +22,30 @@ export default async function decorate(block) {
       wrapper.innerHTML = '<p>No success stories found.</p>';
       return;
     }
+
+    
  
-    items.forEach((item) => {console.log(item);
+    items.forEach((item) => {
       const card = document.createElement('div');
       card.className = 'story-card';
- 
+      
       const imagePath = item.storyImage?._publishUrl || '';
       const title = item.title || '';
-      const description = item.description?.html || '';
-      const ctaText = item.ctaText?.html || '';
+      const description = item.description?.plaintext || '';
+      const ctaText = item.ctaText?.plaintext || '';
       const ctaLink = item.ctaLink || '#';
- 
+      
       card.innerHTML = `
-<div class="story-image">
-<img src="${imagePath}" alt="${title}">
-</div>
-<div class="story-content">
-<h3>${title}</h3>
-<div class="description">${description}</div>
-<a class="read-more" href="${ctaLink}">
-            ${stripHtml(ctaText)} →
-</a>
-</div>
+        <div class="story-image">
+        <img src="${imagePath}" alt="${title}">
+        </div>
+        <div class="story-content">
+        <h3>${title}</h3>
+        <div class="description">${description}</div>
+        <a class="read-more" href="${ctaLink}">
+                    ${stripHtml(ctaText)} →
+        </a>
+        </div>
       `;
  
       wrapper.appendChild(card);
