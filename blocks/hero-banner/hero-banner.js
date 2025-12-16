@@ -11,6 +11,28 @@ function isValidRow(row) {
   );
 }
 
+/* ---------- Custom Arrows ---------- */
+function buildHeroArrows(swiper) {
+  const nav = document.createElement("div");
+  nav.className = "hero-arrows";
+
+  const prev = document.createElement("button");
+  prev.className = "hero-arrow hero-prev";
+  prev.setAttribute("aria-label", "Previous slide");
+  prev.innerHTML = "&#8592;";
+
+  const next = document.createElement("button");
+  next.className = "hero-arrow hero-next";
+  next.setAttribute("aria-label", "Next slide");
+  next.innerHTML = "&#8594;";
+
+  prev.addEventListener("click", () => swiper.slidePrev());
+  next.addEventListener("click", () => swiper.slideNext());
+
+  nav.append(prev, next);
+  swiper.el.append(nav);
+}
+
 export default async function decorate(block) {
   await loadCSS(SWIPER_CSS);
   await loadScript(SWIPER_JS);
@@ -113,18 +135,12 @@ export default async function decorate(block) {
   block.append(swiper);
   block.classList.add("hero-banner-initialized");
 
-  new Swiper(swiper, {
+  /* ---------- Init Swiper ---------- */
+  const swiperInstance = new Swiper(swiper, {
     loop: rows.length > 1,
     speed: 800,
-    // autoplay:
-    //   rows.length > 1 ? { delay: 5000, disableOnInteraction: false } : false,
-    pagination: {
-      el: swiper.querySelector(".swiper-pagination"),
-      clickable: true,
-    },
-    navigation: {
-      nextEl: swiper.querySelector(".swiper-button-next"),
-      prevEl: swiper.querySelector(".swiper-button-prev"),
-    },
   });
+
+  /* ---------- Custom Prev / Next ---------- */
+  buildHeroArrows(swiperInstance);
 }
