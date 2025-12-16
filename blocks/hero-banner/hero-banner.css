@@ -31,7 +31,7 @@
     left: 0;
     width: 750px;
     height: 100%;
-    padding: 90px 0 90px 90px;
+    padding: 90px 0 180px 90px;
     color: white;
     display: flex;
     flex-direction: column;
@@ -101,12 +101,12 @@
 
 .hero-num {
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--lorange);
     cursor: pointer;
 }
 
 .hero-num.active {
-    color: #f5b335;
+    color: var(--white);
 }
 
 /* Line */
