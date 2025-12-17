@@ -357,6 +357,23 @@
     ]
   },
   {
+    "id": "aviation-infrastructure",
+    "fields": [
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Heading",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "awards-carousel",
     "fields": [
       {
@@ -387,6 +404,83 @@
         "valueType": "string",
         "name": "description",
         "label": "Award Description"
+      }
+    ]
+  },
+  {
+    "id": "awards-recognition",
+    "fields": [
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Main Heading",
+        "valueType": "string"
+      },
+      {
+        "component": "header",
+        "label": "Award Card 1"
+      },
+      {
+        "component": "image",
+        "name": "award1Image",
+        "label": "Award Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "award1Title",
+        "label": "Award Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "award1Desc",
+        "label": "Award Description",
+        "valueType": "string"
+      },
+      {
+        "component": "header",
+        "label": "Award Card 2"
+      },
+      {
+        "component": "image",
+        "name": "award2Image",
+        "label": "Award Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "award2Title",
+        "label": "Award Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "award2Desc",
+        "label": "Award Description",
+        "valueType": "string"
+      },
+      {
+        "component": "header",
+        "label": "Award Card 3"
+      },
+      {
+        "component": "image",
+        "name": "award3Image",
+        "label": "Award Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "award3Title",
+        "label": "Award Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "award3Desc",
+        "label": "Award Description",
+        "valueType": "string"
       }
     ]
   },
@@ -1058,6 +1152,133 @@
         "valueType": "string",
         "name": "ctaText",
         "label": "CTA Text"
+      }
+    ]
+  },
+  {
+    "id": "key-highlights",
+    "fields": [
+      {
+        "component": "text",
+        "name": "mainHeading",
+        "label": "Main Heading",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "introText",
+        "label": "Introduction Text",
+        "valueType": "string"
+      },
+      {
+        "component": "header",
+        "label": "Card 1"
+      },
+      {
+        "component": "image",
+        "name": "card1Image",
+        "label": "Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "card1Title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "card1Desc",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "header",
+        "label": "Card 2"
+      },
+      {
+        "component": "image",
+        "name": "card2Image",
+        "label": "Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "card2Title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "card2Desc",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "header",
+        "label": "Card 3"
+      },
+      {
+        "component": "image",
+        "name": "card3Image",
+        "label": "Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "card3Title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "card3Desc",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "header",
+        "label": "Card 4"
+      },
+      {
+        "component": "image",
+        "name": "card4Image",
+        "label": "Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "card4Title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "card4Desc",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "header",
+        "label": "Card 5"
+      },
+      {
+        "component": "image",
+        "name": "card5Image",
+        "label": "Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "card5Title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "card5Desc",
+        "label": "Description",
+        "valueType": "string"
       }
     ]
   },

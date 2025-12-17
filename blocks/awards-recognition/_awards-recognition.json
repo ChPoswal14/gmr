@@ -1,0 +1,53 @@
+{
+  "definitions": [
+    {
+      "title": "Awards and Recognition",
+      "id": "awards-recognition",
+      "groups": ["Aviation"],
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "awards-recognition",
+              "model": "awards-recognition"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "awards-recognition",
+      "fields": [
+        {
+          "component": "text",
+          "name": "heading",
+          "label": "Main Heading",
+          "valueType": "string"
+        },
+        { "component": "header", "label": "Award Card 1" },
+        { "component": "image", "name": "award1Image", "label": "Award Image", "valueType": "string" },
+        { "component": "text", "name": "award1Title", "label": "Award Title", "valueType": "string" },
+        { "component": "richtext", "name": "award1Desc", "label": "Award Description", "valueType": "string" },
+
+        { "component": "header", "label": "Award Card 2" },
+        { "component": "image", "name": "award2Image", "label": "Award Image", "valueType": "string" },
+        { "component": "text", "name": "award2Title", "label": "Award Title", "valueType": "string" },
+        { "component": "richtext", "name": "award2Desc", "label": "Award Description", "valueType": "string" },
+
+        { "component": "header", "label": "Award Card 3" },
+        { "component": "image", "name": "award3Image", "label": "Award Image", "valueType": "string" },
+        { "component": "text", "name": "award3Title", "label": "Award Title", "valueType": "string" },
+        { "component": "richtext", "name": "award3Desc", "label": "Award Description", "valueType": "string" }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "awards-recognition",
+      "components": []
+    }
+  ]
+}

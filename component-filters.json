@@ -26,7 +26,10 @@
       "privacy-request",
       "news-updates",
       "careers-highlight",
-      "content-listing"
+      "content-listing",
+      "aviation-infrastructure",
+      "key-highlights",
+      "awards-recognition"
     ]
   },
   {
@@ -42,10 +45,18 @@
     ]
   },
   {
+    "id": "aviation-infrastructure",
+    "components": []
+  },
+  {
     "id": "awards-carousel",
     "components": [
       "award-item"
     ]
+  },
+  {
+    "id": "awards-recognition",
+    "components": []
   },
   {
     "id": "businesses-section",
@@ -145,6 +156,10 @@
     "components": [
       "innovation-card-item"
     ]
+  },
+  {
+    "id": "key-highlights",
+    "components": []
   },
   {
     "id": "listed-companies",
