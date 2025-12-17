@@ -1,7 +1,7 @@
 {
   "definitions": [
     {
-      "title": "Awards and Recognitions",
+      "title": "Awards and Recognition",
       "id": "awards-recognition",
       "groups": ["Aviation"],
       "plugins": {
