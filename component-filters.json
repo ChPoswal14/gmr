@@ -28,7 +28,7 @@
       "careers-highlight",
       "content-listing",
       "aviation-infrastructure",
-      "key-highlight",
+      "key-highlights",
       "awards-recognitions"
     ]
   },
@@ -160,7 +160,7 @@
     ]
   },
   {
-    "id": "key-highlight",
+    "id": "key-highlights",
     "components": [
       "key-highlight-item"
     ]
