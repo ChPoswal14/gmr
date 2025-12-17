@@ -2,22 +2,22 @@
   "definitions": [
     {
       "title": "Key Highlights",
-      "id": "key-highlights",
+      "id": "key-highlightss",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "key-highlights",
-              "model": "key-highlights",
-              "filter": "key-highlights"
+              "name": "key-highlightss",
+              "model": "key-highlightss",
+              "filter": "key-highlightss"
             }
           }
         }
       }
     },
     {
-      "title": "Key Highlight Item",
+      "title": "Key Highlight Card",
       "id": "key-highlight-item",
       "plugins": {
         "xwalk": {
@@ -34,7 +34,7 @@
   ],
   "models": [
     {
-      "id": "key-highlights",
+      "id": "key-highlightss",
       "fields": [
         {
           "component": "text",
@@ -42,6 +42,13 @@
           "label": "Section Title",
           "valueType": "string",
           "defaultValue": "Key Highlights"
+        },
+        {
+          "component": "richtext",
+          "name": "sectionDescription",
+          "label": "Section Description",
+          "valueType": "string",
+          "defaultValue": "Operating airports in Delhi, Hyderabad, Goa, Nagpur, Bidar, and Medan (Indonesia), and providing technical support at Mactan–Cebu Airport (Philippines)."
         }
       ]
     },
@@ -49,6 +56,12 @@
       "id": "key-highlight-item",
       "itemLabel": "title",
       "fields": [
+        {
+          "component": "reference",
+          "name": "image",
+          "label": "Highlight Image",
+          "valueType": "string"
+        },
         {
           "component": "text",
           "name": "title",
@@ -66,7 +79,7 @@
   ],
   "filters": [
     {
-      "id": "key-highlights",
+      "id": "key-highlightss",
       "components": [
         "key-highlight-item"
       ]

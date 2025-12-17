@@ -1042,7 +1042,7 @@
     ]
   },
   {
-    "id": "key-highlights",
+    "id": "key-highlightss",
     "fields": [
       {
         "component": "text",
@@ -1050,6 +1050,13 @@
         "label": "Section Title",
         "valueType": "string",
         "defaultValue": "Key Highlights"
+      },
+      {
+        "component": "richtext",
+        "name": "sectionDescription",
+        "label": "Section Description",
+        "valueType": "string",
+        "defaultValue": "Operating airports in Delhi, Hyderabad, Goa, Nagpur, Bidar, and Medan (Indonesia), and providing technical support at Mactan–Cebu Airport (Philippines)."
       }
     ]
   },
@@ -1057,6 +1064,12 @@
     "id": "key-highlight-item",
     "itemLabel": "title",
     "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Highlight Image",
+        "valueType": "string"
+      },
       {
         "component": "text",
         "name": "title",
