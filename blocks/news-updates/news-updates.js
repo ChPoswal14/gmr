@@ -117,3 +117,15 @@ export default async function decorate(block) {
   }
 }
 
+<<<<<<< HEAD
+=======
+/* ================================
+   Helper
+   ================================ */
+function formatCategory(cat = '') {
+  return cat
+    .split('-')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+>>>>>>> 349c180b83e595cfc329f718755f48314b7543de
