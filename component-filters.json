@@ -161,7 +161,9 @@
   },
   {
     "id": "key-highlights",
-    "components": []
+    "components": [
+      "highlight-item"
+    ]
   },
   {
     "id": "listed-companies",
