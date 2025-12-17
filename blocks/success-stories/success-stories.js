@@ -35,11 +35,12 @@ export default async function decorate(block) {
      3️⃣ Bootstrap layout
      ================================ */
   runtime.innerHTML = `
-    <div class="row align-items-end">
+  <div class="inner-container">
+    <div class="row">
       <div class="col-lg-4">
-        <h2 class="section-title">${title}</h2>
+        <h2 class="fw-normal text-primary">${title}</h2>
         <div class="section-description">${description}</div>
-        <a href="${ctaLink}" class="btn btn-warning mt-3">
+        <a href="${ctaLink}" class="btn btn-primary mt-3">
           ${ctaText}
         </a>
 
@@ -58,6 +59,7 @@ export default async function decorate(block) {
           <div class="swiper-wrapper"></div>
         </div>
       </div>
+    </div>
     </div>
   `;
 
@@ -90,7 +92,7 @@ export default async function decorate(block) {
       slide.className = "swiper-slide";
 
       slide.innerHTML = `
-        <div class="card h-100 shadow-sm">
+        <div class="card h-100 shadow-sm p-4">
           <img
             src="${item.storyImage?._publishUrl || ""}"
             class="card-img-top"
@@ -121,7 +123,7 @@ export default async function decorate(block) {
       speed: 600,
       breakpoints: {
         768: { slidesPerView: 2 },
-        1200: { slidesPerView: 2.5 },
+        1200: { slidesPerView: 1.8 },
       },
       navigation: {
         nextEl: runtime.querySelector(".stories-next"),
