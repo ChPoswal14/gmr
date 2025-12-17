@@ -212,9 +212,6 @@
         {
           "title": "Award Card",
           "id": "award-item",
-          "groups": [
-            "General"
-          ],
           "plugins": {
             "xwalk": {
               "page": {
