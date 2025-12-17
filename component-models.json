@@ -348,7 +348,7 @@
         "label": "Award 1"
       },
       {
-        "component": "reference",
+        "component": "image",
         "name": "award1Image",
         "label": "Award Image 1",
         "valueType": "string"
