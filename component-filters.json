@@ -25,7 +25,11 @@
       "cookie-consent",
       "privacy-request",
       "news-updates",
-      "careers-highlight"
+      "careers-highlight",
+      "content-listing",
+      "aviation-infrastructure",
+      "key-highlights",
+      "awards-recognition"
     ]
   },
   {
@@ -35,24 +39,24 @@
     ]
   },
   {
-    "id": "article-body",
-    "components": []
-  },
-  {
-    "id": "article-header",
-    "components": []
-  },
-  {
     "id": "aviation-expertise",
     "components": [
       "aviation-item"
     ]
   },
   {
+    "id": "aviation-infrastructure",
+    "components": []
+  },
+  {
     "id": "awards-carousel",
     "components": [
       "award-item"
     ]
+  },
+  {
+    "id": "awards-recognition",
+    "components": []
   },
   {
     "id": "businesses-section",
@@ -85,6 +89,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "commitment-cards",
+    "components": [
+      "commitment-card"
     ]
   },
   {
@@ -139,6 +149,16 @@
   },
   {
     "id": "inner-banner",
+    "components": []
+  },
+  {
+    "id": "innovation-cards",
+    "components": [
+      "innovation-card-item"
+    ]
+  },
+  {
+    "id": "key-highlights",
     "components": []
   },
   {
