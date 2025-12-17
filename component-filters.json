@@ -2,7 +2,11 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "text",
+      "image",
+      "button",
+      "title"
     ]
   },
   {
