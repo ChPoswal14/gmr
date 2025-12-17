@@ -350,10 +350,13 @@
     "id": "award-item",
     "fields": [
       {
-        "component": "image",
+        "component": "asset",
         "name": "image",
         "label": "Award Image",
-        "valueType": "string"
+        "valueType": "string",
+        "mimeTypes": [
+          "image/*"
+        ]
       },
       {
         "component": "text",
