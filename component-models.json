@@ -1048,10 +1048,21 @@
         "valueType": "string",
         "name": "ctaLink",
         "label": "CTA Button Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "category",
+        "label": "Section Category"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "limit",
+        "label": "Section Limit"
       }
     ]
-  }
-  ,
+  },
   {
     "id": "passenger-experience",
     "fields": [
