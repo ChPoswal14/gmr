@@ -24,7 +24,7 @@
       "fields": [
         { "component": "text", "name": "heading", "label": "Main Heading", "valueType": "string" },
         { "component": "header", "label": "Award 1" },
-        { "component": "image", "name": "award1Image", "label": "Award Image 1", "valueType": "string" },
+        { "component": "reference", "name": "award1Image", "label": "Award Image 1", "valueType": "string" },
         { "component": "text", "name": "award1Title", "label": "Title 1", "valueType": "string" },
         { "component": "richtext", "name": "award1Desc", "label": "Description 1", "valueType": "string" },
         { "component": "header", "label": "Award 2" },
