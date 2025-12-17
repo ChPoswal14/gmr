@@ -351,13 +351,10 @@
     "itemLabel": "title",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "name": "image",
         "label": "Award Image",
-        "valueType": "string",
-        "mimeTypes": [
-          "image/*"
-        ]
+        "valueType": "string"
       },
       {
         "component": "text",
