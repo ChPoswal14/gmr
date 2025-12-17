@@ -52,7 +52,7 @@
       "itemLabel": "title",
       "fields": [
         {
-          "component": "asset",
+          "component": "image",
           "name": "image",
           "label": "Award Image",
           "valueType": "string",
