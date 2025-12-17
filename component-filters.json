@@ -55,6 +55,12 @@
     ]
   },
   {
+    "id": "awards-recognitions",
+    "components": [
+      "award-item"
+    ]
+  },
+  {
     "id": "businesses-section",
     "components": [
       "business-item"
