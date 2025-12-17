@@ -993,10 +993,7 @@
         "name": "video",
         "label": "Background Video",
         "valueType": "string",
-        "accept": [
-          ".mp4",
-          ".webm"
-        ],
+        "accept": [".mp4", ".webm"],
         "comment": "Optional video for desktop view"
       },
       {
@@ -1238,13 +1235,30 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "tag",
-        "label": "Section Tag"
+        "name": "category",
+        "label": "Section Category"
       }
     ]
   },
   {
-    "id": "story-item",
+    "id": "innovation-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "sectionDescription",
+        "label": "Section Description"
+      }
+    ]
+  },
+  {
+    "id": "innovation-card-item",
     "fields": [
       {
         "component": "reference",
@@ -1256,7 +1270,47 @@
         "component": "text",
         "valueType": "string",
         "name": "title",
-        "label": "Title"
+        "label": "Card Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Card Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      }
+    ]
+  },
+  {
+    "id": "commitment-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      }
+    ]
+  },
+  {
+    "id": "commitment-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Card Title"
       },
       {
         "component": "richtext",
@@ -1267,14 +1321,72 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "ctaText",
-        "label": "CTA Text"
+        "name": "buttonText",
+        "label": "CTA Button Text"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "ctaLink",
-        "label": "CTA Link"
+        "name": "buttonLink",
+        "label": "CTA Button Link"
+      }
+    ]
+  },
+  {
+    "id": "recognition-awards",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "multifield",
+        "name": "items",
+        "label": "Awards",
+        "fields": [
+          {
+            "component": "reference",
+            "name": "image",
+            "label": "Award Image",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "desc",
+            "label": "Award Description",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "content-fragment-block",
+    "fields": []
+  },
+  {
+    "id": "news",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "itemsToShow",
+        "label": "Number of News Items",
+        "default": 5
       }
     ]
   }
