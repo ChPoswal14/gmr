@@ -17,15 +17,15 @@
       }
     },
     {
-      "title": "Highlight Card",
-      "id": "highlight-item",
+      "title": "Key Highlight Item",
+      "id": "key-highlight-item",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "highlight-item",
-              "model": "highlight-item"
+              "name": "key-highlight-item",
+              "model": "key-highlight-item"
             }
           }
         }
@@ -46,15 +46,9 @@
       ]
     },
     {
-      "id": "highlight-item",
+      "id": "key-highlight-item",
       "itemLabel": "title",
       "fields": [
-        {
-          "component": "reference",
-          "name": "image",
-          "label": "Highlight Image",
-          "valueType": "string"
-        },
         {
           "component": "text",
           "name": "title",
@@ -74,7 +68,7 @@
     {
       "id": "key-highlights",
       "components": [
-        "highlight-item"
+        "key-highlight-item"
       ]
     }
   ]

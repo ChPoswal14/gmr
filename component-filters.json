@@ -162,7 +162,7 @@
   {
     "id": "key-highlights",
     "components": [
-      "highlight-item"
+      "key-highlight-item"
     ]
   },
   {

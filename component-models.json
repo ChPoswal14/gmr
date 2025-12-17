@@ -1054,15 +1054,9 @@
     ]
   },
   {
-    "id": "highlight-item",
+    "id": "key-highlight-item",
     "itemLabel": "title",
     "fields": [
-      {
-        "component": "reference",
-        "name": "image",
-        "label": "Highlight Image",
-        "valueType": "string"
-      },
       {
         "component": "text",
         "name": "title",

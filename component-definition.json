@@ -736,15 +736,15 @@
           }
         },
         {
-          "title": "Highlight Card",
-          "id": "highlight-item",
+          "title": "Key Highlight Item",
+          "id": "key-highlight-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "highlight-item",
-                  "model": "highlight-item"
+                  "name": "key-highlight-item",
+                  "model": "key-highlight-item"
                 }
               }
             }
