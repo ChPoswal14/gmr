@@ -1042,14 +1042,14 @@
     ]
   },
   {
-    "id": "key-highlights",
+    "id": "key-highlight",
     "fields": [
       {
         "component": "text",
         "name": "sectionTitle",
         "label": "Section Title",
         "valueType": "string",
-        "defaultValue": "Key Highlights"
+        "defaultValue": "Key Highlight"
       }
     ]
   },
