@@ -6,178 +6,79 @@
     ]
   },
   {
-    "id": "section",
-    "components": [
-      "text",
-      "image",
-      "button",
-      "title",
-      "hero",
-      "cards",
-      "columns",
-      "fragment",
-      "businesses-section",
-      "hero-banner",
-      "article-header",
-      "article-body",
-      "inner-banner",
-      "listed-companies",
-      "cookie-consent",
-      "privacy-request",
-      "news-updates",
-      "careers-highlight",
-      "content-listing",
-      "aviation-infrastructure",
-      "key-highlightss",
-      "awards-recognitions",
-      "global-leaders-aviation"
-    ]
-  },
-  {
-    "id": "airport-overview",
-    "components": [
-      "airport-overview-item"
-    ]
-  },
-  {
-    "id": "aviation-expertise",
-    "components": [
-      "aviation-item"
-    ]
-  },
-  {
-    "id": "awards-carousel",
-    "components": [
-      "award-item"
-    ]
-  },
-  {
-    "id": "awards-recognitions",
-    "components": [
-      "award-item"
-    ]
-  },
-  {
-    "id": "businesses-section",
-    "components": [
-      "business-item"
-    ]
-  },
-  {
-    "id": "cards",
-    "components": [
-      "card"
-    ]
-  },
-  {
-    "id": "carousel",
-    "components": [
-      "slide"
-    ]
-  },
-  {
-    "id": "columns",
-    "components": [
-      "column"
-    ]
-  },
-  {
-    "id": "column",
-    "components": [
-      "text",
-      "image",
-      "button",
-      "title"
-    ]
-  },
-  {
-    "id": "commitment-cards",
-    "components": [
-      "commitment-card"
-    ]
-  },
-  {
-    "id": "committed-banner",
-    "components": []
-  },
-  {
-    "id": "experience-banner",
-    "components": []
-  },
-  {
-    "id": "footerbottoms",
-    "components": [
-      "footerbottom"
-    ]
-  },
-  {
-    "id": "footerlinks",
-    "components": [
-      "footerlinks"
-    ]
-  },
-  {
-    "id": "footertopbars",
-    "components": [
-      "footertopbar"
-    ]
-  },
-  {
-    "id": "header-img",
-    "components": [
-      "menu-img"
-    ]
-  },
-  {
-    "id": "header",
-    "components": [
-      "nav-item"
-    ]
-  },
-  {
-    "id": "nav-item",
-    "components": [
-      "nav-child"
-    ]
-  },
-  {
-    "id": "hero-banner",
-    "components": [
-      "hero-banner-items"
-    ]
-  },
-  {
-    "id": "inner-banner",
-    "components": []
-  },
-  {
-    "id": "innovation-cards",
-    "components": [
-      "innovation-card-item"
-    ]
-  },
-  {
-    "id": "key-highlightss",
-    "components": [
-      "key-highlight-item"
-    ]
-  },
-  {
-    "id": "listed-companies",
-    "components": [
-      "listed-company-item"
-    ]
-  },
-  {
-    "id": "passenger-experience",
-    "components": [
-      "experience-item"
-    ]
-  },
-  {
-    "id": "success-stories",
-    "components": [
-      "story-item"
+    "definitions": [
+      {
+        "title": "Section",
+        "id": "section",
+        "plugins": {
+          "xwalk": {
+            "page": {
+              "resourceType": "core/franklin/components/section/v1/section",
+              "template": {
+                "model": "section"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "models": [
+      {
+        "id": "section",
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Section Name",
+            "description": "The label shown for this section in the Content Tree"
+          },
+          {
+            "component": "multiselect",
+            "name": "style",
+            "label": "Style",
+            "options": [
+              {
+                "name": "Highlight",
+                "value": "highlight"
+              },
+              {
+                "name": "Background Blue",
+                "value": "bg-primary"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "filters": [
+      {
+        "id": "section",
+        "components": [
+          "text",
+          "image",
+          "button",
+          "title",
+          "hero",
+          "cards",
+          "columns",
+          "fragment",
+          "businesses-section",
+          "hero-banner",
+          "article-header",
+          "article-body",
+          "inner-banner",
+          "listed-companies",
+          "cookie-consent",
+          "privacy-request",
+          "news-updates",
+          "careers-highlight",
+          "content-listing",
+          "aviation-infrastructure",
+          "key-highlightss",
+          "awards-recognitions",
+          "global-leaders-aviation"
+        ]
+      }
     ]
   }
 ]
