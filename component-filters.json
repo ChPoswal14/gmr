@@ -29,7 +29,8 @@
       "content-listing",
       "aviation-infrastructure",
       "key-highlightss",
-      "awards-recognitions"
+      "awards-recognitions",
+      "global-leaders-aviation"
     ]
   },
   {
@@ -43,10 +44,6 @@
     "components": [
       "aviation-item"
     ]
-  },
-  {
-    "id": "aviation-infrastructure",
-    "components": []
   },
   {
     "id": "awards-carousel",
