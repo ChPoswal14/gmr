@@ -48,6 +48,7 @@
     },
     {
       "id": "award-item",
+      "itemLabel": "title",
       "fields": [
         {
           "component": "asset",
