@@ -335,128 +335,78 @@
     ]
   },
   {
-    "id": "key-highlights",
+    "id": "awards-recognition",
     "fields": [
       {
         "component": "text",
-        "name": "mainHeading",
+        "name": "heading",
         "label": "Main Heading",
         "valueType": "string"
       },
       {
-        "component": "richtext",
-        "name": "introText",
-        "label": "Intro Text",
-        "valueType": "string"
-      },
-      {
         "component": "header",
-        "label": "Card 1"
+        "label": "Award 1"
       },
       {
         "component": "image",
-        "name": "card1Image",
-        "label": "Image 1",
+        "name": "award1Image",
+        "label": "Award Image 1",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "card1Title",
+        "name": "award1Title",
         "label": "Title 1",
         "valueType": "string"
       },
       {
-        "component": "text",
-        "name": "card1Desc",
+        "component": "richtext",
+        "name": "award1Desc",
         "label": "Description 1",
         "valueType": "string"
       },
       {
         "component": "header",
-        "label": "Card 2"
+        "label": "Award 2"
       },
       {
         "component": "image",
-        "name": "card2Image",
-        "label": "Image 2",
+        "name": "award2Image",
+        "label": "Award Image 2",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "card2Title",
+        "name": "award2Title",
         "label": "Title 2",
         "valueType": "string"
       },
       {
-        "component": "text",
-        "name": "card2Desc",
+        "component": "richtext",
+        "name": "award2Desc",
         "label": "Description 2",
         "valueType": "string"
       },
       {
         "component": "header",
-        "label": "Card 3"
+        "label": "Award 3"
       },
       {
         "component": "image",
-        "name": "card3Image",
-        "label": "Image 3",
+        "name": "award3Image",
+        "label": "Award Image 3",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "card3Title",
+        "name": "award3Title",
         "label": "Title 3",
         "valueType": "string"
       },
       {
-        "component": "text",
-        "name": "card3Desc",
+        "component": "richtext",
+        "name": "award3Desc",
         "label": "Description 3",
-        "valueType": "string"
-      },
-      {
-        "component": "header",
-        "label": "Card 4"
-      },
-      {
-        "component": "image",
-        "name": "card4Image",
-        "label": "Image 4",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "card4Title",
-        "label": "Title 4",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "card4Desc",
-        "label": "Description 4",
-        "valueType": "string"
-      },
-      {
-        "component": "header",
-        "label": "Card 5"
-      },
-      {
-        "component": "image",
-        "name": "card5Image",
-        "label": "Image 5",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "card5Title",
-        "label": "Title 5",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "card5Desc",
-        "label": "Description 5",
         "valueType": "string"
       }
     ]
