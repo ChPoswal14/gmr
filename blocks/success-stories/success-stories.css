@@ -1,73 +1,33 @@
-/* Outer block */
+/* ================================
+   FORCE ALL CARDS TO LOOK SAME
+   ================================ */
+
 .success-stories-cards {
-  display: grid;
-  grid-template-columns: 1.2fr 2fr;
-  gap: 48px;
-  padding: 80px;
-  background: #ffffff;
-  border-radius: 24px;
-}
-
-/* ===============================
-   FEATURED CARD (LEFT)
-   =============================== */
-.success-stories-cards .story-card:first-child {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
-.success-stories-cards .story-card:first-child .story-image {
-  display: none; /* left side has no image */
-}
-
-.success-stories-cards .story-card:first-child h3 {
-  font-size: 42px;
-  line-height: 1.2;
-  color: #003366;
-  margin-bottom: 16px;
-}
-
-.success-stories-cards .story-card:first-child .description {
-  font-size: 18px;
-  color: #444;
-  margin-bottom: 32px;
-}
-
-.success-stories-cards .story-card:first-child .read-more {
-  display: inline-block;
-  background: #f6b64c;
-  color: #000;
-  padding: 14px 26px;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  width: fit-content;
-}
-
-/* ===============================
-   RIGHT GRID (CARDS)
-   =============================== */
-.success-stories-cards .story-card:not(:first-child) {
-  border: 1px solid #eaeaea;
-  border-radius: 20px;
-  overflow: hidden;
+/* All cards identical */
+.story-card {
+  width: 380px;
+  max-width: 380px;
   background: #fff;
-  display: flex;
-  flex-direction: column;
+  border-radius: 20px;
+  border: 1px solid #eee;
+  overflow: hidden;
 }
 
-/* Wrap right cards in grid */
-.success-stories-cards {
-  grid-auto-flow: dense;
+/* 🚨 Kill first-card special styling */
+.story-card:first-child,
+.story-card:first-of-type {
+  width: 380px !important;
+  max-width: 380px !important;
+  grid-column: auto !important;
+  flex: 0 0 auto !important;
 }
 
-.success-stories-cards .story-card:nth-child(2),
-.success-stories-cards .story-card:nth-child(3) {
-  grid-column: 2;
-}
-
-/* Image styling */
+/* Image consistency */
 .story-image img {
   width: 100%;
   height: 240px;
@@ -75,14 +35,13 @@
   display: block;
 }
 
-/* Card content */
+/* Content consistency */
 .story-content {
   padding: 24px;
 }
 
 .story-content h3 {
   font-size: 22px;
-  color: #111;
   margin-bottom: 12px;
 }
 
@@ -90,25 +49,4 @@
   font-size: 15px;
   color: #555;
   margin-bottom: 16px;
-}
-
-.story-content .read-more {
-  font-size: 14px;
-  font-weight: 600;
-  color: #f6b64c;
-  text-decoration: none;
-}
-
-/* ===============================
-   RESPONSIVE
-   =============================== */
-@media (max-width: 1024px) {
-  .success-stories-cards {
-    grid-template-columns: 1fr;
-    padding: 40px;
-  }
-
-  .success-stories-cards .story-card:first-child .story-image {
-    display: block;
-  }
 }
