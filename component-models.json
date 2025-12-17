@@ -33,8 +33,8 @@
         "label": "Card Teaser (optional)"
       },
       {
-        "component": "reference",
-        "label": "Reference",
+        "component": "image",
+        "label": "Card Image",
         "name": "cardImage",
         "valueType": "string"
       },
@@ -100,7 +100,7 @@
     "id": "image",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "name": "image",
         "label": "Image",
         "multi": false
@@ -325,7 +325,7 @@
     "id": "aviation-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Card Image"
@@ -394,7 +394,7 @@
     "id": "award-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Award Image"
@@ -514,7 +514,7 @@
     "id": "business-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Business Image",
@@ -553,7 +553,7 @@
     "id": "card",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -579,21 +579,21 @@
         "defaultValue": "Grow With a Purpose-Driven Team"
       },
       {
-        "component": "reference",
+        "component": "image",
         "name": "imageOffice",
         "label": "Image 1 (Top Left)",
         "valueType": "string",
         "comment": "The office interior shot (e.g., Green Wall)"
       },
       {
-        "component": "reference",
+        "component": "image",
         "name": "imageTeamSmall",
         "label": "Image 2 (Bottom Left)",
         "valueType": "string",
         "comment": "The smaller group photo (e.g., Team in suits)"
       },
       {
-        "component": "reference",
+        "component": "image",
         "name": "imageTeamLarge",
         "label": "Image 3 (Right Side)",
         "valueType": "string",
@@ -627,7 +627,7 @@
     "id": "slide",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Slide Image"
@@ -692,7 +692,7 @@
     "id": "commitment-card",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Image"
@@ -727,7 +727,7 @@
     "id": "committed-banner",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Top Image"
@@ -802,7 +802,7 @@
         "label": "Description"
       },
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Right Side Image"
@@ -825,7 +825,7 @@
     "id": "footerbottom",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -856,7 +856,7 @@
     "id": "footerlink",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -875,7 +875,7 @@
     "id": "footertopbar",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -921,7 +921,7 @@
     "id": "menu-img",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "img",
         "label": "Menu Image"
@@ -938,7 +938,7 @@
     "id": "header",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "logo",
         "label": "Logo Image"
@@ -950,7 +950,7 @@
         "label": "Logo Link"
       },
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "searchIcon",
         "label": "Search Icon"
@@ -1019,17 +1019,21 @@
         "valueType": "string"
       },
       {
-        "component": "reference",
+        "component": "image",
         "name": "background-image",
         "label": "Background Image",
         "valueType": "string",
         "multi": false
       },
       {
-        "component": "reference",
+        "component": "file",
         "name": "background-video",
         "label": "Background Video (MP4)",
         "valueType": "string",
+        "accept": [
+          ".mp4",
+          ".webm"
+        ],
         "multi": false
       },
       {
@@ -1130,7 +1134,7 @@
     "id": "innovation-card-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Card Image"
@@ -1384,7 +1388,7 @@
     "id": "experience-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Image"
@@ -1468,7 +1472,7 @@
     "id": "story-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "image",
         "valueType": "string",
         "name": "image",
         "label": "Card Image"
