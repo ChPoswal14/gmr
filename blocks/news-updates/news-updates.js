@@ -18,7 +18,7 @@ export default async function decorate(block) {
   const sectionDescription = descEl?.innerHTML || '';
   const ctaText = ctaTextEl?.textContent?.trim() || '';
   const ctaLink = ctaLinkEl?.textContent?.trim() || '#';
-  const category = categoryEl?.textContent?.trim() || 'blog';
+  const category = categoryEl?.textContent?.trim() || '';
   const limit = limitEl?.textContent?.trim() || '3';
 
   
