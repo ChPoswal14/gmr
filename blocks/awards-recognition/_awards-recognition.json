@@ -3,7 +3,7 @@
     {
       "title": "Awards and Recognition",
       "id": "awards-recognition",
-      "groups": ["Aviation"],
+      "groups": ["General"],
       "plugins": {
         "xwalk": {
           "page": {
@@ -21,26 +21,19 @@
     {
       "id": "awards-recognition",
       "fields": [
-        {
-          "component": "text",
-          "name": "heading",
-          "label": "Main Heading",
-          "valueType": "string"
-        },
-        { "component": "header", "label": "Award Card 1" },
-        { "component": "image", "name": "award1Image", "label": "Award Image", "valueType": "string" },
-        { "component": "text", "name": "award1Title", "label": "Award Title", "valueType": "string" },
-        { "component": "richtext", "name": "award1Desc", "label": "Award Description", "valueType": "string" },
-
-        { "component": "header", "label": "Award Card 2" },
-        { "component": "image", "name": "award2Image", "label": "Award Image", "valueType": "string" },
-        { "component": "text", "name": "award2Title", "label": "Award Title", "valueType": "string" },
-        { "component": "richtext", "name": "award2Desc", "label": "Award Description", "valueType": "string" },
-
-        { "component": "header", "label": "Award Card 3" },
-        { "component": "image", "name": "award3Image", "label": "Award Image", "valueType": "string" },
-        { "component": "text", "name": "award3Title", "label": "Award Title", "valueType": "string" },
-        { "component": "richtext", "name": "award3Desc", "label": "Award Description", "valueType": "string" }
+        { "component": "text", "name": "heading", "label": "Main Heading", "valueType": "string" },
+        { "component": "header", "label": "Award 1" },
+        { "component": "image", "name": "award1Image", "label": "Award Image 1", "valueType": "string" },
+        { "component": "text", "name": "award1Title", "label": "Title 1", "valueType": "string" },
+        { "component": "richtext", "name": "award1Desc", "label": "Description 1", "valueType": "string" },
+        { "component": "header", "label": "Award 2" },
+        { "component": "image", "name": "award2Image", "label": "Award Image 2", "valueType": "string" },
+        { "component": "text", "name": "award2Title", "label": "Title 2", "valueType": "string" },
+        { "component": "richtext", "name": "award2Desc", "label": "Description 2", "valueType": "string" },
+        { "component": "header", "label": "Award 3" },
+        { "component": "image", "name": "award3Image", "label": "Award Image 3", "valueType": "string" },
+        { "component": "text", "name": "award3Title", "label": "Title 3", "valueType": "string" },
+        { "component": "richtext", "name": "award3Desc", "label": "Description 3", "valueType": "string" }
       ]
     }
   ],
