@@ -1,7 +1,7 @@
 {
   "definitions": [
     {
-      "title": "Awards and Recognition",
+      "title": "Awards and Recognitions",
       "id": "awards-recognition",
       "groups": ["General"],
       "plugins": {
