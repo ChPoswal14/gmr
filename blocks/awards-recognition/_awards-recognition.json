@@ -3,7 +3,6 @@
     {
       "title": "Awards & Global Recognition",
       "id": "awards-recognition",
-      "groups": ["General"],
       "plugins": {
         "xwalk": {
           "page": {
@@ -48,14 +47,13 @@
     },
     {
       "id": "award-item",
+      "itemLabel": "title",
       "fields": [
         {
-          "component": "asset",
+          "component": "reference",
           "name": "image",
           "label": "Award Image",
-          "valueType": "string",
-          "reference": true,
-          "mimeTypes": ["image/*"]
+          "valueType": "string"
         },
         {
           "component": "text",

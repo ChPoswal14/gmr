@@ -193,9 +193,6 @@
         {
           "title": "Awards & Global Recognition",
           "id": "awards-recognition",
-          "groups": [
-            "General"
-          ],
           "plugins": {
             "xwalk": {
               "page": {
