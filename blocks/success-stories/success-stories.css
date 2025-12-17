@@ -1,52 +1,19 @@
-/* ================================
-   FORCE ALL CARDS TO LOOK SAME
-   ================================ */
-
-.success-stories-cards {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
+.success-stories.success-stories-initialized > :not(.success-stories-runtime) {
+    display: none;
 }
 
-/* All cards identical */
-.story-card {
-  width: 380px;
-  max-width: 380px;
-  background: #fff;
-  border-radius: 20px;
-  border: 1px solid #eee;
-  overflow: hidden;
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
 }
 
-/* 🚨 Kill first-card special styling */
-.story-card:first-child,
-.story-card:first-of-type {
-  width: 380px !important;
-  max-width: 380px !important;
-  grid-column: auto !important;
-  flex: 0 0 auto !important;
+.stories-nav button {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
 }
 
-/* Image consistency */
-.story-image img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  display: block;
-}
-
-/* Content consistency */
-.story-content {
-  padding: 24px;
-}
-
-.story-content h3 {
-  font-size: 22px;
-  margin-bottom: 12px;
-}
-
-.story-content .description {
-  font-size: 15px;
-  color: #555;
-  margin-bottom: 16px;
+.card-img-top {
+    object-fit: cover;
+    height: 220px;
 }
