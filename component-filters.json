@@ -14,6 +14,14 @@
       "cards",
       "columns",
       "fragment",
+      "header",
+      "footer",
+      "footerlinks",
+      "footertopbars",
+      "footerbottoms",
+      "banners",
+      "nav-item",
+      "header-img",
       "businesses-section",
       "hero-banner",
       "article-header",
@@ -34,13 +42,21 @@
       "committed-banner",
       "passenger-experience",
       "commitment-cards",
-      "innovation-cards",
-      "news"
+      "innovation-cards"
+      
     ]
   },
   {
     "id": "airport-overview",
     "components": ["airport-overview-item"]
+  },
+  {
+    "id": "article-body",
+    "components": []
+  },
+  {
+    "id": "article-header",
+    "components": []
   },
   {
     "id": "aviation-expertise",
@@ -69,10 +85,6 @@
   {
     "id": "column",
     "components": ["text", "image", "button", "title"]
-  },
-  {
-    "id": "commitment-cards",
-    "components": ["commitment-card"]
   },
   {
     "id": "committed-banner",
@@ -115,10 +127,6 @@
     "components": []
   },
   {
-    "id": "innovation-cards",
-    "components": ["innovation-card-item"]
-  },
-  {
     "id": "listed-companies",
     "components": ["listed-company-item"]
   },
@@ -128,7 +136,7 @@
   },
   {
     "id": "success-stories",
-    "components": ["story-item"]
+    "components": []
   },
   {
     "id": "careers-highlight",
@@ -149,5 +157,9 @@
   {
     "id": "innovation-cards",
     "components": ["innovation-card-item"]
+  },
+  {
+    "id": "news-updates",
+    "components": [ ]
   }
 ]
