@@ -42,8 +42,8 @@
       "committed-banner",
       "passenger-experience",
       "commitment-cards",
-      "innovation-cards",
-      "news"
+      "innovation-cards"
+      
     ]
   },
   {
@@ -159,7 +159,7 @@
     "components": ["innovation-card-item"]
   },
   {
-    "id": "news",
-    "components": ["news"]
+    "id": "news-updates",
+    "components": []
   }
 ]

@@ -1027,37 +1027,27 @@
     "fields": [
       {
         "component": "text",
-        "name": "filterTag",
-        "label": "Filter Tag",
         "valueType": "string",
-        "comment": "Type 'Aero' to show only Aero news. Leave empty to show all."
+        "name": "sectionTitle",
+        "label": "Section Title"
       },
       {
-        "component": "number",
-        "name": "limit",
-        "label": "Number of Items",
-        "valueType": "long",
-        "defaultValue": 3
+        "component": "richtext",
+        "valueType": "string",
+        "name": "sectionDescription",
+        "label": "Section Description"
       },
       {
         "component": "text",
-        "name": "title",
-        "label": "Title",
         "valueType": "string",
-        "defaultValue": "News & Updates"
+        "name": "ctaText",
+        "label": "CTA Button Text"
       },
       {
         "component": "text",
-        "name": "ctaLabel",
-        "label": "Button Label",
         "valueType": "string",
-        "defaultValue": "Go to Newsroom"
-      },
-      {
-        "component": "text",
         "name": "ctaLink",
-        "label": "Button Link",
-        "valueType": "string"
+        "label": "CTA Button Link"
       }
     ]
   },
