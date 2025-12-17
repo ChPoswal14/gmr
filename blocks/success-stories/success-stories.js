@@ -1,9 +1,8 @@
 import { getApiHost } from "../../scripts/api.js";
 import { loadCSS, loadScript } from "../../scripts/aem.js";
 
-const SWIPER_JS = "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-const SWIPER_CSS =
-  "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+const SWIPER_JS = "../../scripts/swiper-bundle.min.js";
+const SWIPER_CSS = "../../styles/swiper-bundle.min.css";
 
 export default async function decorate(block) {
   await loadCSS(SWIPER_CSS);
@@ -38,18 +37,20 @@ export default async function decorate(block) {
   <div class="inner-container">
     <div class="row">
       <div class="col-lg-4">
-        <h2 class="fw-normal text-primary">${title}</h2>
-        <div class="section-description">${description}</div>
-        <a href="${ctaLink}" class="btn btn-primary mt-3">
+        <h2 class="text-primary sec-title">${title}</h2>
+        <div class="sec-desc">${description}</div>
+       <div class="my-5">
+        <a href="${ctaLink}" class="btn btn-primary">
           ${ctaText}
         </a>
+       </div>
 
-        <div class="stories-nav mt-4">
-          <button class="stories-prev btn btn-outline-warning me-2">
-            ←
+        <div class="swiper-button">
+          <button class="swiper-button-prev">
+            
           </button>
-          <button class="stories-next btn btn-warning">
-            →
+          <button class="swiper-button-next">
+            
           </button>
         </div>
       </div>
@@ -92,20 +93,21 @@ export default async function decorate(block) {
       slide.className = "swiper-slide";
 
       slide.innerHTML = `
-        <div class="card h-100 shadow-sm p-4">
-          <img
-            src="${item.storyImage?._publishUrl || ""}"
-            class="card-img-top"
-            alt="${item.title || ""}"
-          />
+        <div class="card card-ui h-100 p-4">
+          <div class="card-img">
+            <img
+              src="${item.storyImage?._publishUrl || ""}"           
+              alt="${item.title || ""}"
+            />
+          </div>
           <div class="card-body">
             <h5 class="card-title">${item.title || ""}</h5>
             <p class="card-text">
               ${item.description?.plaintext || ""}
             </p>
             <a href="${item.ctaLink || "#"}"
-               class="text-warning fw-semibold">
-              ${item.ctaText?.plaintext || "READ MORE"} →
+               class="btn-link">
+              ${item.ctaText?.plaintext || "READ MORE"}
             </a>
           </div>
         </div>
@@ -126,8 +128,8 @@ export default async function decorate(block) {
         1200: { slidesPerView: 1.8 },
       },
       navigation: {
-        nextEl: runtime.querySelector(".stories-next"),
-        prevEl: runtime.querySelector(".stories-prev"),
+        nextEl: runtime.querySelector(".swiper-button-next"),
+        prevEl: runtime.querySelector(".swiper-button-prev"),
       },
     });
   } catch (e) {
