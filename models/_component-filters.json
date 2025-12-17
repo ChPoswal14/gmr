@@ -1,4 +1,3 @@
-
 [
   {
     "id": "main",
@@ -7,9 +6,6 @@
     ]
   },
   {
-    "...": "./_section.json#/filters"
-  },
-  {
-    "...": "../blocks/*/_*.json#/filters"
+    "...": "./_section.json"
   }
 ]
