@@ -1,7 +1,7 @@
 {
   "definitions": [
     {
-      "title": "Aviation Infrastructure",
+      "title": "Aviation Infrastructures",
       "id": "aviation-infrastructure",
       "plugins": {
         "xwalk": {

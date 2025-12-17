@@ -335,42 +335,6 @@
     ]
   },
   {
-    "id": "awards-recognition",
-    "fields": [
-      {
-        "component": "text",
-        "name": "sectionTitle",
-        "label": "Section Title",
-        "valueType": "string",
-        "defaultValue": "Awards & Global Recognition"
-      }
-    ]
-  },
-  {
-    "id": "award-item",
-    "itemLabel": "title",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "image",
-        "label": "Award Image",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Award Title",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "label": "Award Description",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "businesses-section",
     "fields": [
       {
