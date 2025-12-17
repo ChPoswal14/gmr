@@ -53,7 +53,7 @@
   "filters": [
     {
       "id": "news-updates",
-      "components": []
+      "components": [ ]
     }
   ]
 }

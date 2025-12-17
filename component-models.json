@@ -1050,7 +1050,8 @@
         "label": "CTA Button Link"
       }
     ]
-  },
+  }
+  ,
   {
     "id": "passenger-experience",
     "fields": [
