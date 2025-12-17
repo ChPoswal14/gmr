@@ -57,9 +57,7 @@
   {
     "id": "awards-recognition",
     "components": [
-      "image",
-      "text",
-      "richtext"
+      "award-item"
     ]
   },
   {
