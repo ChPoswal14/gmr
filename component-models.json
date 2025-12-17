@@ -354,6 +354,7 @@
         "name": "image",
         "label": "Award Image",
         "valueType": "string",
+        "reference": true,
         "mimeTypes": [
           "image/*"
         ]
