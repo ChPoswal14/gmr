@@ -80,5 +80,156 @@
         ]
       }
     ]
+  },
+  {
+    "id": "airport-overview",
+    "components": [
+      "airport-overview-item"
+    ]
+  },
+  {
+    "id": "aviation-expertise",
+    "components": [
+      "aviation-item"
+    ]
+  },
+  {
+    "id": "aviation-infrastructure",
+    "components": []
+  },
+  {
+    "id": "awards-carousel",
+    "components": [
+      "award-item"
+    ]
+  },
+  {
+    "id": "awards-recognitions",
+    "components": [
+      "award-item"
+    ]
+  },
+  {
+    "id": "businesses-section",
+    "components": [
+      "business-item"
+    ]
+  },
+  {
+    "id": "cards",
+    "components": [
+      "card"
+    ]
+  },
+  {
+    "id": "carousel",
+    "components": [
+      "slide"
+    ]
+  },
+  {
+    "id": "columns",
+    "components": [
+      "column"
+    ]
+  },
+  {
+    "id": "column",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title"
+    ]
+  },
+  {
+    "id": "commitment-cards",
+    "components": [
+      "commitment-card"
+    ]
+  },
+  {
+    "id": "committed-banner",
+    "components": []
+  },
+  {
+    "id": "experience-banner",
+    "components": []
+  },
+  {
+    "id": "footerbottoms",
+    "components": [
+      "footerbottom"
+    ]
+  },
+  {
+    "id": "footerlinks",
+    "components": [
+      "footerlinks"
+    ]
+  },
+  {
+    "id": "footertopbars",
+    "components": [
+      "footertopbar"
+    ]
+  },
+  {
+    "id": "header-img",
+    "components": [
+      "menu-img"
+    ]
+  },
+  {
+    "id": "header",
+    "components": [
+      "nav-item"
+    ]
+  },
+  {
+    "id": "nav-item",
+    "components": [
+      "nav-child"
+    ]
+  },
+  {
+    "id": "hero-banner",
+    "components": [
+      "hero-banner-items"
+    ]
+  },
+  {
+    "id": "inner-banner",
+    "components": []
+  },
+  {
+    "id": "innovation-cards",
+    "components": [
+      "innovation-card-item"
+    ]
+  },
+  {
+    "id": "key-highlightss",
+    "components": [
+      "key-highlight-item"
+    ]
+  },
+  {
+    "id": "listed-companies",
+    "components": [
+      "listed-company-item"
+    ]
+  },
+  {
+    "id": "passenger-experience",
+    "components": [
+      "experience-item"
+    ]
+  },
+  {
+    "id": "success-stories",
+    "components": [
+      "story-item"
+    ]
   }
 ]
