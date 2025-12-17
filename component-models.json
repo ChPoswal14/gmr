@@ -1,98 +1,25 @@
 [
   {
-    "id": "page",
-    "title": "Page"
-  },
-  {
     "id": "page-metadata",
-    "title": "Page Metadata",
     "fields": [
       {
         "component": "text",
         "valueType": "string",
         "name": "jcr:title",
-        "label": "Page Title"
+        "label": "Title"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "jcr:description",
-        "label": "Page Description"
+        "label": "Description"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "cardTitle",
-        "label": "Card Title",
-        "description": "Headline shown on listing cards"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "cardTeaser",
-        "label": "Card Teaser (optional)"
-      },
-      {
-        "component": "reference",
-        "label": "Reference",
-        "name": "cardImage",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "publishDate",
-        "label": "Publish Date (YYYY-MM-DD)"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "contentType",
-        "label": "Content Type",
-        "description": "news, blog, story, case-study"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "contentAudience",
-        "label": "Audience / Sections",
-        "description": "Comma-separated values (aero, energy, corporate)"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "featured",
-        "label": "Featured Content",
-        "description": "true or false",
-        "default": "false"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "showInListing",
-        "label": "Show in Listings",
-        "description": "true or false",
-        "default": "true"
-      },
-      {
-        "component": "number",
-        "valueType": "number",
-        "name": "cardPriority",
-        "label": "Card Priority (1 = highest)",
-        "default": 100
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaLabel",
-        "label": "CTA Label",
-        "default": "Read More"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaLink",
-        "label": "CTA Link (optional)"
+        "name": "keywords",
+        "multi": true,
+        "label": "Keywords"
       }
     ]
   },
@@ -301,6 +228,51 @@
         "name": "statLabel",
         "label": "Statistic Label",
         "description": "Example: Passengers handled annually"
+      }
+    ]
+  },
+  {
+    "id": "article-body",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Main Content",
+        "valueType": "string",
+        "required": true,
+        "comment": "Write the full article here. Use H2/H3 for subsections."
+      }
+    ]
+  },
+  {
+    "id": "article-header",
+    "fields": [
+      {
+        "component": "text",
+        "name": "category",
+        "label": "Category / Tag",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Article Title",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Short Summary",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Featured Image",
+        "valueType": "string",
+        "multi": false
       }
     ]
   },
@@ -580,52 +552,6 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
-      }
-    ]
-  },
-  {
-    "id": "commitment-cards",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "sectionTitle",
-        "label": "Section Title"
-      }
-    ]
-  },
-  {
-    "id": "commitment-card",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Card Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Description"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "buttonText",
-        "label": "CTA Button Text"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "buttonLink",
-        "label": "CTA Button Link"
       }
     ]
   },
@@ -989,7 +915,7 @@
         "comment": "URL or page link for the CTA button"
       },
       {
-        "component": "file",
+        "component": "reference",
         "name": "video",
         "label": "Background Video",
         "valueType": "string",
@@ -997,64 +923,18 @@
         "comment": "Optional video for desktop view"
       },
       {
-        "component": "image",
+        "component": "reference",
         "name": "desktopBanner",
         "label": "Desktop Banner Image",
         "valueType": "string",
         "comment": "Recommended size: 1920px width"
       },
       {
-        "component": "image",
+        "component": "reference",
         "name": "mobileBanner",
         "label": "Mobile Banner Image",
         "valueType": "string",
         "comment": "Recommended size: 768px width"
-      }
-    ]
-  },
-  {
-    "id": "innovation-cards",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "sectionTitle",
-        "label": "Section Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "sectionDescription",
-        "label": "Section Description"
-      }
-    ]
-  },
-  {
-    "id": "innovation-card-item",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Card Image"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Card Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Card Description"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaText",
-        "label": "CTA Text"
       }
     ]
   },
@@ -1072,18 +952,19 @@
         "component": "richtext",
         "name": "description",
         "label": "Description",
-        "valueType": "string"
+        "valueType": "string",
+        "comment": "The main text describing GEPL etc."
       },
       {
         "component": "text",
-        "name": "ctaText",
+        "name": "ctaLabel",
         "label": "Top Button Label",
         "valueType": "string",
         "defaultValue": "Visit Investor Relations"
       },
       {
         "component": "text",
-        "name": "ctaUrl",
+        "name": "ctaLink",
         "label": "Top Button Link",
         "valueType": "string"
       }
@@ -1096,7 +977,8 @@
         "component": "text",
         "name": "companyName",
         "label": "Company Name",
-        "valueType": "string"
+        "valueType": "string",
+        "comment": "e.g. GMR Airports Limited (GAL)"
       },
       {
         "component": "richtext",
@@ -1107,9 +989,10 @@
       {
         "component": "text",
         "name": "stockSymbol",
-        "label": "Stock API Symbol / IDD",
+        "label": "Stock API Symbol / ID",
         "valueType": "string",
-        "required": true
+        "required": true,
+        "comment": "CRITICAL: Enter the ID used by the API to fetch NSE/BSE data (e.g., 'GAL' or 'GPUIL')."
       },
       {
         "component": "text",
@@ -1120,7 +1003,7 @@
       },
       {
         "component": "text",
-        "name": "visitWebsiteUrl",
+        "name": "websiteLink",
         "label": "Visit Website URL",
         "valueType": "string"
       },
@@ -1133,9 +1016,50 @@
       },
       {
         "component": "text",
-        "name": "exploreHighlightsUrl",
+        "name": "highlightsLink",
         "label": "Explore Highlights URL",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "news-updates",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "sectionDescription",
+        "label": "Section Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Button Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Button Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "category",
+        "label": "Section Category"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "limit",
+        "label": "Section Limit"
       }
     ]
   },
