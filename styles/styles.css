@@ -314,7 +314,7 @@ hr {
 .section.careers-highlight-container, .key-highlightss-wrapper { padding: 80px 0; }
 .entry-container{margin-bottom:80px; max-width: 800px; margin-left: auto; margin-right: auto;}
 .entry-container .title, .entry-container h2, .entry-container h2 p{font-size:2.5rem;font-weight:400;margin-bottom:1rem}
-.entry-container p{font-size:1.2rem;font-weight:400}
+.entry-container p{font-size:1.125rem;font-weight:400}
 
 @media (max-width: 767px) {
 .container, .businesses-section.block, .listed-companies-wrapper, .careers-highlight-wrapper {
