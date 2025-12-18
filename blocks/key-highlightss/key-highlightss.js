@@ -2,7 +2,7 @@ export default function decorate(block) {
   // Preserve AEM editable fields
   const original = [...block.children];
 
-  const sectionTitle = original[0]; // keep editable node
+  const sectionTitle = original[0]; // editable node
   const sectionDesc  = original[1];
 
   // key-highlight-item blocks (dropdown items)
@@ -14,25 +14,23 @@ export default function decorate(block) {
   const wrapper = document.createElement('div');
   wrapper.className = 'key-highlights-wrapper';
 
-  /* ---------- Header using runtime innerHTML ---------- */
+  /* ---------- Header ---------- */
   const header = document.createElement('div');
   header.className = 'entry-container text-center';
 
-  // Temporary runtime HTML
-  header.innerHTML = `
-    <div class="entry-content">
-      <h2></h2>
-      ${sectionDesc ? `<p>${sectionDesc.innerHTML}</p>` : ""}
-    </div>
-  `;
-
-  // Move original editable sectionTitle into <h2>
+  // Create <h2> for section title while keeping editable node
   if (sectionTitle) {
-    const h2 = header.querySelector('h2');
+    const h2 = document.createElement('h2');
+    // Move all children from original sectionTitle into <h2>
     while (sectionTitle.firstChild) {
       h2.appendChild(sectionTitle.firstChild);
     }
+    sectionTitle.replaceWith(h2); // replace in DOM for AEM editor
+    header.append(h2);
   }
+
+  // Append section description as sibling <p>
+  if (sectionDesc) header.append(sectionDesc);
 
   wrapper.append(header);
 
