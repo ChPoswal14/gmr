@@ -165,6 +165,58 @@
     ]
   },
   {
+    "id": "airport-hero",
+    "fields": [
+      {
+        "component": "text",
+        "name": "breadcrumbs",
+        "label": "Breadcrumbs (e.g., Home > Businesses)",
+        "valueType": "string",
+        "comment": "Enter the navigation path separated by '>'"
+      },
+      {
+        "component": "image",
+        "name": "backgroundImage",
+        "label": "Background Banner Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "eyebrowText",
+        "label": "Eyebrow Text (Gateway to...)",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mainTitle",
+        "label": "Main Airport Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description Text",
+        "valueType": "string"
+      },
+      {
+        "component": "header",
+        "label": "Call to Action"
+      },
+      {
+        "component": "text",
+        "name": "buttonLabel",
+        "label": "Button Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonLink",
+        "label": "Button Link (URL)",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "airport-overview",
     "fields": [
       {
