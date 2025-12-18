@@ -1,6 +1,5 @@
-.key-highlights-wrapper {
-  background: #fbf3e6;
-  padding: 80px 24px;
+.key-highlightss-wrapper {
+  background: var(--lpink);
 }
 
 /* Header */

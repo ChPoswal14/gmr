@@ -6,7 +6,7 @@ export default function decorate(block) {
 
   /* ---------- Wrapper ---------- */
   const wrapper = document.createElement('div');
-  wrapper.className = 'key-highlights-wrapper';
+  wrapper.className = 'key-highlights-wrapper container';
 
   /* ---------- Header ---------- */
   const header = document.createElement('div');
