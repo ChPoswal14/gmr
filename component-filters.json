@@ -1,7 +1,9 @@
 [
   {
     "id": "main",
-    "components": ["section"]
+    "components": [
+      "section"
+    ]
   },
   {
     "id": "section",
@@ -14,14 +16,6 @@
       "cards",
       "columns",
       "fragment",
-      "header",
-      "footer",
-      "footerlinks",
-      "footertopbars",
-      "footerbottoms",
-      "banners",
-      "nav-item",
-      "header-img",
       "businesses-section",
       "hero-banner",
       "article-header",
@@ -36,24 +30,21 @@
       "aviation-infrastructure",
       "key-highlightss",
       "awards-recognitions",
-      "global-leaders-aviation"
+      "global-leaders-aviation",
+      "aviation-expertise"
     ]
   },
   {
     "id": "airport-overview",
-    "components": ["airport-overview-item"]
-  },
-  {
-    "id": "article-body",
-    "components": []
-  },
-  {
-    "id": "article-header",
-    "components": []
+    "components": [
+      "airport-overview-item"
+    ]
   },
   {
     "id": "aviation-expertise",
-    "components": ["aviation-item"]
+    "components": [
+      "aviation-item"
+    ]
   },
   {
     "id": "aviation-infrastructure",
@@ -61,7 +52,9 @@
   },
   {
     "id": "awards-carousel",
-    "components": ["award-item"]
+    "components": [
+      "award-item"
+    ]
   },
   {
     "id": "awards-recognitions",
@@ -71,23 +64,42 @@
   },
   {
     "id": "businesses-section",
-    "components": ["business-item"]
+    "components": [
+      "business-item"
+    ]
   },
   {
     "id": "cards",
-    "components": ["card"]
+    "components": [
+      "card"
+    ]
   },
   {
     "id": "carousel",
-    "components": ["slide"]
+    "components": [
+      "slide"
+    ]
   },
   {
     "id": "columns",
-    "components": ["column"]
+    "components": [
+      "column"
+    ]
   },
   {
     "id": "column",
-    "components": ["text", "image", "button", "title"]
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title"
+    ]
+  },
+  {
+    "id": "commitment-cards",
+    "components": [
+      "commitment-card"
+    ]
   },
   {
     "id": "committed-banner",
@@ -99,31 +111,45 @@
   },
   {
     "id": "footerbottoms",
-    "components": ["footerbottom"]
+    "components": [
+      "footerbottom"
+    ]
   },
   {
     "id": "footerlinks",
-    "components": ["footerlinks"]
+    "components": [
+      "footerlinks"
+    ]
   },
   {
     "id": "footertopbars",
-    "components": ["footertopbar"]
+    "components": [
+      "footertopbar"
+    ]
   },
   {
     "id": "header-img",
-    "components": ["menu-img"]
+    "components": [
+      "menu-img"
+    ]
   },
   {
     "id": "header",
-    "components": ["nav-item"]
+    "components": [
+      "nav-item"
+    ]
   },
   {
     "id": "nav-item",
-    "components": ["nav-child"]
+    "components": [
+      "nav-child"
+    ]
   },
   {
     "id": "hero-banner",
-    "components": ["hero-banner-items"]
+    "components": [
+      "hero-banner-items"
+    ]
   },
   {
     "id": "inner-banner",
@@ -136,39 +162,35 @@
     ]
   },
   {
+    "id": "key-highlightss",
+    "components": [
+      "key-highlight-item"
+    ]
+  },
+  {
     "id": "listed-companies",
-    "components": ["listed-company-item"]
+    "components": [
+      "listed-company-item"
+    ]
+  },
+  {
+    "id": "news-updates",
+    "components": []
+  },
+  {
+    "id": "news",
+    "components": [
+      "news"
+    ]
   },
   {
     "id": "passenger-experience",
-    "components": ["experience-item"]
+    "components": [
+      "experience-item"
+    ]
   },
   {
     "id": "success-stories",
     "components": []
-  },
-  {
-    "id": "careers-highlight",
-    "components": []
-  },
-  {
-    "id": "content-fragment-block",
-    "components": []
-  },
-  {
-    "id": "recognition-awards",
-    "components": []
-  },
-  {
-    "id": "commitment-cards",
-    "components": ["commitment-card"]
-  },
-  {
-    "id": "innovation-cards",
-    "components": ["innovation-card-item"]
-  },
-  {
-    "id": "news-updates",
-    "components": [ ]
   }
 ]
