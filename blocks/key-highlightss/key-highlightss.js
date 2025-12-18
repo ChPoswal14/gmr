@@ -18,27 +18,18 @@ export default function decorate(block) {
   const header = document.createElement('div');
   header.className = 'entry-container text-center';
 
-  // Preserve AEM editable title - just wrap it, don't create new h2
+  // Create <h2> for section title while keeping editable node
   if (sectionTitle) {
-    // Move the sectionTitle content into the header
-    // This keeps AEM editable structure intact
-    header.append(sectionTitle);
-    
-    // Ensure the first text element in sectionTitle is wrapped in h2
-    // without creating additional wrapper divs
-    const firstChild = sectionTitle.firstElementChild;
-    if (firstChild && firstChild.tagName !== 'H2') {
-      // If the content isn't already in an h2, wrap it
-      const h2 = document.createElement('h2');
-      // Move all children from sectionTitle into h2
-      while (sectionTitle.firstChild) {
-        h2.appendChild(sectionTitle.firstChild);
-      }
-      sectionTitle.appendChild(h2);
+    const h2 = document.createElement('h2');
+    // Move all children from original sectionTitle into <h2>
+    while (sectionTitle.firstChild) {
+      h2.appendChild(sectionTitle.firstChild);
     }
+    sectionTitle.replaceWith(h2); // replace in DOM for AEM editor
+    header.append(h2);
   }
 
-  // Append section description as sibling
+  // Append section description as sibling <p>
   if (sectionDesc) header.append(sectionDesc);
 
   wrapper.append(header);
