@@ -5,7 +5,7 @@ export default function decorate(block) {
   const sectionTitle = original[0];
   const sectionDesc  = original[1];
 
-  // Everything after title + description = key-highlight-item
+  // key-highlight-item blocks (dropdown items)
   const items = original.slice(2);
 
   block.classList.add('key-highlights');
@@ -27,43 +27,48 @@ export default function decorate(block) {
   const grid = document.createElement('div');
   grid.className = 'key-highlights-grid';
 
-  /* ---------- LOOP: key-highlight-item ---------- */
+  /* ---------- LOOP: key-highlight-item (AS A BLOCK) ---------- */
   items.forEach((item) => {
-    const children = [...item.children];
+    if (!item || !item.children) return;
+
+    const fields = [...item.children]; // image, title, description
 
     const card = document.createElement('div');
     card.className = 'key-highlight-card';
 
-    /* Image (1st field) */
-    const imageWrap = children[0];
-    if (imageWrap) {
+    /* Image */
+    if (fields[0]) {
       const media = document.createElement('div');
       media.className = 'key-highlight-media';
-      media.append(imageWrap); // move node, keep srcset
+      media.append(fields[0]); // keep image editable
       card.append(media);
     }
 
-    /* Title (2nd field) */
-    if (children[1]) {
+    /* Title */
+    if (fields[1]) {
       const title = document.createElement('h3');
-      title.innerHTML = children[1].innerHTML;
+      title.innerHTML = fields[1].innerHTML;
       card.append(title);
     }
 
-    /* Description (3rd field) */
-    if (children[2]) {
+    /* Description */
+    if (fields[2]) {
       const desc = document.createElement('p');
       desc.className = 'key-highlight-desc';
-      desc.innerHTML = children[2].innerHTML;
+      desc.innerHTML = fields[2].innerHTML;
       card.append(desc);
     }
 
-    grid.append(card);
+    // IMPORTANT: keep key-highlight-item wrapper
+    item.innerHTML = '';
+    item.append(card);
+
+    grid.append(item);
   });
 
   wrapper.append(grid);
 
-  /* ---------- Replace content (same as your working code) ---------- */
+  /* ---------- Replace block content (same as your working JS) ---------- */
   block.innerHTML = '';
   block.append(wrapper);
 }
