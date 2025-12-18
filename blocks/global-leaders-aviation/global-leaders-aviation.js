@@ -1,29 +1,37 @@
 export default function decorate(block) {
-  // Preserve AEM editable fields
-  const original = [...block.children];
+  /* ================================
+     1️⃣ Read authored content (SAFE)
+     ================================ */
+  const [titleEl, contentEl] = [...block.children];
 
-  const sectionTitle = original[0];
-  const content = original[1];
+  const titleText = titleEl?.textContent?.trim() || "";
+  const contentHTML = contentEl?.innerHTML || "";
 
-  block.classList.add('global-leaders-aviation');
+  block.classList.add("global-leaders-aviation");
 
-  // Layout wrapper
-  const wrapper = document.createElement('div');
-  wrapper.className = 'gla-wrapper';
+  /* ================================
+     2️⃣ Runtime wrapper (DO NOT clear block)
+     ================================ */
+  const runtime = document.createElement("div");
+  runtime.className = "gla-wrapper";
 
-  // Left column (title)
-  const left = document.createElement('div');
-  left.className = 'gla-left';
-  left.append(sectionTitle);
+  block.append(runtime);
 
-  // Right column (content)
-  const right = document.createElement('div');
-  right.className = 'gla-right';
-  right.append(content);
+  /* ================================
+     3️⃣ Runtime layout using innerHTML
+     ================================ */
+  runtime.innerHTML = `
+    <div class="gla-left">
+      <h2>${titleText}</h2>
+    </div>
+    <div class="gla-right">
+      ${contentHTML}
+    </div>
+  `;
 
-  wrapper.append(left, right);
-
-  // Replace block content safely
-  block.innerHTML = '';
-  block.append(wrapper);
+  /* ================================
+     4️⃣ Hide original authored nodes
+     ================================ */
+  titleEl.style.display = "none";
+  contentEl.style.display = "none";
 }
