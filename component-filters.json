@@ -32,18 +32,11 @@
       "privacy-request",
       "news-updates",
       "careers-highlight",
-      "success-stories",
-      "aviation-expertise",
-      "content-fragment-block",
-      "airport-overview",
-      "recognition-awards",
-      "awards-carousel",
-      "experience-banner",
-      "committed-banner",
-      "passenger-experience",
-      "commitment-cards",
-      "innovation-cards"
-      
+      "content-listing",
+      "aviation-infrastructure",
+      "key-highlightss",
+      "awards-recognitions",
+      "global-leaders-aviation"
     ]
   },
   {
@@ -63,8 +56,18 @@
     "components": ["aviation-item"]
   },
   {
+    "id": "aviation-infrastructure",
+    "components": []
+  },
+  {
     "id": "awards-carousel",
     "components": ["award-item"]
+  },
+  {
+    "id": "awards-recognitions",
+    "components": [
+      "award-item"
+    ]
   },
   {
     "id": "businesses-section",
@@ -125,6 +128,12 @@
   {
     "id": "inner-banner",
     "components": []
+  },
+  {
+    "id": "innovation-cards",
+    "components": [
+      "innovation-card-item"
+    ]
   },
   {
     "id": "listed-companies",

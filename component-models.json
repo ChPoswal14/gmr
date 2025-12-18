@@ -329,6 +329,23 @@
     ]
   },
   {
+    "id": "aviation-infrastructure",
+    "fields": [
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Heading",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "awards-carousel",
     "fields": [
       {
@@ -359,6 +376,42 @@
         "valueType": "string",
         "name": "description",
         "label": "Award Description"
+      }
+    ]
+  },
+  {
+    "id": "awards-recognitions",
+    "fields": [
+      {
+        "component": "text",
+        "name": "sectionTitle",
+        "label": "Section Title",
+        "valueType": "string",
+        "defaultValue": "Awards & Global Recognition"
+      }
+    ]
+  },
+  {
+    "id": "award-item",
+    "itemLabel": "title",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Award Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Award Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Award Description",
+        "valueType": "string"
       }
     ]
   },
@@ -750,6 +803,25 @@
     ]
   },
   {
+    "id": "global-leaders-aviation",
+    "fields": [
+      {
+        "component": "text",
+        "name": "sectionTitle",
+        "label": "Section Title",
+        "valueType": "string",
+        "defaultValue": "Global Leaders in Aviation Infrastructure"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Content",
+        "valueType": "string",
+        "defaultValue": "<p><strong>GMR Airports Limited</strong> (operating as <strong>GMR AERO</strong>) runs Asia’s largest private airport network and the world’s second largest. GMR serves over <strong>120 million passengers</strong> annually across a growing network, with operations spanning <strong>India, Indonesia, Greece, and the Philippines</strong>.</p><p>Our portfolio includes airports in <strong>Delhi, Hyderabad, Goa, Kualanamu (Indonesia)</strong>, and technical services at <strong>Cebu (Philippines)</strong>, which makes us the only Indian airport developer with projects abroad. <strong>GMR AERO’s</strong> network and integrated airport solutions extend to <strong>310 destinations</strong>, with support from a partnership with <strong>Groupe ADP</strong>. Numerous awards from <strong>ACI</strong> and <strong>Skytrax</strong> are testimony to GMR Group’s world-class airport management services.</p>"
+      }
+    ]
+  },
+  {
     "id": "menu-img",
     "fields": [
       {
@@ -935,6 +1007,52 @@
         "label": "Mobile Banner Image",
         "valueType": "string",
         "comment": "Recommended size: 768px width"
+      }
+    ]
+  },
+  {
+    "id": "innovation-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "sectionDescription",
+        "label": "Section Description"
+      }
+    ]
+  },
+  {
+    "id": "innovation-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Card Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Card Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Card Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
       }
     ]
   },
