@@ -1,5 +1,21 @@
 import { getApiHost } from "../../scripts/api.js";
 
+/* ================================
+   Date formatter
+   ================================ */
+function formatDate(dateString) {
+  if (!dateString) return "";
+
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return "";
+
+  return date.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
 export default async function decorate(block) {
   /* ================================
      1️⃣ Read dialog fields (UE)
@@ -23,7 +39,6 @@ export default async function decorate(block) {
   /* ================================
      3️⃣ Build section header
      ================================ */
-
   const section = document.createElement("section");
   section.className = "sec-news bg-sky-blue spacer";
 
@@ -75,25 +90,36 @@ export default async function decorate(block) {
        5️⃣ Render news cards
        ================================ */
     items.forEach((item) => {
+      const publishDateRaw =
+        item.publishDate?.iso ||
+        item.publishDate?.value ||
+        item.publishDate ||
+        "";
+
+      const publishDateFormatted = formatDate(publishDateRaw);
+
       const card = document.createElement("div");
       card.className = "col-md-4";
 
       card.innerHTML = `
         <div class="card card-news">
           <div class="card-img">
-            <img src="${item.cardImage?._publishUrl}" alt="${item.title}">
+            <img src="${item.cardImage?._publishUrl || ""}" alt="${
+        item.title || ""
+      }">
           </div>
 
           <div class="card-body">
             <div class="card-meta d-flex gap-4 align-items-center mb-3">
-              <span class="badge ${item.category}">
-                ${item.category}
+              <span class="badge ${item.category || ""}">
+                ${item.category || ""}
               </span>
               <span class="meta-date">
-                ${item.publishDate}
+                ${publishDateFormatted}
               </span>
             </div>
-            <h3 class="card-title">${item.title}</h3>
+
+            <h3 class="card-title">${item.title || ""}</h3>
 
             <p class="card-text d-none">
               ${item.description?.plaintext || ""}
@@ -105,7 +131,7 @@ export default async function decorate(block) {
               </a>
             </div>
           </div>
-         </div>
+        </div>
       `;
 
       cardsWrapper.appendChild(card);

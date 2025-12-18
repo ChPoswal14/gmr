@@ -1,7 +1,7 @@
 import { loadCSS, loadScript } from "../../scripts/aem.js";
 
 const SWIPER_JS = "../../scripts/swiper-bundle.min.js";
-const SWIPER_CSS = "../../styles/swiper-bundle.min.css";
+// const SWIPER_CSS = "../../styles/swiper-bundle.min.css";
 
 function isValidRow(row) {
   return (
@@ -61,7 +61,7 @@ function buildHeroNav(swiper, total) {
 }
 
 export default async function decorate(block) {
-  await loadCSS(SWIPER_CSS);
+  // await loadCSS(SWIPER_CSS);
   await loadScript(SWIPER_JS);
 
   const rows = [...block.children].filter(isValidRow);
