@@ -350,11 +350,10 @@
     "id": "aviation-services",
     "fields": [
       {
-        "component": "text-input",
-        "name": "dataSource",
-        "label": "Data source (JSON path)",
-        "valueType": "string",
-        "comment": "e.g. /data/aviation-services.json"
+        "component": "aem-content",
+        "name": "fragmentPath",
+        "label": "Select Aviation Services Fragment",
+        "valueType": "string"
       }
     ]
   },

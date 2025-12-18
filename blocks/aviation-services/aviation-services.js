@@ -1,88 +1,36 @@
 export default async function decorate(block) {
-  // 1. Read authored dataSource from Universal Editor
-  const dataSourceEl = block.querySelector('[data-aue-prop="dataSource"]');
-  const dataSource = dataSourceEl?.textContent?.trim();
+  const fragmentRow = block.querySelector(':scope > div > div');
+  const fragmentPath = fragmentRow?.textContent.trim();
 
-  if (!dataSource) {
-    // eslint-disable-next-line no-console
-    console.warn('aviation-services: no dataSource authored on block');
-    return;
+  if (fragmentPath && fragmentPath.startsWith('/content/dam')) {
+    // Fetch the Content Fragment data
+    const response = await fetch(`${fragmentPath}.model.json`);
+
+    if (response.ok) {
+      const data = await response.json();
+      block.innerHTML = '';
+
+      const grid = document.createElement('div');
+      grid.className = 'aviation-services-grid';
+
+      // Map the items from your CF Model
+      // Replace item.title, item.image, etc., with your actual CF field names
+      data.items.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'service-card';
+        card.innerHTML = `
+          <div class="card-image">
+            <img src="${item.image}" alt="${item.title}">
+          </div>
+          <div class="card-content">
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+            <a href="${item.link}" class="read-more">READ MORE ❯</a>
+          </div>
+        `;
+        grid.append(card);
+      });
+      block.append(grid);
+    }
   }
-
-  // Hide the raw field from the rendered UI
-  dataSourceEl.style.display = 'none';
-
-  // 2. Fetch JSON from the spreadsheet URL
-  let rows;
-  try {
-    const resp = await fetch(dataSource, { cache: 'no-store' });
-    if (!resp.ok) {
-      throw new Error(`HTTP ${resp.status} for ${dataSource}`);
-    }
-    const json = await resp.json();
-
-    // Franklin spreadsheet JSON usually: { data: [ ...rows ] }
-    rows = Array.isArray(json.data) ? json.data : (
-      Array.isArray(json) ? json : []
-    );
-    if (!rows.length) {
-      // eslint-disable-next-line no-console
-      console.warn('aviation-services: no rows found in JSON', json);
-      return;
-    }
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error('aviation-services: data load error', e);
-    return;
-  }
-
-  // 3. Clear block and build 3‑card grid
-  block.innerHTML = '';
-
-  const grid = document.createElement('div');
-  grid.className = 'aviation-services-grid';
-
-  rows.forEach((item) => {
-    const card = document.createElement('article');
-    card.className = 'aviation-card';
-
-    // IMAGE
-    const imgWrap = document.createElement('div');
-    imgWrap.className = 'aviation-card-image';
-    if (item.image) {
-      const img = document.createElement('img');
-      img.src = item.image;
-      img.alt = item.title || '';
-      img.loading = 'lazy';
-      imgWrap.appendChild(img);
-    }
-
-    // BODY
-    const body = document.createElement('div');
-    body.className = 'aviation-card-body';
-
-    const h3 = document.createElement('h3');
-    h3.className = 'aviation-card-title';
-    h3.textContent = item.title || '';
-    body.appendChild(h3);
-
-    const p = document.createElement('p');
-    p.className = 'aviation-card-description';
-    p.textContent = item.description || '';
-    body.appendChild(p);
-
-    if (item.ctaLink) {
-      const a = document.createElement('a');
-      a.href = item.ctaLink;
-      a.className = 'aviation-card-cta';
-      a.textContent = item.ctaLabel || 'READ MORE';
-      body.appendChild(a);
-    }
-
-    card.appendChild(imgWrap);
-    card.appendChild(body);
-    grid.appendChild(card);
-  });
-
-  block.appendChild(grid);
 }
