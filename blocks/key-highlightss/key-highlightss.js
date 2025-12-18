@@ -3,10 +3,8 @@ export default function decorate(block) {
   const original = [...block.children];
 
   const sectionTitle = original[0]; // editable node
-  const sectionDesc  = original[1];
-
-  // key-highlight-item blocks (dropdown items)
-  const items = original.slice(2);
+  const sectionDesc = original[1]; 
+  const items = original.slice(2); // key-highlight-item blocks
 
   block.classList.add('key-highlights');
 
@@ -14,29 +12,20 @@ export default function decorate(block) {
   const wrapper = document.createElement('div');
   wrapper.className = 'key-highlights-wrapper';
 
-  /* ---------- Header ---------- */
+  /* ---------- Header using innerHTML only ---------- */
   const header = document.createElement('div');
   header.className = 'entry-container text-center';
 
-  // ---------- Runtime <h2> using clone of original node ----------
-  if (sectionTitle) {
-    const h2 = document.createElement('h2');
+  const titleText = sectionTitle?.textContent?.trim() || '';
+  const descHTML = sectionDesc?.innerHTML || '';
 
-    // Clone the original editable node's text only
-    h2.textContent = sectionTitle.textContent.trim();
+  header.innerHTML = `
+    <h2>${titleText}</h2>
+    <p>${descHTML}</p>
+  `;
 
-    header.append(h2);
-
-    // Keep the original node in DOM but hidden for AEM editor
-    sectionTitle.style.display = 'none';
-  }
-
-  // Section description as <p>
-  if (sectionDesc) {
-    const p = document.createElement('p');
-    p.innerHTML = sectionDesc.innerHTML; // preserve <br> and formatting
-    header.append(p);
-  }
+  // Keep original editable node in DOM for AEM
+  if (sectionTitle) sectionTitle.style.display = 'none';
 
   wrapper.append(header);
 
@@ -85,5 +74,6 @@ export default function decorate(block) {
   wrapper.append(grid);
 
   /* ---------- Replace block content ---------- */
+  block.innerHTML = '';
   block.append(wrapper);
 }
