@@ -13,7 +13,7 @@ export default function decorate(block) {
   header.className = 'entry-container text-center mb-5';
 
   // Extract content from AEM editable fields
-  const title = titleEl ? titleEl.innerHTML.trim() : '';
+  const title = titleEl ? titleEl.textContent.trim() : '';
   const description = descEl ? descEl.innerHTML.trim() : '';
 
   // Create header HTML using template literal
@@ -37,7 +37,7 @@ export default function decorate(block) {
     
     // Extract content for card
     const imgContent = imgEl ? imgEl.innerHTML.trim() : '';
-    const cardTitle = titleEl ? titleEl.innerHTML.trim() : '';
+    const cardTitle = titleEl ? titleEl.textContent.trim() : '';
     const cardDesc = descEl ? descEl.innerHTML.trim() : '';
 
     // Create card HTML using template literal
@@ -51,9 +51,7 @@ export default function decorate(block) {
       ${cardTitle ? `<h3>${cardTitle}</h3>` : ''}
       
       ${cardDesc ? `
-        <p class="key-highlight-desc">
           ${cardDesc}
-        </p>
       ` : ''}
     `;
 
