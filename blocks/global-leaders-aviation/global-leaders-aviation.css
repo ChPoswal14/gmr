@@ -1,0 +1,81 @@
+/* Root */
+.global-leaders-aviation {
+  background: #ffffff;
+  padding: 80px 0;
+}
+
+/* Wrapper */
+.global-leaders-aviation .gla-wrapper {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* Left column */
+.global-leaders-aviation .gla-left h1,
+.global-leaders-aviation .gla-left h2,
+.global-leaders-aviation .gla-left div {
+  font-size: 48px;
+  line-height: 1.15;
+  font-weight: 500;
+  color: #000;
+  margin: 0;
+}
+
+/* Right column */
+.global-leaders-aviation .gla-right {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #2b2b2b;
+}
+
+.global-leaders-aviation .gla-right p {
+  margin: 0 0 24px;
+}
+
+.global-leaders-aviation .gla-right p:last-child {
+  margin-bottom: 0;
+}
+
+.global-leaders-aviation .gla-right strong {
+  font-weight: 600;
+  color: #000;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .global-leaders-aviation .gla-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .global-leaders-aviation .gla-left {
+    max-width: 600px;
+  }
+
+  .global-leaders-aviation .gla-left h1,
+  .global-leaders-aviation .gla-left h2,
+  .global-leaders-aviation .gla-left div {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  .global-leaders-aviation {
+    padding: 56px 0;
+  }
+
+  .global-leaders-aviation .gla-left h1,
+  .global-leaders-aviation .gla-left h2,
+  .global-leaders-aviation .gla-left div {
+    font-size: 30px;
+  }
+
+  .global-leaders-aviation .gla-right {
+    font-size: 16px;
+  }
+}
