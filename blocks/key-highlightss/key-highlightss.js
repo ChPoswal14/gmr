@@ -3,10 +3,8 @@ export default function decorate(block) {
   const original = [...block.children];
 
   const sectionTitle = original[0]; // editable node
-  const sectionDesc  = original[1];
-
-  // key-highlight-item blocks (dropdown items)
-  const items = original.slice(2);
+  const sectionDesc = original[1]; 
+  const items = original.slice(2); // key-highlight-item blocks
 
   block.classList.add('key-highlights');
 
@@ -14,23 +12,21 @@ export default function decorate(block) {
   const wrapper = document.createElement('div');
   wrapper.className = 'key-highlights-wrapper';
 
-  /* ---------- Header ---------- */
+  /* ---------- Header using innerHTML only for the container ---------- */
   const header = document.createElement('div');
   header.className = 'entry-container text-center';
 
-  // Create <h2> for section title while keeping editable node
-  if (sectionTitle) {
-    const h2 = document.createElement('h2');
-    // Move all children from original sectionTitle into <h2>
-    while (sectionTitle.firstChild) {
-      h2.appendChild(sectionTitle.firstChild);
-    }
-    sectionTitle.replaceWith(h2); // replace in DOM for AEM editor
-    header.append(h2);
-  }
+  // Extract plain text from sectionTitle
+  const titleText = sectionTitle?.textContent?.trim() || '';
+  const descHTML = sectionDesc?.innerHTML || '';
 
-  // Append section description as sibling <p>
-  if (sectionDesc) header.append(sectionDesc);
+  header.innerHTML = `
+    <h2>${titleText}</h2>
+    <p>${descHTML}</p>
+  `;
+
+  // Keep the original sectionTitle in DOM for AEM editing, but hide it
+  if (sectionTitle) sectionTitle.style.display = 'none';
 
   wrapper.append(header);
 
@@ -46,7 +42,7 @@ export default function decorate(block) {
     const card = document.createElement('div');
     card.className = 'key-highlight-card';
 
-    /* Image */
+    // Image
     if (fields[0]) {
       const media = document.createElement('div');
       media.className = 'key-highlight-media';
@@ -54,14 +50,14 @@ export default function decorate(block) {
       card.append(media);
     }
 
-    /* Title */
+    // Title
     if (fields[1]) {
       const title = document.createElement('h3');
       title.innerHTML = fields[1].innerHTML;
       card.append(title);
     }
 
-    /* Description */
+    // Description
     if (fields[2]) {
       const desc = document.createElement('p');
       desc.className = 'key-highlight-desc';
