@@ -2,88 +2,68 @@ export default function decorate(block) {
   // Destructure first two children
   const [titleEl, descEl, ...items] = [...block.children];
 
-  block.classList.add("key-highlights");
+  block.classList.add('key-highlights');
 
   /* ---------- Wrapper ---------- */
-  const wrapper = document.createElement("div");
-  wrapper.className = "key-highlights-wrapper container";
+  const wrapper = document.createElement('div');
+  wrapper.className = 'key-highlights-wrapper container';
 
   /* ---------- Header ---------- */
-  const header = document.createElement("div");
-  header.className = "entry-container text-center mb-5";
+  const header = document.createElement('div');
+  header.className = 'entry-container text-center mb-5';
 
-  /* ---- Title: <p> → <h2> ---- */
-  if (titleEl) {
-  const p = titleEl.querySelector("p");
+  // Extract content from AEM editable fields
+  const title = titleEl ? titleEl.innerHTML.trim() : '';
+  const description = descEl ? descEl.innerHTML.trim() : '';
 
-  if (p) {
-    // Change tag name WITHOUT removing the node
-    const h2 = document.createElement("h2");
-
-    // copy attributes & content
-    h2.innerHTML = p.innerHTML;
-    h2.className = "title";
-
-    // keep AEM editable wrapper
-    p.parentNode.replaceChild(h2, p);
-
-    header.append(titleEl);
-  }
-}
-
-  /* ---- Description (keep as-is) ---- */
-  if (descEl) {
-    const descWrapper = document.createElement("div");
-    descWrapper.className = "sec-desc";
-    descWrapper.innerHTML = descEl.innerHTML;
-    header.append(descWrapper);
+  // Create header HTML using template literal
+  if (title || description) {
+    header.innerHTML = `
+      ${title ? `<h2 class="title">${title}</h2>` : ''}
+      ${description ? `<div class="sec-desc">${description}</div>` : ''}
+    `;
   }
 
-  if (header.children.length) {
-    wrapper.append(header);
-  }
+  wrapper.append(header);
 
   /* ---------- Grid ---------- */
-  const grid = document.createElement("div");
-  grid.className = "key-highlights-grid";
+  const grid = document.createElement('div');
+  grid.className = 'key-highlights-grid';
 
   items.forEach((item) => {
     if (!item?.children?.length) return;
 
-    const [imgEl, titleCell, descCell] = [...item.children];
+    const [imgEl, titleEl, descEl] = [...item.children];
+    
+    // Extract content for card
+    const imgContent = imgEl ? imgEl.innerHTML.trim() : '';
+    const cardTitle = titleEl ? titleEl.innerHTML.trim() : '';
+    const cardDesc = descEl ? descEl.innerHTML.trim() : '';
 
-    const card = document.createElement("div");
-    card.className = "key-highlight-card";
+    // Create card HTML using template literal
+    const cardHTML = `
+      ${imgContent ? `
+        <div class="key-highlight-media">
+          ${imgContent}
+        </div>
+      ` : ''}
+      
+      ${cardTitle ? `<h3>${cardTitle}</h3>` : ''}
+      
+      ${cardDesc ? `
+        <p class="key-highlight-desc">
+          ${cardDesc}
+        </p>
+      ` : ''}
+    `;
 
-    /* ---- Image ---- */
-    if (imgEl) {
-      const media = document.createElement("div");
-      media.className = "key-highlight-media";
-      media.innerHTML = imgEl.innerHTML;
-      card.append(media);
-    }
+    // Create card container
+    const card = document.createElement('div');
+    card.className = 'key-highlight-card';
+    card.innerHTML = cardHTML.trim();
 
-    /* ---- Card title: <p> → <h3> ---- */
-    if (titleCell) {
-      titleCell.classList.add("comm-card-title");
-      const p = titleCell.querySelector("p");
-      if (p) {
-        const h3 = document.createElement("h3");
-        h3.innerHTML = p.innerHTML;
-        p.replaceWith(h3);
-        card.append(h3);
-      }
-    }
-
-    /* ---- Description ---- */
-    if (descCell) {
-      const p = document.createElement("p");
-      p.className = "key-highlight-desc";
-      p.innerHTML = descCell.innerHTML;
-      card.append(p);
-    }
-
-    item.innerHTML = "";
+    // Keep original wrapper, replace content
+    item.innerHTML = '';
     item.append(card);
     grid.append(item);
   });
@@ -91,6 +71,6 @@ export default function decorate(block) {
   wrapper.append(grid);
 
   /* ---------- Replace block content ---------- */
-  block.innerHTML = "";
+  block.innerHTML = '';
   block.append(wrapper);
 }
