@@ -21,13 +21,6 @@
       "id": "airport-hero",
       "fields": [
         {
-          "component": "text",
-          "name": "breadcrumb",
-          "label": "Breadcrumb",
-          "valueType": "string",
-          "defaultValue": "Home > Businesses > Airports & Aero Services > Airport Operations > Delhi Airport, India"
-        },
-        {
           "component": "reference",
           "name": "backgroundImage",
           "label": "Background Image",
