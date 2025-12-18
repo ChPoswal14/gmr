@@ -1,77 +1,69 @@
 export default function decorate(block) {
-  /* ================================
-     1️⃣ Read authored content
-     ================================ */
+  // Preserve AEM editable fields
   const original = [...block.children];
+
   const sectionTitle = original[0];
-  const items = original.slice(1);
+  const items = original.slice(1); // award-item blocks
 
-  block.classList.add("awards-recognitions");
+  block.classList.add('awards-recognitions');
 
-  /* ================================
-     2️⃣ Runtime wrapper (DO NOT clear block)
-     ================================ */
-  const runtime = document.createElement("div");
-  runtime.className = "awards-wrapper";
-  block.append(runtime);
+  /* ---------- Wrapper ---------- */
+  const wrapper = document.createElement('div');
+  wrapper.className = 'awards-wrapper';
 
-  /* ================================
-     3️⃣ Runtime skeleton
-     ================================ */
-  runtime.innerHTML = `
-    <div class="awards-header"></div>
-    <div class="awards-grid"></div>
-  `;
+  /* ---------- Header ---------- */
+  const header = document.createElement('div');
+  header.className = 'awards-header';
 
-  const header = runtime.querySelector(".awards-header");
-  const grid = runtime.querySelector(".awards-grid");
+  if (sectionTitle) header.append(sectionTitle);
+  wrapper.append(header);
 
-  /* ================================
-     4️⃣ Inject header content
-     ================================ */
-  if (sectionTitle) {
-    header.append(sectionTitle);
-    sectionTitle.style.display = "none";
-  }
+  /* ---------- Grid ---------- */
+  const grid = document.createElement('div');
+  grid.className = 'awards-grid';
 
-  /* ================================
-     5️⃣ Loop award-item blocks
-     ================================ */
+  /* ---------- LOOP award-item (dropdown stays) ---------- */
   items.forEach((item) => {
     if (!item || !item.children) return;
 
     const fields = [...item.children]; // image, title, description
 
-    const card = document.createElement("div");
-    card.className = "award-card";
+    const card = document.createElement('div');
+    card.className = 'award-card';
 
-    // Image
+    /* Image */
     if (fields[0]) {
-      const media = document.createElement("div");
-      media.className = "award-media";
-      media.append(fields[0]);
+      const media = document.createElement('div');
+      media.className = 'award-media';
+      media.append(fields[0]); // move node to keep UE reference
       card.append(media);
     }
 
-    // Title
+    /* Title */
     if (fields[1]) {
-      const title = document.createElement("h3");
+      const title = document.createElement('h3');
       title.innerHTML = fields[1].innerHTML;
       card.append(title);
     }
 
-    // Description
+    /* Description */
     if (fields[2]) {
-      const desc = document.createElement("p");
-      desc.className = "award-desc";
+      const desc = document.createElement('p');
+      desc.className = 'award-desc';
       desc.innerHTML = fields[2].innerHTML;
       card.append(desc);
     }
 
-    // Preserve award-item wrapper (dropdown safe)
-    item.innerHTML = "";
+    // IMPORTANT: keep award-item wrapper
+    item.innerHTML = '';
     item.append(card);
 
     grid.append(item);
   });
+
+  wrapper.append(grid);
+
+  /* ---------- Replace content (same as working code) ---------- */
+  block.innerHTML = '';
+  block.append(wrapper);
 }

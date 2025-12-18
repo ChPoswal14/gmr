@@ -1,84 +1,51 @@
 export default function decorate(block) {
-  /* ================================
-     1️⃣ Read authored content
-     ================================ */
   const original = [...block.children];
 
-  const sectionTitle = original[0];
-  const sectionDesc = original[1];
-  const items = original.slice(2); // key-highlight-item blocks
+  const sectionTitle = original[0]?.textContent || "";
+  const sectionDesc  = original[1]?.innerHTML || "";
 
-  block.classList.add("key-highlights");
+  // key-highlight-item blocks (dropdown items)
+  const items = original.slice(2);
 
-  /* ================================
-     2️⃣ Runtime wrapper
-     ================================ */
-  const runtime = document.createElement("div");
-  runtime.className = "key-highlights-wrapper";
-  block.append(runtime);
+  block.classList.add('key-highlights');
 
-  /* ================================
-     3️⃣ Runtime skeleton
-     ================================ */
-  runtime.innerHTML = `
-    <div class="key-highlights-header"></div>
-    <div class="key-highlights-grid"></div>
+  /* ---------- Header + wrapper using runtime.innerHTML ---------- */
+  let headerHTML = `
+    <div class="entry-container text-center">
+      <div>
+        <h2>${sectionTitle}</h2>
+        <p>${sectionDesc}</p>
+      </div>
+    </div>
   `;
 
-  const header = runtime.querySelector(".key-highlights-header");
-  const grid = runtime.querySelector(".key-highlights-grid");
+  /* ---------- Grid ---------- */
+  let gridHTML = `<div class="key-highlights-grid">`;
 
-  /* ================================
-     4️⃣ Header content
-     ================================ */
-  if (sectionTitle) {
-    header.append(sectionTitle);
-    sectionTitle.style.display = "none";
-  }
-
-  if (sectionDesc) {
-    header.append(sectionDesc);
-    sectionDesc.style.display = "none";
-  }
-
-  /* ================================
-     5️⃣ Loop key-highlight-item blocks
-     ================================ */
   items.forEach((item) => {
     if (!item || !item.children) return;
-
     const fields = [...item.children]; // image, title, description
 
-    const card = document.createElement("div");
-    card.className = "key-highlight-card";
+    let imgHTML = fields[0]?.outerHTML || "";
+    let titleHTML = fields[1] ? `<h3>${fields[1].innerHTML}</h3>` : "";
+    let descHTML = fields[2] ? `<p class="key-highlight-desc">${fields[2].innerHTML}</p>` : "";
 
-    // Image
-    if (fields[0]) {
-      const media = document.createElement("div");
-      media.className = "key-highlight-media";
-      media.append(fields[0]);
-      card.append(media);
-    }
-
-    // Title
-    if (fields[1]) {
-      const title = document.createElement("h3");
-      title.innerHTML = fields[1].innerHTML;
-      card.append(title);
-    }
-
-    // Description
-    if (fields[2]) {
-      const desc = document.createElement("p");
-      desc.className = "key-highlight-desc";
-      desc.innerHTML = fields[2].innerHTML;
-      card.append(desc);
-    }
-
-    // Preserve key-highlight-item wrapper (dropdown safe)
-    item.innerHTML = "";
-    item.append(card);
-
-    grid.append(item);
+    gridHTML += `
+      <div class="key-highlight-card">
+        ${imgHTML ? `<div class="key-highlight-media">${imgHTML}</div>` : ""}
+        ${titleHTML}
+        ${descHTML}
+      </div>
+    `;
   });
+
+  gridHTML += `</div>`;
+
+  /* ---------- Set runtime.innerHTML ---------- */
+  block.innerHTML = `
+    <div class="key-highlights-wrapper">
+      ${headerHTML}
+      ${gridHTML}
+    </div>
+  `;
 }
