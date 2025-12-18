@@ -1,36 +1,42 @@
 export default function decorate(block) {
-  // Preserve AEM editable fields
   const original = [...block.children];
 
-  const titleWrapper = original[0];
+  const titleWrapper = original[0]; // UE-tracked element
   const content = original[1];
 
   block.classList.add('global-leaders-aviation');
 
-  // ---- Extract text safely ----
-  const titleText = titleWrapper?.textContent?.trim() || '';
+  /* ===============================
+     FIX TITLE FOR UNIVERSAL EDITOR
+  =============================== */
 
-  // Create clean H2
-  const heading = document.createElement('h2');
-  heading.textContent = titleText;
+  const text = titleWrapper.textContent.trim();
 
-  // Layout wrapper
+  // Clean inner HTML but KEEP the wrapper div
+  titleWrapper.innerHTML = '';
+
+  const h2 = document.createElement('h2');
+  h2.textContent = text;
+
+  titleWrapper.append(h2);
+
+  /* ===============================
+     LAYOUT
+  =============================== */
+
   const wrapper = document.createElement('div');
   wrapper.className = 'gla-wrapper';
 
-  // Left column (title)
   const left = document.createElement('div');
   left.className = 'gla-left';
-  left.append(heading);
+  left.append(titleWrapper);
 
-  // Right column (content)
   const right = document.createElement('div');
   right.className = 'gla-right';
   right.append(content);
 
   wrapper.append(left, right);
 
-  // Replace block content safely
   block.innerHTML = '';
   block.append(wrapper);
 }
