@@ -2,10 +2,17 @@ export default function decorate(block) {
   // Preserve AEM editable fields
   const original = [...block.children];
 
-  const sectionTitle = original[0];
+  const titleWrapper = original[0];
   const content = original[1];
 
   block.classList.add('global-leaders-aviation');
+
+  // ---- Extract text safely ----
+  const titleText = titleWrapper?.textContent?.trim() || '';
+
+  // Create clean H2
+  const heading = document.createElement('h2');
+  heading.textContent = titleText;
 
   // Layout wrapper
   const wrapper = document.createElement('div');
@@ -14,7 +21,7 @@ export default function decorate(block) {
   // Left column (title)
   const left = document.createElement('div');
   left.className = 'gla-left';
-  left.append(sectionTitle);
+  left.append(heading);
 
   // Right column (content)
   const right = document.createElement('div');
