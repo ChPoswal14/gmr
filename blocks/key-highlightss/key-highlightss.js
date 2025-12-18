@@ -14,16 +14,22 @@ export default function decorate(block) {
 
   /* ---- Title: <p> → <h2> ---- */
   if (titleEl) {
-    const p = titleEl.querySelector("p");
-    if (p) {
-      const h2 = document.createElement("h2");
-      h2.className = "title";
-      h2.innerHTML = p.innerHTML;
+  const p = titleEl.querySelector("p");
 
-      p.replaceWith(h2);
-      header.append(h2);
-    }
+  if (p) {
+    // Change tag name WITHOUT removing the node
+    const h2 = document.createElement("h2");
+
+    // copy attributes & content
+    h2.innerHTML = p.innerHTML;
+    h2.className = "title";
+
+    // keep AEM editable wrapper
+    p.parentNode.replaceChild(h2, p);
+
+    header.append(titleEl);
   }
+}
 
   /* ---- Description (keep as-is) ---- */
   if (descEl) {
