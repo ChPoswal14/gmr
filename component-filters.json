@@ -35,14 +35,6 @@
     ]
   },
   {
-    "id": "airport-hero",
-    "components": [
-      "image",
-      "text",
-      "richtext"
-    ]
-  },
-  {
     "id": "airport-overview",
     "components": [
       "airport-overview-item"

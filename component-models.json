@@ -169,50 +169,51 @@
     "fields": [
       {
         "component": "text",
-        "name": "breadcrumbs",
-        "label": "Breadcrumbs (e.g., Home > Businesses)",
+        "name": "breadcrumb",
+        "label": "Breadcrumb",
         "valueType": "string",
-        "comment": "Enter the navigation path separated by '>'"
+        "defaultValue": "Home > Businesses > Airports & Aero Services > Airport Operations > Delhi Airport, India"
       },
       {
-        "component": "image",
+        "component": "reference",
         "name": "backgroundImage",
-        "label": "Background Banner Image",
+        "label": "Background Image",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "eyebrowText",
-        "label": "Eyebrow Text (Gateway to...)",
-        "valueType": "string"
+        "name": "eyebrow",
+        "label": "Eyebrow Text",
+        "valueType": "string",
+        "defaultValue": "Gateway to New India"
       },
       {
         "component": "text",
-        "name": "mainTitle",
-        "label": "Main Airport Title",
-        "valueType": "string"
+        "name": "title",
+        "label": "Main Title",
+        "valueType": "string",
+        "defaultValue": "Indira Gandhi International Airport (IGIA)"
       },
       {
         "component": "richtext",
         "name": "description",
-        "label": "Description Text",
-        "valueType": "string"
-      },
-      {
-        "component": "header",
-        "label": "Call to Action"
+        "label": "Description",
+        "valueType": "string",
+        "defaultValue": "<p>Indira Gandhi International Airport is one of the <strong>busiest aviation gateways</strong> in the world and serves over <strong>79+ million</strong> domestic and international passengers annually.</p>"
       },
       {
         "component": "text",
-        "name": "buttonLabel",
-        "label": "Button Label",
-        "valueType": "string"
+        "name": "ctaLabel",
+        "label": "CTA Button Label",
+        "valueType": "string",
+        "defaultValue": "Delhi Airport Website"
       },
       {
         "component": "text",
-        "name": "buttonLink",
-        "label": "Button Link (URL)",
-        "valueType": "string"
+        "name": "ctaLink",
+        "label": "CTA Button Link",
+        "valueType": "string",
+        "defaultValue": "https://www.newdelhiairport.in/"
       }
     ]
   },
