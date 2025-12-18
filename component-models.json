@@ -232,6 +232,51 @@
     ]
   },
   {
+    "id": "article-body",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Main Content",
+        "valueType": "string",
+        "required": true,
+        "comment": "Write the full article here. Use H2/H3 for subsections."
+      }
+    ]
+  },
+  {
+    "id": "article-header",
+    "fields": [
+      {
+        "component": "text",
+        "name": "category",
+        "label": "Category / Tag",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Article Title",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Short Summary",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Featured Image",
+        "valueType": "string",
+        "multi": false
+      }
+    ]
+  },
+  {
     "id": "aviation-expertise",
     "fields": [
       {
@@ -560,52 +605,6 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
-      }
-    ]
-  },
-  {
-    "id": "commitment-cards",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "sectionTitle",
-        "label": "Section Title"
-      }
-    ]
-  },
-  {
-    "id": "commitment-card",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Card Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Description"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "buttonText",
-        "label": "CTA Button Text"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "buttonLink",
-        "label": "CTA Button Link"
       }
     ]
   },
@@ -988,25 +987,22 @@
         "comment": "URL or page link for the CTA button"
       },
       {
-        "component": "file",
+        "component": "reference",
         "name": "video",
         "label": "Background Video",
         "valueType": "string",
-        "accept": [
-          ".mp4",
-          ".webm"
-        ],
+        "accept": [".mp4", ".webm"],
         "comment": "Optional video for desktop view"
       },
       {
-        "component": "image",
+        "component": "reference",
         "name": "desktopBanner",
         "label": "Desktop Banner Image",
         "valueType": "string",
         "comment": "Recommended size: 1920px width"
       },
       {
-        "component": "image",
+        "component": "reference",
         "name": "mobileBanner",
         "label": "Mobile Banner Image",
         "valueType": "string",
@@ -1061,49 +1057,6 @@
     ]
   },
   {
-    "id": "key-highlightss",
-    "fields": [
-      {
-        "component": "text",
-        "name": "sectionTitle",
-        "label": "Section Title",
-        "valueType": "string",
-        "defaultValue": "Key Highlights"
-      },
-      {
-        "component": "richtext",
-        "name": "sectionDescription",
-        "label": "Section Description",
-        "valueType": "string",
-        "defaultValue": "Operating airports in Delhi, Hyderabad, Goa, Nagpur, Bidar, and Medan (Indonesia), and providing technical support at Mactan–Cebu Airport (Philippines)."
-      }
-    ]
-  },
-  {
-    "id": "key-highlight-item",
-    "itemLabel": "title",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "image",
-        "label": "Highlight Image",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Highlight Title",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "label": "Highlight Description",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "listed-companies",
     "fields": [
       {
@@ -1117,18 +1070,19 @@
         "component": "richtext",
         "name": "description",
         "label": "Description",
-        "valueType": "string"
+        "valueType": "string",
+        "comment": "The main text describing GEPL etc."
       },
       {
         "component": "text",
-        "name": "ctaText",
+        "name": "ctaLabel",
         "label": "Top Button Label",
         "valueType": "string",
         "defaultValue": "Visit Investor Relations"
       },
       {
         "component": "text",
-        "name": "ctaUrl",
+        "name": "ctaLink",
         "label": "Top Button Link",
         "valueType": "string"
       }
@@ -1141,7 +1095,8 @@
         "component": "text",
         "name": "companyName",
         "label": "Company Name",
-        "valueType": "string"
+        "valueType": "string",
+        "comment": "e.g. GMR Airports Limited (GAL)"
       },
       {
         "component": "richtext",
@@ -1152,9 +1107,10 @@
       {
         "component": "text",
         "name": "stockSymbol",
-        "label": "Stock API Symbol / IDD",
+        "label": "Stock API Symbol / ID",
         "valueType": "string",
-        "required": true
+        "required": true,
+        "comment": "CRITICAL: Enter the ID used by the API to fetch NSE/BSE data (e.g., 'GAL' or 'GPUIL')."
       },
       {
         "component": "text",
@@ -1165,7 +1121,7 @@
       },
       {
         "component": "text",
-        "name": "visitWebsiteUrl",
+        "name": "websiteLink",
         "label": "Visit Website URL",
         "valueType": "string"
       },
@@ -1178,9 +1134,50 @@
       },
       {
         "component": "text",
-        "name": "exploreHighlightsUrl",
+        "name": "highlightsLink",
         "label": "Explore Highlights URL",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "news-updates",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "sectionDescription",
+        "label": "Section Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Button Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Button Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "category",
+        "label": "Section Category"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "limit",
+        "label": "Section Limit"
       }
     ]
   },
@@ -1280,13 +1277,30 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "tag",
-        "label": "Section Tag"
+        "name": "category",
+        "label": "Section Category"
       }
     ]
   },
   {
-    "id": "story-item",
+    "id": "innovation-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "sectionDescription",
+        "label": "Section Description"
+      }
+    ]
+  },
+  {
+    "id": "innovation-card-item",
     "fields": [
       {
         "component": "reference",
@@ -1298,7 +1312,47 @@
         "component": "text",
         "valueType": "string",
         "name": "title",
-        "label": "Title"
+        "label": "Card Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Card Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      }
+    ]
+  },
+  {
+    "id": "commitment-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      }
+    ]
+  },
+  {
+    "id": "commitment-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Card Title"
       },
       {
         "component": "richtext",
@@ -1309,14 +1363,72 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "ctaText",
-        "label": "CTA Text"
+        "name": "buttonText",
+        "label": "CTA Button Text"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "ctaLink",
-        "label": "CTA Link"
+        "name": "buttonLink",
+        "label": "CTA Button Link"
+      }
+    ]
+  },
+  {
+    "id": "recognition-awards",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "multifield",
+        "name": "items",
+        "label": "Awards",
+        "fields": [
+          {
+            "component": "reference",
+            "name": "image",
+            "label": "Award Image",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "desc",
+            "label": "Award Description",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "content-fragment-block",
+    "fields": []
+  },
+  {
+    "id": "news",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "itemsToShow",
+        "label": "Number of News Items",
+        "default": 5
       }
     ]
   }

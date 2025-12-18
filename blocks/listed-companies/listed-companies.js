@@ -96,7 +96,7 @@ export default function decorate(block) {
         const btnAnchor = document.createElement('a');
         btnAnchor.href = hrefEl.textContent.trim() || '#';
         btnAnchor.title = labelEl.textContent.trim();
-        btnAnchor.className = 'btn btn-link';
+        btnAnchor.className = 'btn btn-circle';
         btnAnchor.textContent = labelEl.textContent.trim();
         btnContainer.appendChild(btnAnchor);
 

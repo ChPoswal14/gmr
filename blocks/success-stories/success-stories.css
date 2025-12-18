@@ -1,212 +1,145 @@
-/* success-stories.css
-   Styles for Success Stories EDS block
-*/
-
-/* ---------- Container & Layout ---------- */
-.success-stories-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 420px 1fr; /* left fixed width, right flexible */
-  gap: 40px;
-  align-items: start;
-  box-sizing: border-box;
-  padding: 36px 48px;
-  background: #ffffff;
-  border-radius: 8px;
+.success-stories.success-stories-initialized > :not(.success-stories-runtime) {
+    display: none;
 }
 
-/* ensure wrapper selector matches nested fragment wrappers */
-.fragment.block .success-stories-wrapper { /* no-op, keeps specificity */ }
-
-/* ---------- LEFT COLUMN ---------- */
-.success-left {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  box-sizing: border-box;
+.success-stories .inner-container {
+    margin: 0 auto;
+    padding: 6rem 2rem 6rem 6rem;
+    background: var(--white);
+    border-radius: 10px;
+    margin-top: -4.688rem;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* Title */
-.success-left .title p {
-  margin: 0;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  font-weight: 700;
-  font-size: 48px;
-  line-height: 1;
-  color: #0b3b66; /* deep blue */
+.sec-title {
+    font-weight: var(--fw-regular);
+}
+.sec-desc {
+    font-size: var(--fs-medium);
 }
 
-/* Description paragraph under title */
-.success-left .desc p {
-  margin: 0;
-  color: #545758;
-  font-size: 16px;
-  line-height: 1.6;
-  max-width: 360px;
+.swiper-button {
+    display: inline-flex;
+    gap: 1.5rem;
+}
+.swiper-button-prev,
+.swiper-button-next {
+    position: static;
+    background: var(--lorange);
+    width: 4rem;
+    height: 4rem;
+    border-radius: 1rem;
+    border: solid 2px var(--lorange);
+    margin: 0;
+}
+.swiper-button-prev svg,
+.swiper-button-next svg {
+    display: none;
+}
+.swiper-button-prev:before,
+.swiper-button-next:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: url(../../icons/nav-arrow-black.svg) no-repeat center;
+}
+.swiper-button-prev:before {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+    background: none;
+    opacity: 1 !important;
+}
+.swiper-button-prev.swiper-button-disabled:before,
+.swiper-button-next.swiper-button-disabled:before {
+    background: url(../../icons/nav-arrow-yellow.svg) no-repeat center;
 }
 
-/* CTA */
-.cta-button {
-  display: inline-block;
-  background: #f6b84b; /* warm yellow */
-  color: #0b2b3a;
-  padding: 14px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 15px;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+.success-stories .swiper-slide {
+    padding: 0.5rem 0;
 }
 
-/* ---------- ARROWS ---------- */
-.success-arrows {
-  display: flex;
-  gap: 12px;
-  margin-top: 6px;
-  align-items: center;
-}
-.success-arrows .arrow-prev,
-.success-arrows .arrow-next {
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
-  border: 2px solid #f6b84b;
-  background: transparent;
-  color: #f6b84b;
-  font-size: 18px;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-.success-arrows .arrow-prev:hover,
-.success-arrows .arrow-next:hover {
-  background: #f6b84b;
-  color: #0b2b3a;
+.card {
+    border-radius: 0.5rem;
+    border-color: var(--light-grey);
+    transition-duration: 0.3s;
 }
 
-/* ---------- RIGHT: Slider Track ---------- */
-.success-right {
-  overflow: hidden;
-  box-sizing: border-box;
+.success-stories .card-ui:hover {
+    background: #e5f2ff;
+    border-color: #cce5ff;
 }
-
-.success-slider {
-  display: flex;
-  gap: 28px; /* IMPORTANT: keep same GAP as JS variable */
-  align-items: flex-start;
-  transition: transform 420ms cubic-bezier(.22,.9,.34,1);
-  will-change: transform;
-  padding-bottom: 6px;
+.card-ui .card-img {
+    position: relative;
+    background: var(--light-grey);
+    border-radius: 0.25rem;
+    overflow: hidden;
+    height: 100px;
+    padding: 0 0 75%;
+    margin-bottom: 1rem;
 }
-
-/* ---------- Slide / Card ---------- */
-.slide {
-  background: #fff;
-  min-width: 360px; /* desktop card width */
-  box-sizing: border-box;
-  border-radius: 10px;
-  border: 1px solid rgba(12,34,60,0.06);
-  box-shadow: 0 6px 22px rgba(13,33,54,0.06);
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  flex-shrink: 0; /* prevent shrinking and wrapping */
+.card-ui .card-img img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
-
-/* media / image */
-.slide-media {
-  width: 33%;
-  height: 220px;
-  overflow: hidden;
-  border-radius: 6px;
+.card-ui .card-body {
+    padding: 0;
+    font-size: var(--fs-regular);
+    color: var(--charcoal);
 }
-.slide-media img,
-.slide-media picture {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.card-ui .card-title {
+    font-size: var(--fs-medium);
+    font-weight: var(--fw-medium);
 }
-
-/* title & excerpt */
-.slide-title {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 700;
-  color: #0b2b3a;
+.btn-link {
+    color: var(--lorange);
+    text-transform: uppercase;
+    display: inline-flex;
+    text-decoration: none;
+    font-weight: var(--fw-semi-bold);
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    padding: 0.5rem 0;
 }
-.slide-excerpt {
-  margin: 0;
-  color: #666;
-  font-size: 14px;
-  line-height: 1.6;
+.btn-link:after {
+    content: "";
+    background: url(../../icons/arrow-right-yellow.svg) no-repeat center;
+    background-size: 100%;
+    width: 6px;
+    height: 14px;
+    transition-duration: 0.3s;
+    position: relative;
+    right: 0;
 }
-
-/* read more link */
-.slide-cta {
-  color: #f6b84b;
-  font-weight: 700;
-  text-decoration: none;
-  margin-top: 6px;
-  display: inline-block;
+.btn-link:before {
+    content: "";
+    position: absolute;
+    bottom: 0.25rem;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
-
-/* optional small action button at bottom */
-.slide .button {
-  margin-top: auto;
-  display: inline-block;
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: #f6b84b;
-  color: #0b2b3a;
-  text-decoration: none;
-  font-weight: 600;
+.btn-link:hover,
+.btn-link:focus {
+    color: var(--lorange);
 }
-
-/* ---------- Responsive ---------- */
-
-/* Tablet / smaller desktop: stack columns (left above right) */
-@media (max-width: 1024px) {
-  .success-stories-wrapper {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 32px;
-  }
-  .success-left { order: 1; }
-  .success-right { order: 2; }
-  .slide { min-width: calc(100% - 40px); } /* full width slides with breathing room */
+.btn-link:hover:before {
+    transform: scaleX(1);
+    transform-origin: left;
 }
-
-/* Mobile adjustments */
-@media (max-width: 600px) {
-  .success-stories-wrapper { padding: 22px; }
-  .success-left .title p { font-size: 36px; }
-  .slide-media { height: 180px; }
-  .slide { padding: 16px; min-width: calc(100% - 32px); }
-  .success-slider { gap: 18px; }
-}
-
-/* ---------- Accessibility & Utilities ---------- */
-.success-arrows button:focus,
-.cta-button:focus,
-.slide-cta:focus {
-  outline: 3px solid rgba(246,184,75,0.2);
-  outline-offset: 2px;
-}
-
-/* Help: avoid global rules that may interfere */
-.success-stories-wrapper .slide,
-.success-stories-wrapper .success-slider { -webkit-font-smoothing:antialiased; }
-
-/* If your site has strong global 'img { max-width:100% }' rules this is fine; slide keeps min-width */
-/* If other CSS forces slides to wrap use this high-specificity override */
-.success-stories-wrapper .success-slider > .slide {
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  width: auto;
+.btn-link:hover:after {
+    right: 0.25rem;
 }

@@ -136,51 +136,32 @@ export default function decorate(block) {
     col3.appendChild(wrap3);
   }
 
-/* -------------------------
-   CTA – UE SAFE
-   <a data-aue-prop="ctaLabel" href="ctaLink">Label</a>
-------------------------- */
+  // --- CTA MERGE FIX ---
+  const ctaWrap = document.createElement('div');
+  ctaWrap.className = 'cta careerBtn';
 
-const ctaWrap = document.createElement('div');
-ctaWrap.className = 'cta careerBtn';
+  const finalBtn = document.createElement('a');
+  finalBtn.className = 'btn btn-orange w-100';
 
-let ctaHref = '';
-let ctaText = '';
-
-/* Get CTA LABEL (TEXT FIELD) */
-if (ctaLabelNode) {
-  const p = ctaLabelNode.querySelector('p');
-  if (p) {
-    ctaText = p.textContent.trim();
+  // CTA LABEL (from text field)
+  if (ctaLabelNode) {
+    const p = ctaLabelNode.querySelector('p');
+    if (p) {
+      finalBtn.textContent = p.textContent.trim();
+    }
   }
-}
 
-/* Get CTA LINK (VALUE ONLY, NOT UE FIELD) */
-if (ctaLinkNode) {
-  const a = ctaLinkNode.querySelector('a');
-  if (a) {
-    ctaHref = a.href;
+  // CTA URL/TITLE (from button field)
+  if (ctaLinkNode) {
+    const a = ctaLinkNode.querySelector('a');
+    if (a) {
+      finalBtn.href = a.href;
+      if (a.title) finalBtn.title = a.title;
+    }
   }
-}
 
-/* Final UE-editable anchor */
-if (ctaText) {
-  const a = document.createElement('a');
-  a.href = ctaHref || '#';
-  a.textContent = ctaText;
-
-  // 🔑 THIS is what makes UE show the field
-  a.setAttribute('data-aue-prop', 'ctaLabel');
-  a.setAttribute('data-aue-label', 'CTA Button Label');
-
-  a.className = 'btn btn-orange w-100';
-
-  ctaWrap.appendChild(a);
-}
-
-col3.appendChild(ctaWrap);
-
-
+  ctaWrap.appendChild(finalBtn);
+  col3.appendChild(ctaWrap);
 
 
   /* -------------------------
