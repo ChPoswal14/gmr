@@ -1,60 +1,57 @@
 export default function decorate(block) {
-  // Preserve AEM editable fields
-  const original = [...block.children];
+  // Destructure first two children
+  const [titleEl, descEl, ...items] = [...block.children];
 
-  const sectionTitle = original[0];
-  const items = original.slice(1); // award-item blocks
-
-  block.classList.add('awards-recognitions');
+  block.classList.add('key-highlights');
 
   /* ---------- Wrapper ---------- */
   const wrapper = document.createElement('div');
-  wrapper.className = 'awards-wrapper';
+  wrapper.className = 'key-highlights-wrapper';
 
   /* ---------- Header ---------- */
   const header = document.createElement('div');
-  header.className = 'awards-header';
+  header.className = 'entry-container text-center';
 
-  if (sectionTitle) header.append(sectionTitle);
+  // Extract text content for h2 (no inner tags)
+  const titleText = titleEl ? titleEl.textContent.trim() : '';
+  const descHTML = descEl ? descEl.innerHTML.trim() : '';
+
+  // Use innerHTML for header
+  header.innerHTML = `
+    ${titleText ? `<h2 class="text-primary sec-title">${titleText}</h2>` : ''}
+    ${descHTML ? `<p class="sec-desc">${descHTML}</p>` : ''}
+  `;
+
+  // Keep original editable title for AEM, hide visually
+  if (titleEl) titleEl.style.display = 'none';
+
   wrapper.append(header);
 
   /* ---------- Grid ---------- */
   const grid = document.createElement('div');
-  grid.className = 'awards-grid';
+  grid.className = 'key-highlights-grid';
 
-  /* ---------- LOOP award-item (dropdown stays) ---------- */
   items.forEach((item) => {
-    if (!item || !item.children) return;
+    if (!item?.children?.length) return;
 
-    const fields = [...item.children]; // image, title, description
+    const [imgEl, cardTitleEl, cardDescEl] = [...item.children];
+
+    const imgContent = imgEl ? imgEl.innerHTML.trim() : '';
+    const cardTitle = cardTitleEl ? cardTitleEl.innerHTML.trim() : '';
+    const cardDesc = cardDescEl ? cardDescEl.innerHTML.trim() : '';
+
+    // Build card innerHTML
+    const cardHTML = `
+      ${imgContent ? `<div class="key-highlight-media">${imgContent}</div>` : ''}
+      ${cardTitle ? `<h3>${cardTitle}</h3>` : ''}
+      ${cardDesc ? `<p class="key-highlight-desc">${cardDesc}</p>` : ''}
+    `;
 
     const card = document.createElement('div');
-    card.className = 'award-card';
+    card.className = 'key-highlight-card';
+    card.innerHTML = cardHTML.trim();
 
-    /* Image */
-    if (fields[0]) {
-      const media = document.createElement('div');
-      media.className = 'award-media';
-      media.append(fields[0]); // move node to keep UE reference
-      card.append(media);
-    }
-
-    /* Title */
-    if (fields[1]) {
-      const title = document.createElement('h3');
-      title.innerHTML = fields[1].innerHTML;
-      card.append(title);
-    }
-
-    /* Description */
-    if (fields[2]) {
-      const desc = document.createElement('p');
-      desc.className = 'award-desc';
-      desc.innerHTML = fields[2].innerHTML;
-      card.append(desc);
-    }
-
-    // IMPORTANT: keep award-item wrapper
+    // Keep original wrapper
     item.innerHTML = '';
     item.append(card);
 
@@ -63,7 +60,7 @@ export default function decorate(block) {
 
   wrapper.append(grid);
 
-  /* ---------- Replace content (same as working code) ---------- */
+  /* ---------- Replace block content ---------- */
   block.innerHTML = '';
   block.append(wrapper);
 }
