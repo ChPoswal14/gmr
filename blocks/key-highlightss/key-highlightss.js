@@ -13,7 +13,7 @@ export default function decorate(block) {
   header.className = 'entry-container text-center mb-5';
 
   // Extract content from AEM editable fields
-  const title = titleEl ? titleEl.innerHTML.trim() : '';
+  const title = titleEl ? titleEl.textContent.trim() : '';
   const description = descEl ? descEl.innerHTML.trim() : '';
 
   // Create header HTML using template literal
