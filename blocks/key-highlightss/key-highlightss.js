@@ -19,7 +19,7 @@ export default function decorate(block) {
   // Create header HTML using template literal
   if (title || description) {
     header.innerHTML = `
-      ${title ? `<h2 class="text-primary sec-title">${title}</h2>` : ''}
+      ${title ? `<h2 class="title">${title}</h2>` : ''}
       ${description ? `<div class="sec-desc">${description}</div>` : ''}
     `;
   }

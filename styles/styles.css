@@ -311,7 +311,7 @@ hr {
     padding-right: 90px;
 }
 .section.careers-highlight-container { padding: 120px 0; }
-.entry-container .title { color:var(--blue); font-size: 48px; font-weight: 400; }
+.entry-container .title { color:var(--blue); font-size: 3rem; font-weight: 400; }
 
 @media (max-width: 767px) {
 .container, .businesses-section.block, .listed-companies-wrapper, .careers-highlight-wrapper {
