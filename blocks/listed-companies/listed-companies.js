@@ -9,7 +9,7 @@ export default function decorate(block) {
   header.className = 'd-md-flex align-items-center gap-3';
 
   const entryContainer = document.createElement('div');
-  entryContainer.className = 'entry-container';
+  entryContainer.className = 'entry-container fullCont mb-5';
 
   // Title + description (wrap first child in <h2>)
   if (children[0]) {

@@ -9,11 +9,11 @@ export default function decorate(block) {
   wrapper.className = 'key-highlights-wrapper container';
 
   /* ---------- Header ---------- */
-  const header = document.createElement('div');
+  const header = document.createElement('header');
   header.className = 'entry-container text-center mb-5';
 
   // Extract content from AEM editable fields
-  const title = titleEl ? titleEl.innerHTML.trim() : '';
+  const title = titleEl ? titleEl.textContent.trim() : '';
   const description = descEl ? descEl.innerHTML.trim() : '';
 
   // Create header HTML using template literal
@@ -37,7 +37,7 @@ export default function decorate(block) {
     
     // Extract content for card
     const imgContent = imgEl ? imgEl.innerHTML.trim() : '';
-    const cardTitle = titleEl ? titleEl.innerHTML.trim() : '';
+    const cardTitle = titleEl ? titleEl.textContent.trim() : '';
     const cardDesc = descEl ? descEl.innerHTML.trim() : '';
 
     // Create card HTML using template literal
@@ -51,15 +51,13 @@ export default function decorate(block) {
       ${cardTitle ? `<h3>${cardTitle}</h3>` : ''}
       
       ${cardDesc ? `
-        <p class="key-highlight-desc">
           ${cardDesc}
-        </p>
       ` : ''}
     `;
 
     // Create card container
     const card = document.createElement('div');
-    card.className = 'key-highlight-card';
+    card.className = 'key-highlight-card mt-4';
     card.innerHTML = cardHTML.trim();
 
     // Keep original wrapper, replace content

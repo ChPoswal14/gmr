@@ -22,12 +22,21 @@ export default async function decorate(block) {
   wrapper.className = "awards-wrapper";
 
   /* ---------- Header ---------- */
-  if (sectionTitle) {
-    const header = document.createElement("div");
-    header.className = "awards-header";
-    header.append(sectionTitle); // UE safe
-    wrapper.append(header);
+if (sectionTitle) {
+  const header = document.createElement("header");
+  header.className = "entry-container text-center mb-5";
+
+  // Extract authored content safely
+  const titleText = sectionTitle.textContent.trim();
+
+  if (titleText) {
+    header.innerHTML = `
+      <h2 class="title">${titleText}</h2>
+    `;
   }
+
+  wrapper.append(header);
+}
 
   /* ---------- Swiper ---------- */
   const swiper = document.createElement("div");
@@ -56,20 +65,29 @@ export default async function decorate(block) {
       card.append(media);
     }
 
-    /* Title */
-    if (fields[1]) {
-      const title = document.createElement("h3");
-      title.textContent = fields[1].textContent.trim();
-      card.append(title);
-    }
+    /* Title + Description Wrapper */
+if (fields[1] || fields[2]) {
+  const content = document.createElement("div");
+  content.className = "award-card-body";
 
-    /* Description */
-    if (fields[2]) {
-      const desc = document.createElement("p");
-      desc.className = "award-desc";
-      desc.innerHTML = fields[2].innerHTML;
-      card.append(desc);
-    }
+  /* Title */
+  if (fields[1]) {
+    const title = document.createElement("h3");
+    title.textContent = fields[1].textContent.trim();
+    content.append(title);
+  }
+
+  /* Description */
+  if (fields[2]) {
+    const desc = document.createElement("div");
+    desc.className = "award-desc";
+    desc.innerHTML = fields[2].innerHTML;
+    content.append(desc);
+  }
+
+  card.append(content);
+}
+
 
     // keep award-item wrapper (important for UE)
     item.innerHTML = "";
