@@ -1,74 +1,74 @@
 export default function decorate(block) {
+  // Preserve AEM editable fields
   const original = [...block.children];
 
-  const sectionTitle = original[0]?.textContent || "";
-  const sectionDesc  = original[1]?.innerHTML || "";
+  const sectionTitle = original[0];
+  const sectionDesc  = original[1];
 
   // key-highlight-item blocks (dropdown items)
   const items = original.slice(2);
 
   block.classList.add('key-highlights');
 
+  /* ---------- Wrapper ---------- */
+  const wrapper = document.createElement('div');
+  wrapper.className = 'key-highlights-wrapper';
+
   /* ---------- Header ---------- */
-  const headerHTML = `
-    <div class="entry-container text-center">
-      <div>
-        <h2>${sectionTitle}</h2>
-        <p>${sectionDesc}</p>
-      </div>
-    </div>
-  `;
+  const header = document.createElement('div');
+  header.className = 'entry-container text-center';
 
-  /* ---------- Grid: loop through key-highlight-item ---------- */
-  let gridHTML = `<div class="key-highlights-grid">`;
+  if (sectionTitle) header.append(sectionTitle);
+  if (sectionDesc) header.append(sectionDesc);
 
-  items.forEach((item, index) => {
+  wrapper.append(header);
+
+  /* ---------- Grid ---------- */
+  const grid = document.createElement('div');
+  grid.className = 'key-highlights-grid';
+
+  /* ---------- LOOP: key-highlight-item (AS A BLOCK) ---------- */
+  items.forEach((item) => {
     if (!item || !item.children) return;
 
     const fields = [...item.children]; // image, title, description
 
-    const imgHTML = fields[0]?.outerHTML || "";
-    const titleHTML = fields[1] ? `<h3 class="key-highlight-toggle">${fields[1].innerHTML}</h3>` : "";
-    const descHTML = fields[2] ? `<div class="key-highlight-content"><p class="key-highlight-desc">${fields[2].innerHTML}</p></div>` : "";
+    const card = document.createElement('div');
+    card.className = 'key-highlight-card';
 
-    // Keep key-highlight-item wrapper for dropdown
-    gridHTML += `
-      <div class="key-highlight-item" id="key-highlight-item-${index}">
-        <div class="key-highlight-card">
-          ${imgHTML ? `<div class="key-highlight-media">${imgHTML}</div>` : ""}
-          ${titleHTML}
-          ${descHTML}
-        </div>
-      </div>
-    `;
+    /* Image */
+    if (fields[0]) {
+      const media = document.createElement('div');
+      media.className = 'key-highlight-media';
+      media.append(fields[0]); // keep image editable
+      card.append(media);
+    }
+
+    /* Title */
+    if (fields[1]) {
+      const title = document.createElement('h3');
+      title.innerHTML = fields[1].innerHTML;
+      card.append(title);
+    }
+
+    /* Description */
+    if (fields[2]) {
+      const desc = document.createElement('p');
+      desc.className = 'key-highlight-desc';
+      desc.innerHTML = fields[2].innerHTML;
+      card.append(desc);
+    }
+
+    // IMPORTANT: keep key-highlight-item wrapper
+    item.innerHTML = '';
+    item.append(card);
+
+    grid.append(item);
   });
 
-  gridHTML += `</div>`;
+  wrapper.append(grid);
 
-  /* ---------- Final runtime.innerHTML ---------- */
-  block.innerHTML = `
-    <div class="key-highlights-wrapper">
-      ${headerHTML}
-      ${gridHTML}
-    </div>
-  `;
-
-  /* ---------- Dropdown JS ---------- */
-  block.querySelectorAll('.key-highlight-toggle').forEach(toggle => {
-    toggle.addEventListener('click', () => {
-      const parentItem = toggle.closest('.key-highlight-item');
-      const content = parentItem.querySelector('.key-highlight-content');
-      if (!content) return;
-
-      // Toggle active class for styling
-      parentItem.classList.toggle('active');
-
-      // Smooth toggle
-      if (parentItem.classList.contains('active')) {
-        content.style.maxHeight = content.scrollHeight + "px";
-      } else {
-        content.style.maxHeight = null;
-      }
-    });
-  });
-};
+  /* ---------- Replace block content (same as your working JS) ---------- */
+  block.innerHTML = '';
+  block.append(wrapper);
+}
