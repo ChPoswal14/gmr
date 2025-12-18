@@ -178,6 +178,9 @@ hr {
 .bg-charcoal {
     background-color: var(--charcoal) !important;
 }
+.bg-sky-blue {
+    background-color: var(--sky-blue) !important;
+}
 
 .text-blue,
 .text-primary {
@@ -335,9 +338,19 @@ hr {
     font-size: 48px;
     font-weight: 400;
 }
-.entry-container{margin-bottom:3rem}
-.entry-container h2, .entry-container h2 p{font-size:3rem;font-weight:400;margin-bottom:1rem}
-.entry-container p{font-size:1.5rem;font-weight:400}
+.entry-container {
+    margin-bottom: 3rem;
+}
+.entry-container h2,
+.entry-container h2 p {
+    font-size: 3rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+.entry-container p {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
 
 @media (max-width: 767px) {
     .container,
