@@ -31,7 +31,8 @@
       "key-highlightss",
       "awards-recognitions",
       "global-leaders-aviation",
-      "airport-hero"
+      "airport-hero",
+      "aviation-services"
     ]
   },
   {
@@ -48,6 +49,10 @@
   },
   {
     "id": "aviation-infrastructure",
+    "components": []
+  },
+  {
+    "id": "aviation-services",
     "components": []
   },
   {
