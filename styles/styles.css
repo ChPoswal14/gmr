@@ -33,6 +33,7 @@
     --black: #000000;
     --charcoal: #333333;
     --lpink: #fef4e2;
+    --lpink: #fef4e2;
 
     /* fonts */
     --font-primary: "Red Hat Display", sans-serif;
@@ -281,9 +282,15 @@ hr {
     color: var(--black);
 }
 
-.btn-primary {
-    background-color: var(--yellow);
-    border-color: var(--yellow);
+.btn-outline-primary {
+    background-color: none;
+    border-color: var(--lorange);
+    color: var(--white);
+}
+
+.btn-outline-primary {
+    background-color: var(--);
+    border-color: var(--lorange);
     color: var(--black);
 }
 

@@ -1,0 +1,94 @@
+.key-highlightss-wrapper {
+  background: var(--lpink);
+}
+
+/* Header */
+.key-highlights-header {
+  max-width: 900px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.key-highlights-header h2,
+.key-highlights-header div:first-child {
+  font-size: 42px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+
+
+/* Grid */
+.key-highlights-grid {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Card */
+.key-highlight-card {
+  position: relative;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.key-highlight-media {
+  position: absolute;
+  inset: 0;
+}
+
+.key-highlight-media picture,
+.key-highlight-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay */
+.key-highlight-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,.15));
+}
+
+.key-highlight-card h3,
+.key-highlight-card p {
+  position: relative;
+  z-index: 2;
+  padding: 0 20px;
+}
+
+.key-highlight-card h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.key-highlight-card p {
+  font-size: 15px;
+  padding-bottom: 20px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .key-highlights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .key-highlights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .key-highlights-header h2 {
+    font-size: 32px;
+  }
+}
