@@ -2,8 +2,8 @@ export default function decorate(block) {
   // Preserve AEM editable fields
   const original = [...block.children];
 
-  const sectionTitle = original[0];
-  const sectionDesc  = original[1];
+  const sectionTitle = original[0]?.textContent || "";
+  const sectionDesc  = original[1]?.innerHTML || "";
 
   // key-highlight-item blocks (dropdown items)
   const items = original.slice(2);
@@ -14,12 +14,15 @@ export default function decorate(block) {
   const wrapper = document.createElement('div');
   wrapper.className = 'key-highlights-wrapper';
 
-  /* ---------- Header ---------- */
+  /* ---------- Header using innerHTML ---------- */
   const header = document.createElement('div');
   header.className = 'entry-container text-center';
-
-  if (sectionTitle) header.append(sectionTitle);
-  if (sectionDesc) header.append(sectionDesc);
+  header.innerHTML = `
+    <div>
+      <h2>${sectionTitle}</h2>
+      <p>${sectionDesc}</p>
+    </div>
+  `;
 
   wrapper.append(header);
 
@@ -59,7 +62,7 @@ export default function decorate(block) {
       card.append(desc);
     }
 
-    // IMPORTANT: keep key-highlight-item wrapper
+    // Keep key-highlight-item wrapper
     item.innerHTML = '';
     item.append(card);
 
@@ -68,7 +71,7 @@ export default function decorate(block) {
 
   wrapper.append(grid);
 
-  /* ---------- Replace block content (same as your working JS) ---------- */
+  /* ---------- Replace block content ---------- */
   block.innerHTML = '';
   block.append(wrapper);
 }
