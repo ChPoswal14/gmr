@@ -2,8 +2,8 @@ export default function decorate(block) {
   // Preserve AEM editable fields
   const original = [...block.children];
 
-  const sectionTitle = original[0]?.textContent || "";
-  const sectionDesc  = original[1]?.innerHTML || "";
+  const sectionTitle = original[0]; // keep the editable node
+  const sectionDesc  = original[1];
 
   // key-highlight-item blocks (dropdown items)
   const items = original.slice(2);
@@ -14,15 +14,22 @@ export default function decorate(block) {
   const wrapper = document.createElement('div');
   wrapper.className = 'key-highlights-wrapper';
 
-  /* ---------- Header using innerHTML ---------- */
+  /* ---------- Header ---------- */
   const header = document.createElement('div');
   header.className = 'entry-container text-center';
-  header.innerHTML = `
-    <div>
-      <h2>${sectionTitle}</h2>
-      <p>${sectionDesc}</p>
-    </div>
-  `;
+
+  // Replace <p> with <h2> for title while keeping AEM editable node
+  if (sectionTitle) {
+    const h2 = document.createElement('h2');
+    // Move all children of sectionTitle into h2
+    while (sectionTitle.firstChild) {
+      h2.appendChild(sectionTitle.firstChild);
+    }
+    sectionTitle.replaceWith(h2); // replace editable node
+    header.append(h2);
+  }
+
+  if (sectionDesc) header.append(sectionDesc);
 
   wrapper.append(header);
 
@@ -30,7 +37,6 @@ export default function decorate(block) {
   const grid = document.createElement('div');
   grid.className = 'key-highlights-grid';
 
-  /* ---------- LOOP: key-highlight-item (AS A BLOCK) ---------- */
   items.forEach((item) => {
     if (!item || !item.children) return;
 
@@ -43,7 +49,7 @@ export default function decorate(block) {
     if (fields[0]) {
       const media = document.createElement('div');
       media.className = 'key-highlight-media';
-      media.append(fields[0]); // keep image editable
+      media.append(fields[0]);
       card.append(media);
     }
 
