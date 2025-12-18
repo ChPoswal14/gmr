@@ -12,16 +12,18 @@ export default function decorate(block) {
   const header = document.createElement("div");
   header.className = "entry-container text-center mb-5";
 
-  // ---- Title: <p> → <h2> ----
-    if (titleCell) {
-      titleCell.classList.add("title");
-      const p = titleCell.querySelector("p");
-      if (p) {
-        const h3 = document.createElement("h2");
-        h3.innerHTML = p.innerHTML;
-        p.replaceWith(h2);
-      }
+  /* ---- Title: <p> → <h2> ---- */
+  if (titleEl) {
+    const p = titleEl.querySelector("p");
+    if (p) {
+      const h2 = document.createElement("h2");
+      h2.className = "title";
+      h2.innerHTML = p.innerHTML;
+
+      p.replaceWith(h2);
+      header.append(h2);
     }
+  }
 
   /* ---- Description (keep as-is) ---- */
   if (descEl) {
