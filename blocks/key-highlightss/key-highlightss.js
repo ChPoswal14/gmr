@@ -9,7 +9,7 @@ export default function decorate(block) {
   wrapper.className = 'key-highlights-wrapper container';
 
   /* ---------- Header ---------- */
-  const header = document.createElement('div');
+  const header = document.createElement('header');
   header.className = 'entry-container text-center mb-5';
 
   // Extract content from AEM editable fields
@@ -57,7 +57,7 @@ export default function decorate(block) {
 
     // Create card container
     const card = document.createElement('div');
-    card.className = 'key-highlight-card';
+    card.className = 'key-highlight-card mt-4';
     card.innerHTML = cardHTML.trim();
 
     // Keep original wrapper, replace content
