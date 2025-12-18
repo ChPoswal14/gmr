@@ -10,19 +10,27 @@ export default function decorate(block) {
   block.classList.add("global-leaders-aviation");
 
   /* ================================
-     2️⃣ Runtime wrapper (DO NOT clear block)
+     2️⃣ Split first two words
+     ================================ */
+  const words = titleText.split(/\s+/);
+  const highlighted =
+    words.length >= 2
+      ? `<span class="gla-highlight">${words.slice(0, 2).join(" ")}</span> ${words.slice(2).join(" ")}`
+      : `<span class="gla-highlight">${titleText}</span>`;
+
+  /* ================================
+     3️⃣ Runtime wrapper (DO NOT clear block)
      ================================ */
   const runtime = document.createElement("div");
-  runtime.className = "gla-wrapper";
-
+  runtime.className = "gla-wrapper container";
   block.append(runtime);
 
   /* ================================
-     3️⃣ Runtime layout using innerHTML
+     4️⃣ Runtime layout
      ================================ */
   runtime.innerHTML = `
     <div class="gla-left">
-      <h2>${titleText}</h2>
+      <h2>${highlighted}</h2>
     </div>
     <div class="gla-right">
       ${contentHTML}
@@ -30,7 +38,7 @@ export default function decorate(block) {
   `;
 
   /* ================================
-     4️⃣ Hide original authored nodes
+     5️⃣ Hide original authored nodes
      ================================ */
   titleEl.style.display = "none";
   contentEl.style.display = "none";
