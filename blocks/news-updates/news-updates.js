@@ -90,7 +90,7 @@ export default async function decorate(block) {
                 ${item.category}
               </span>
               <span class="meta-date">
-                24 March 2025
+                ${item.publishDate}
               </span>
             </div>
             <h3 class="card-title">${item.title}</h3>
