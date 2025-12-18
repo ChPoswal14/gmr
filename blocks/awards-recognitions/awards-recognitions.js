@@ -1,69 +1,114 @@
-export default function decorate(block) {
-  // Preserve AEM editable fields
+import { loadCSS, loadScript } from "../../scripts/aem.js";
+
+const SWIPER_JS = "../../scripts/swiper-bundle.min.js";
+const SWIPER_CSS = "../../styles/swiper-bundle.min.css";
+
+export default async function decorate(block) {
+  /* ---------- Load Swiper (same as hero) ---------- */
+  await loadCSS(SWIPER_CSS);
+  await loadScript(SWIPER_JS);
+
+  /* ---------- Preserve AEM editable fields ---------- */
   const original = [...block.children];
+  if (!original.length) return;
 
   const sectionTitle = original[0];
-  const items = original.slice(1); // award-item blocks
+  const items = original.slice(1);
 
-  block.classList.add('awards-recognitions');
+  block.classList.add("awards-recognitions");
 
   /* ---------- Wrapper ---------- */
-  const wrapper = document.createElement('div');
-  wrapper.className = 'awards-wrapper';
+  const wrapper = document.createElement("div");
+  wrapper.className = "awards-wrapper";
 
   /* ---------- Header ---------- */
-  const header = document.createElement('div');
-  header.className = 'awards-header';
+  if (sectionTitle) {
+    const header = document.createElement("div");
+    header.className = "awards-header";
+    header.append(sectionTitle); // UE safe
+    wrapper.append(header);
+  }
 
-  if (sectionTitle) header.append(sectionTitle);
-  wrapper.append(header);
+  /* ---------- Swiper ---------- */
+  const swiper = document.createElement("div");
+  swiper.className = "swiper awards-swiper";
 
-  /* ---------- Grid ---------- */
-  const grid = document.createElement('div');
-  grid.className = 'awards-grid';
+  const swiperWrapper = document.createElement("div");
+  swiperWrapper.className = "swiper-wrapper";
 
-  /* ---------- LOOP award-item (dropdown stays) ---------- */
+  /* ---------- LOOP award-item → swiper-slide ---------- */
   items.forEach((item) => {
-    if (!item || !item.children) return;
+    if (!item || !item.children.length) return;
 
-    const fields = [...item.children]; // image, title, description
+    const fields = [...item.children]; // image, title, desc
 
-    const card = document.createElement('div');
-    card.className = 'award-card';
+    const slide = document.createElement("div");
+    slide.className = "swiper-slide";
+
+    const card = document.createElement("div");
+    card.className = "award-card";
 
     /* Image */
     if (fields[0]) {
-      const media = document.createElement('div');
-      media.className = 'award-media';
-      media.append(fields[0]); // move node to keep UE reference
+      const media = document.createElement("div");
+      media.className = "award-media";
+      media.append(fields[0]); // move node (UE preserved)
       card.append(media);
     }
 
     /* Title */
     if (fields[1]) {
-      const title = document.createElement('h3');
+      const title = document.createElement("h3");
       title.innerHTML = fields[1].innerHTML;
       card.append(title);
     }
 
     /* Description */
     if (fields[2]) {
-      const desc = document.createElement('p');
-      desc.className = 'award-desc';
+      const desc = document.createElement("p");
+      desc.className = "award-desc";
       desc.innerHTML = fields[2].innerHTML;
       card.append(desc);
     }
 
-    // IMPORTANT: keep award-item wrapper
-    item.innerHTML = '';
+    // keep award-item wrapper (important for UE)
+    item.innerHTML = "";
     item.append(card);
 
-    grid.append(item);
+    slide.append(item);
+    swiperWrapper.append(slide);
   });
 
-  wrapper.append(grid);
+  swiper.append(swiperWrapper);
 
-  /* ---------- Replace content (same as working code) ---------- */
-  block.innerHTML = '';
+  /* ---------- Pagination ---------- */
+  const pagination = document.createElement("div");
+  pagination.className = "swiper-pagination";
+  swiper.append(pagination);
+
+  wrapper.append(swiper);
+
+  /* ---------- Replace block ---------- */
+  block.innerHTML = "";
   block.append(wrapper);
+
+  /* ---------- Init Swiper ---------- */
+  new Swiper(swiper, {
+    loop: items.length > 1,
+    speed: 800,
+    slidesPerView: 1,
+    spaceBetween: 24,
+    pagination: {
+      el: pagination,
+      clickable: true,
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+      },
+      1024: {
+        slidesPerView: 3,
+      },
+    },
+  });
 }
