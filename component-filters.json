@@ -129,9 +129,9 @@
     ]
   },
   {
-    "id": "aviation-expertise",
+    "id": "gmr-buisness-expertise",
     "components": [
-      "aviation-item"
+      "gmr-buisness-item"
     ]
   },
   {

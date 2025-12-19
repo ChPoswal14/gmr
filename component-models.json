@@ -823,7 +823,7 @@
     ]
   },
   {
-    "id": "aviation-expertise",
+    "id": "gmr-buisness-expertise",
     "fields": [
       {
         "component": "text",
@@ -840,7 +840,7 @@
     ]
   },
   {
-    "id": "aviation-item",
+    "id": "gmr-buisness-item",
     "fields": [
       {
         "component": "reference",
