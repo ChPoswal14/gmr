@@ -57,7 +57,7 @@ export default function decorate(block) {
 
     // Create card container
     const card = document.createElement('div');
-    card.className = 'key-highlight-card mt-4';
+    card.className = 'key-highlight-card';
     card.innerHTML = cardHTML.trim();
 
     // Keep original wrapper, replace content
