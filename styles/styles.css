@@ -33,7 +33,6 @@
     --black: #000000;
     --charcoal: #333333;
     --lpink: #fef4e2;
-    --lpink: #fef4e2;
 
     /* fonts */
     --font-primary: "Red Hat Display", sans-serif;
@@ -270,7 +269,7 @@ hr {
     height: 44px;
     display: inline-flex;
     align-items: center;
-    padding: 0 1.5rem;
+    padding: 0 1.25rem;
     border-radius: 0.5rem;
     font-weight: var(--fw-semi-bold);
     gap: 0.5rem;
@@ -285,13 +284,7 @@ hr {
 .btn-outline-primary {
     background-color: none;
     border-color: var(--lorange);
-    color: var(--white);
-}
-
-.btn-outline-primary {
-    background-color: var(--);
-    border-color: var(--lorange);
-    color: var(--black);
+    color: var(--lorange);
 }
 
 .btn-primary:hover,
@@ -299,7 +292,7 @@ hr {
 .btn-outline-primary:hover,
 .btn-outline-primary:focus {
     background-color: var(--white);
-    border-color: var(--white);
+    border-color: var(--lorange);
     color: var(--black);
 }
 
@@ -369,14 +362,6 @@ hr {
     background-color: var(--orange);
 }
 
-.container,
-.businesses-section.block,
-.listed-companies-wrapper,
-.careers-highlight-wrapper {
-    max-width: 100%;
-    padding-left: 90px;
-    padding-right: 90px;
-}
 .section.careers-highlight-container,
 .key-highlightss-wrapper {
     padding: 80px 0;
@@ -413,8 +398,8 @@ hr {
 .swiper-button-next {
     position: static;
     background: var(--lorange);
-    width: 4rem;
-    height: 4rem;
+    width: 3.5rem;
+    height: 3.5rem;
     border-radius: 1rem;
     border: solid 2px var(--lorange);
     margin: 0;
@@ -442,6 +427,17 @@ hr {
 .swiper-button-prev.swiper-button-disabled:before,
 .swiper-button-next.swiper-button-disabled:before {
     background: url(../../icons/nav-arrow-yellow.svg) no-repeat center;
+}
+
+.container,
+.businesses-section.block,
+.listed-companies-wrapper,
+.careers-highlight-wrapper {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 4rem;
+    padding-right: 4rem;
 }
 
 @media (max-width: 767px) {

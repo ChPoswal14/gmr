@@ -1,7 +1,6 @@
 import { loadCSS, loadScript } from "../../scripts/aem.js";
 
 const SWIPER_JS = "../../scripts/swiper-bundle.min.js";
-// const SWIPER_CSS = "../../styles/swiper-bundle.min.css";
 
 function isValidRow(row) {
   return (
@@ -16,17 +15,19 @@ function buildHeroNav(swiper, total) {
   const nav = document.createElement("div");
   nav.className = "hero-nav";
 
+  /* Container */
+  const container = document.createElement("div");
+  container.className = "container";
+
   /* Prev */
   const prev = document.createElement("button");
-  prev.className = "hero-arrow hero-prev";
+  prev.className = "swiper-button-prev";
   prev.setAttribute("aria-label", "Previous slide");
-  prev.innerHTML = "&#8592;";
 
   /* Next */
   const next = document.createElement("button");
-  next.className = "hero-arrow hero-next";
+  next.className = "swiper-button-next";
   next.setAttribute("aria-label", "Next slide");
-  next.innerHTML = "&#8594;";
 
   /* Numbers */
   const numbers = document.createElement("div");
@@ -45,9 +46,12 @@ function buildHeroNav(swiper, total) {
     numbers.append(num);
   }
 
-  nav.append(prev, numbers, next);
+  /* Build structure */
+  container.append(prev, numbers, next);
+  nav.append(container);
   swiper.el.append(nav);
 
+  /* Events */
   prev.onclick = () => swiper.slidePrev();
   next.onclick = () => swiper.slideNext();
 
@@ -61,7 +65,6 @@ function buildHeroNav(swiper, total) {
 }
 
 export default async function decorate(block) {
-  // await loadCSS(SWIPER_CSS);
   await loadScript(SWIPER_JS);
 
   const rows = [...block.children].filter(isValidRow);
@@ -113,16 +116,23 @@ export default async function decorate(block) {
     const content = document.createElement("div");
     content.className = "hero-content";
 
+    const container = document.createElement("div");
+    container.className = "container";
+
+    const contentInner = document.createElement("div");
+    contentInner.className = "hero-content-inner";
+
     if (title?.textContent.trim()) {
       const h3 = document.createElement("h3");
       h3.innerHTML = title.innerHTML;
-      content.append(h3);
+      contentInner.append(h3);
     }
 
     if (description?.innerHTML.trim()) {
       const div = document.createElement("div");
+      div.className = "hero-desc";
       div.innerHTML = description.innerHTML;
-      content.append(div);
+      contentInner.append(div);
     }
 
     const actions = document.createElement("div");
@@ -142,7 +152,9 @@ export default async function decorate(block) {
       actions.append(a);
     }
 
-    content.append(actions);
+    contentInner.append(actions);
+    container.append(contentInner);
+    content.append(container);
 
     slide.append(media, content);
     wrapper.append(slide);
@@ -153,8 +165,12 @@ export default async function decorate(block) {
   block.classList.add("hero-banner-initialized");
 
   const swiperInstance = new Swiper(swiper, {
-    loop: rows.length > 1,
+    loop: true,
     speed: 800,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
   });
 
   buildHeroNav(swiperInstance, rows.length);
