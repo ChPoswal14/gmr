@@ -26,20 +26,24 @@ export default function decorate(block) {
   runtime.className = "innovation-runtime";
 
   runtime.innerHTML = `
-    <section class="innovation-cards-section spacer">
+    <section class="sec-innovation spacer">
       <div class="container">
-        <div class="text-center mb-5">
-          <h2 class="sec-title">${sectionTitle}</h2>
-          <div class="sec-desc">${sectionDesc}</div>
+        <div class="my-5 ps-5 ms-5">
+          <div class="row">
+            <div class="col-md-6">
+              <h2 class="sec-title text-primary">${sectionTitle}</h2>
+              <div class="sec-desc">${sectionDesc}</div>
+            </div>
+          </div>
         </div>
-        <div class="innovation-cards-row"></div>
+        <div class="innovation-row"></div>
       </div>
     </section>
   `;
 
   block.after(runtime);
 
-  const cardsRow = runtime.querySelector(".innovation-cards-row");
+  const cardsRow = runtime.querySelector(".innovation-row");
 
   /* ================================
      4️⃣ Build cards (TEXT ONLY)
@@ -56,13 +60,12 @@ export default function decorate(block) {
     col.className = "innovation-col";
 
     const card = document.createElement("div");
-    card.className =
-      index === 0 ? "innovation-card featured" : "innovation-card";
+    card.className = index === 0 ? "card card-overlay" : "card card-overlay";
 
     /* Image recreated safely */
     if (picture?.src) {
       const imgWrap = document.createElement("div");
-      imgWrap.className = "innovation-card-img";
+      imgWrap.className = "card-img";
 
       const img = document.createElement("img");
       img.src = picture.src;
@@ -74,12 +77,12 @@ export default function decorate(block) {
 
     /* Content */
     const content = document.createElement("div");
-    content.className = "innovation-card-content";
+    content.className = "card-body";
 
     content.innerHTML = `
       <h3 class="card-title">${title}</h3>
       <p class="card-desc">${desc}</p>
-      <span class="card-cta">${cta} &rsaquo;</span>
+      <div class="card-cta"><a href="#" class="btn-link">${cta}</a>
     `;
 
     card.append(content);
