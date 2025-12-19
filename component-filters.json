@@ -32,7 +32,8 @@
       "awards-recognitions",
       "global-leaders-aviation",
       "gmr-buisness-expertise",
-      "gmr-buisness-brand"
+      "gmr-buisness-brand",
+      "aviation-services-header"
     ]
   },
   {
@@ -44,6 +45,12 @@
   {
     "id": "aviation-infrastructure",
     "components": []
+  },
+  {
+    "id": "aviation-services-header",
+    "components": [
+      "aviation-service-item"
+    ]
   },
   {
     "id": "awards-carousel",

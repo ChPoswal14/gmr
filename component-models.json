@@ -249,6 +249,50 @@
     ]
   },
   {
+    "id": "aviation-services-header",
+    "fields": [
+      {
+        "component": "text",
+        "name": "headerTitle",
+        "label": "Header Title",
+        "valueType": "string",
+        "defaultValue": "Airport Selection"
+      },
+      {
+        "component": "text",
+        "name": "dropdownPlaceholder",
+        "label": "Dropdown Label (Right Side)",
+        "valueType": "string",
+        "defaultValue": "Domestic Network"
+      }
+    ]
+  },
+  {
+    "id": "aviation-service-item",
+    "itemLabel": "airportName",
+    "fields": [
+      {
+        "component": "text",
+        "name": "airportName",
+        "label": "Airport Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "navigationLink",
+        "label": "Navigation Link",
+        "valueType": "string"
+      },
+      {
+        "component": "checkbox",
+        "name": "isActive",
+        "label": "Active State (Blue Underline)",
+        "valueType": "boolean",
+        "defaultValue": false
+      }
+    ]
+  },
+  {
     "id": "awards-carousel",
     "fields": [
       {
