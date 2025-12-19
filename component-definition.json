@@ -145,7 +145,7 @@
           }
         },
         {
-          "title": "Aviation Service Item",
+          "title": "Aviation Service Tab",
           "id": "aviation-service-item",
           "plugins": {
             "xwalk": {
@@ -154,6 +154,21 @@
                 "template": {
                   "name": "aviation-service-item",
                   "model": "aviation-service-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Dropdown Link",
+          "id": "dropdown-link-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "dropdown-link-item",
+                  "model": "dropdown-link-item"
                 }
               }
             }

@@ -254,14 +254,14 @@
       {
         "component": "text",
         "name": "headerTitle",
-        "label": "Header Title",
+        "label": "Section Admin Title",
         "valueType": "string",
-        "defaultValue": "Airport Selection"
+        "defaultValue": "Airport Navigation Header"
       },
       {
         "component": "text",
-        "name": "dropdownPlaceholder",
-        "label": "Dropdown Label (Right Side)",
+        "name": "dropdownButtonText",
+        "label": "Dropdown Button Label",
         "valueType": "string",
         "defaultValue": "Domestic Network"
       }
@@ -280,15 +280,32 @@
       {
         "component": "text",
         "name": "navigationLink",
-        "label": "Navigation Link",
+        "label": "URL",
         "valueType": "string"
       },
       {
         "component": "checkbox",
         "name": "isActive",
-        "label": "Active State (Blue Underline)",
-        "valueType": "boolean",
-        "defaultValue": false
+        "label": "Show Underline (Active)",
+        "valueType": "boolean"
+      }
+    ]
+  },
+  {
+    "id": "dropdown-link-item",
+    "itemLabel": "linkText",
+    "fields": [
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Link Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "linkUrl",
+        "label": "Link URL",
+        "valueType": "string"
       }
     ]
   },
