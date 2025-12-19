@@ -34,13 +34,20 @@
       "gmr-buisness-expertise",
       "gmr-buisness-brand",
       "aviation-services-header",
-      "our-airports"
+      "our-airports",
+      "all-business-cards"
     ]
   },
   {
     "id": "airport-overview",
     "components": [
       "airport-overview-item"
+    ]
+  },
+  {
+    "id": "all-business-cards",
+    "components": [
+      "all-business-cards-item"
     ]
   },
   {

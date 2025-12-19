@@ -232,6 +232,42 @@
     ]
   },
   {
+    "id": "all-business-cards",
+    "fields": [
+      {
+        "component": "text",
+        "name": "sectionTitle",
+        "label": "Section Heading",
+        "valueType": "string",
+        "defaultValue": "Operational Excellence and Recognition"
+      }
+    ]
+  },
+  {
+    "id": "all-business-cards-item",
+    "itemLabel": "cardTitle",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "cardImage",
+        "label": "Card Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "cardTitle",
+        "label": "Card Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "cardDescription",
+        "label": "Card Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "aviation-infrastructure",
     "fields": [
       {
