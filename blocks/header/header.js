@@ -289,7 +289,9 @@ export default async function decorate(block) {
 
             const level2Li = level3Ul.closest("li");
 
-            const el2 = level2Li.querySelector(":scope > p, :scope > a, :scope > span");
+            const el2 = level2Li.querySelector(
+              ":scope > p, :scope > a, :scope > span"
+            );
             let level2Text = "";
 
             if (el2) {
@@ -303,8 +305,9 @@ export default async function decorate(block) {
               }
             }
 
-
-            const el = level1.querySelector(":scope > p, :scope > a, :scope > span");
+            const el = level1.querySelector(
+              ":scope > p, :scope > a, :scope > span"
+            );
             let level1Text = "";
 
             if (el) {
