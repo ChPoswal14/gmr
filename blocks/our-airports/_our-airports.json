@@ -70,11 +70,11 @@
           "valueType": "string",
           "options": [
             {
-              "label": "Domestic",
+              "name": "Domestic",
               "value": "domestic"
             },
             {
-              "label": "International",
+              "name": "International",
               "value": "international"
             }
           ]
