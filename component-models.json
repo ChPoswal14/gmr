@@ -157,6 +157,14 @@
             "value": "highlight"
           },
           {
+            "name": "Sec-Grid-5",
+            "value": "sec-grid-5"
+          },
+          {
+            "name": "Sec-Grid-2",
+            "value": "sec-grid-2"
+          },
+          {
             "name": "Background Blue",
             "value": "bg-primary"
           }
