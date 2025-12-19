@@ -1363,6 +1363,92 @@
     ]
   },
   {
+    "id": "our-airports",
+    "fields": [
+      {
+        "component": "text",
+        "name": "sectionTitle",
+        "label": "Section Heading",
+        "valueType": "string",
+        "defaultValue": "Our Airports"
+      },
+      {
+        "component": "text",
+        "name": "domesticBtnLabel",
+        "label": "Domestic Button Text",
+        "valueType": "string",
+        "defaultValue": "Domestic Network"
+      },
+      {
+        "component": "text",
+        "name": "internationalBtnLabel",
+        "label": "International Button Text",
+        "valueType": "string",
+        "defaultValue": "International Network"
+      }
+    ]
+  },
+  {
+    "id": "our-airports-item",
+    "itemLabel": "airportName",
+    "fields": [
+      {
+        "component": "select",
+        "name": "networkType",
+        "label": "Network Type (For Filtering)",
+        "valueType": "string",
+        "options": [
+          {
+            "label": "Domestic",
+            "value": "domestic"
+          },
+          {
+            "label": "International",
+            "value": "international"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Airport Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "statusBadge",
+        "label": "Image Badge (e.g. Operating Asset)",
+        "valueType": "string",
+        "defaultValue": "Operating Asset"
+      },
+      {
+        "component": "text",
+        "name": "airportName",
+        "label": "Airport Name",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ctaLabel",
+        "label": "Link Text",
+        "valueType": "string",
+        "defaultValue": "READ MORE"
+      },
+      {
+        "component": "text",
+        "name": "ctaUrl",
+        "label": "Link URL",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "passenger-experience",
     "fields": [
       {
