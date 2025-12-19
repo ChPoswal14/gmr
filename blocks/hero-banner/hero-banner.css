@@ -29,9 +29,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 750px;
+    width: 100%;
     height: 100%;
-    padding: 90px 0 180px 90px;
+    padding: 5rem 0 10rem;
     color: white;
     display: flex;
     flex-direction: column;
@@ -45,6 +45,9 @@
     font-size: 1.25rem;
     font-weight: 300;
 }
+.hero-content-inner {
+    max-width: 550px;
+}
 .hero-content h3 {
     font-family: var(--font-secondary);
     font-weight: var(--fw-light);
@@ -52,7 +55,7 @@
 }
 .hero-content h2 {
     font-weight: var(--fw-light);
-    font-size: 4rem;
+    font-size: 3.5rem;
 }
 .hero-content p {
     color: #e0e0e0;
@@ -66,56 +69,76 @@
     min-width: 180px;
 }
 
-/*  */
-
 .hero-nav {
     position: absolute;
-    bottom: 6rem;
-    left: 90px;
+    bottom: 7rem;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+}
+.hero-nav .container {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    z-index: 5;
+    gap: 1rem;
 }
 
 /* Arrows */
-.hero-prev,
-.hero-next {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    border: 2px solid #f5b335;
-    background: transparent;
-    color: #f5b335;
-    font-size: 20px;
-    cursor: pointer;
+.hero-nav .swiper-button-prev,
+.hero-nav .swiper-button-next {
+    width: 2.75rem;
+    height: 2.75rem;
+    border: solid 2px var(--yellow);
+    background: none;
+    border-radius: 0.75rem;
+    margin: 0;
 }
-
-/* Numbers */
+.hero-nav .swiper-button-next:before,
+.hero-nav .swiper-button-prev:before {
+    background: url(../../icons/nav-arrow-yellow.svg) no-repeat center;
+    background-size: 1rem;
+}
 .hero-numbers {
     display: flex;
     align-items: center;
     gap: 1rem;
     position: relative;
 }
-
 .hero-num {
     font-weight: 600;
     color: var(--lorange);
     cursor: pointer;
+    position: relative;
+    transition-duration: 0.4s;
 }
-
 .hero-num.active {
     color: var(--white);
+    padding-right: 60px;
+}
+.hero-num:before,
+.hero-num:after {
+    content: "";
+    width: 45px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    display: none;
+}
+.hero-num:after {
+    background: var(--yellow);
+    animation: myAnimation 4s alternate;
+}
+.hero-num.active:before,
+.hero-num.active:after {
+    display: block;
 }
 
-/* Line */
-.hero-line {
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    height: 2px;
-    background: #f5b335;
-    width: 0%;
-    transition: width 0.4s ease;
+@keyframes myAnimation {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 45px;
+    }
 }
