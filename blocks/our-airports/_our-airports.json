@@ -69,8 +69,14 @@
           "label": "Network Type (For Filtering)",
           "valueType": "string",
           "options": [
-            { "label": "Domestic", "value": "domestic" },
-            { "label": "International", "value": "international" }
+            {
+              "label": "Domestic",
+              "value": "domestic"
+            },
+            {
+              "label": "International",
+              "value": "international"
+            }
           ]
         },
         {
