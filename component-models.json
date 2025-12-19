@@ -290,7 +290,19 @@
         "name": "sectionTitle",
         "label": "Section Title",
         "valueType": "string",
-        "defaultValue": "Awards & Global Recognition"
+        "defaultValue": "GMR Runs Major Airports in India and Asia"
+      },
+      {
+        "component": "richtext",
+        "name": "sectionDescription",
+        "label": "Section Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "footerTag",
+        "label": "Footer Tag (e.g. FY 2025-26)",
+        "valueType": "string"
       }
     ]
   },
@@ -299,21 +311,15 @@
     "itemLabel": "title",
     "fields": [
       {
-        "component": "reference",
-        "name": "image",
-        "label": "Award Image",
-        "valueType": "string"
-      },
-      {
         "component": "text",
         "name": "title",
-        "label": "Award Title",
+        "label": "Stat Number (Title)",
         "valueType": "string"
       },
       {
         "component": "richtext",
         "name": "description",
-        "label": "Award Description",
+        "label": "Stat Subtext (Description)",
         "valueType": "string"
       }
     ]
