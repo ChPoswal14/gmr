@@ -1,135 +1,257 @@
-async function logConsentToBackend(status) {
-  const API_URL = 'http://13.200.106.168:4000/api/cookie-consent';
+// 1. Logging new consent (Accept or Decline) - CREATE record
+const LOG_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent';
 
-  // Default fallback values
-  let city = 'unknown';
-  let region = 'unknown';    // state / province
-  let country = 'unknown';
+// 2. Withdraw / Update preference - OPTIONAL (if you want to log "withdrawn" in DB)
+//    If you don't have this, we handle withdraw client-side only (reset banner)
+const WITHDRAW_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent/withdraw';  // Can be null if not implemented
 
-  // Fetch approximate location via IP (ipapi.co - free tier, no API key required)
+// 3. Permanently delete data - DELETE record (REQUIRED for deletion feature)
+const DELETE_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent/delete';
+
+// Your authorization token (keep as is)
+const AUTH_HEADER = 'U2FsdGVkX1+IAunex0zJueoZQpRBfpUm/DSQSMufK69HpTEh4abfdnhz0fQ+jbSmPrqojCZOhYZ6/mvA28aQxw';
+
+// =================================================================
+
+async function fetchGeo() {
+  let city = 'unknown', region = 'unknown', country = 'unknown';
   try {
-    const geoResponse = await fetch('https://ipapi.co/json/', { method: 'GET' });
-    if (geoResponse.ok) {
-      const geoData = await geoResponse.json();
-      city = geoData.city || 'unknown';
-      region = geoData.region || 'unknown';
-      country = geoData.country_name || 'unknown';
+    const res = await fetch('https://ipapi.co/json/');
+    if (res.ok) {
+      const data = await res.json();
+      city = data.city || 'unknown';
+      region = data.region || 'unknown';
+      country = data.country_name || 'unknown';
     }
-  } catch (error) {
-    console.warn('⚠️ Geolocation fetch failed (this is okay on some networks/VPNs)', error);
+  } catch (e) {
+    console.warn('⚠️ Geolocation fetch failed', e);
   }
+  return { city, region, country };
+}
 
-  const userData = {
+async function logConsent(status) {
+  const { city, region, country } = await fetchGeo();
+
+  const payload = {
     userIp: 'anonymous',
     location: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    city: city,
-    region: region,
-    country: country,
+    city,
+    region,
+    country,
     timestamp: new Date().toISOString(),
     userAgent: navigator.userAgent,
     consentType: status
   };
 
-  // Optional: Uncomment next line during testing to see exact payload in console
-  // console.log('🚀 Sending consent payload:', userData);
-
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(LOG_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'U2FsdGVkX1+IAunex0zJueoZQpRBfpUm/DSQSMufK69HpTEh4abfdnhz0fQ+jbSmPrqojCZOhYZ6/mvA28aQxw'
+        'Authorization': AUTH_HEADER
       },
-      body: JSON.stringify(userData)
+      body: JSON.stringify(payload)
     });
 
     const result = await response.json();
 
     if (response.ok) {
-      console.log('✅ Consent logged successfully with location data.');
-      if (result.id) {
-        localStorage.setItem('gmr-privacy-id', result.id);
-        console.log('💾 Privacy ID saved:', result.id);
+      console.log('✅ Consent logged successfully');
+
+      const savedId = result.id || result.data?.id || result.data?._id || null;
+      if (savedId) {
+        localStorage.setItem('gmr-privacy-id', savedId);
+        console.log('💾 Privacy ID saved:', savedId);
       }
+
+      localStorage.setItem('gmr-cookie-consent', status);
+      showPostConsentView(status, savedId);
     } else {
-      console.error('❌ Consent logging failed (server error):', result);
+      console.error('❌ Consent logging failed:', result);
+      alert('Error saving consent. Please try again.');
     }
-  } catch (error) {
-    console.error('❌ Consent log request failed (network/cors?):', error);
+  } catch (e) {
+    console.error('❌ Network error:', e);
+    alert('Network error. Check your connection.');
   }
 }
 
+async function deleteConsentRecord(id) {
+  if (!id) {
+    alert('❌ No Record ID found. Cannot delete.');
+    return false;
+  }
+
+  try {
+    const response = await fetch(DELETE_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': AUTH_HEADER
+      },
+      body: JSON.stringify({ id })
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      console.log('✅ Data permanently deleted');
+      return true;
+    } else {
+      alert(`❌ Deletion failed: ${result.error || result.message || 'Unknown error'}`);
+      return false;
+    }
+  } catch (e) {
+    console.error('❌ Deletion network error:', e);
+    alert('❌ Network error during deletion.');
+    return false;
+  }
+}
+
+// Optional: Withdraw consent (mark as withdrawn in DB)
+async function withdrawConsent(id) {
+  if (!WITHDRAW_ENDPOINT || !id) return false;
+
+  try {
+    const response = await fetch(WITHDRAW_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': AUTH_HEADER
+      },
+      body: JSON.stringify({ id })
+    });
+
+    if (response.ok) {
+      console.log('✅ Consent withdrawn in backend');
+      return true;
+    }
+  } catch (e) {
+    console.warn('Withdraw endpoint failed (optional)', e);
+  }
+  return false;
+}
+
+// ... [rest of the code remains exactly the same as previous version: showPostConsentView, openManagementModal, etc.]
+
+function showPostConsentView(currentStatus, savedId) {
+  const wrapper = document.querySelector('.cookie-consent-wrapper');
+  if (!wrapper) return;
+
+  wrapper.innerHTML = `
+    <div class="cookie-consent" style="background:#f0f8ff; padding:20px; text-align:center; border-radius:8px;">
+      <p style="margin:0 0 15px; font-size:1rem;">
+        Your preference: <strong>${currentStatus === 'accepted' ? 'Cookies Allowed' : 'Cookies Declined'}</strong>
+      </p>
+      <button id="manage-prefs-btn" style="padding:10px 24px; background:#003366; color:white; border:none; border-radius:6px; font-weight:bold; cursor:pointer;">
+        Manage Preferences
+      </button>
+    </div>
+  `;
+
+  wrapper.style.display = 'block';
+
+  document.getElementById('manage-prefs-btn').addEventListener('click', () => {
+    openManagementModal(savedId);
+  });
+}
+
+function openManagementModal(savedId = null) {
+  if (document.getElementById('privacy-modal')) return;
+
+  const modal = document.createElement('div');
+  modal.id = 'privacy-modal';
+  modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:99999;';
+
+  modal.innerHTML = `
+    <div style="background:#fff; padding:30px; border-radius:12px; max-width:520px; width:90%; text-align:center; box-shadow:0 8px 30px rgba(0,0,0,0.3);">
+      <h2 style="margin:0 0 15px; color:#003366;">Manage Your Privacy</h2>
+      <p style="color:#555; margin-bottom:20px;">Change your cookie preference or permanently delete your data.</p>
+
+      <div style="margin:20px 0;">
+        <strong>Your Record ID:</strong><br>
+        <input type="text" id="record-id-input" value="${savedId || ''}" readonly
+               style="margin-top:8px; width:100%; padding:12px; border:1px solid #ddd; border-radius:6px; background:#f5f5f5; text-align:center; font-family:monospace;" />
+      </div>
+
+      <div style="display:flex; gap:15px; flex-wrap:wrap; justify-content:center; margin:25px 0;">
+        <button id="change-preference" style="flex:1; min-width:180px; padding:14px; background:#f5a623; color:#000; border:none; border-radius:8px; font-weight:bold;">
+          Change Preference<br><small>(Re-show consent banner)</small>
+        </button>
+        <button id="delete-data" style="flex:1; min-width:180px; padding:14px; background:#d9534f; color:#fff; border:none; border-radius:8px; font-weight:bold;">
+          Permanently Delete Data
+        </button>
+      </div>
+
+      <button id="close-modal" style="padding:10px 20px; background:#ccc; border:none; border-radius:6px; cursor:pointer; margin-top:10px;">
+        Close
+      </button>
+
+      <div id="modal-status" style="margin-top:20px; min-height:24px; font-weight:bold;"></div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  modal.querySelector('#close-modal').onclick = () => modal.remove();
+  modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+
+  modal.querySelector('#change-preference').onclick = async () => {
+    // Optional: call withdraw endpoint if exists
+    if (savedId) await withdrawConsent(savedId);
+
+    localStorage.removeItem('gmr-cookie-consent');
+    localStorage.removeItem('gmr-privacy-id');
+    document.getElementById('modal-status').innerHTML = '<span style="color:green">✅ Preference reset! Reloading...</span>';
+    setTimeout(() => location.reload(), 1500);
+  };
+
+  modal.querySelector('#delete-data').onclick = async () => {
+    const id = document.getElementById('record-id-input').value.trim();
+    const statusEl = document.getElementById('modal-status');
+    if (!id) {
+      statusEl.innerHTML = '<span style="color:red">❌ No Record ID available</span>';
+      return;
+    }
+
+    statusEl.innerHTML = '<span style="color:#d9534f">Processing deletion...</span>';
+    const success = await deleteConsentRecord(id);
+    if (success) {
+      statusEl.innerHTML = '<span style="color:green">✅ Data permanently deleted! Reloading...</span>';
+      localStorage.clear();
+      setTimeout(() => location.reload(), 2000);
+    }
+  };
+}
+
 export default function decorate(block) {
-  // 1. If user already made a choice, hide the banner
-  if (localStorage.getItem('gmr-cookie-consent')) {
-    const wrapper = block.closest('.cookie-consent-wrapper');
-    if (wrapper) wrapper.style.display = 'none';
+  const consent = localStorage.getItem('gmr-cookie-consent');
+  const savedId = localStorage.getItem('gmr-privacy-id');
+
+  if (consent) {
+    showPostConsentView(consent, savedId);
     return;
   }
 
-  // 2. Read configuration from the block (set in AEM/Franklin)
-  const conf = {};
-  [...block.children].forEach((row) => {
-    const key = row.children[0]?.textContent?.trim().toLowerCase();
-    if (key === 'message') {
-      conf.message = row.children[1]?.innerHTML || 'We use cookies to enhance your user experience.';
-    } else if (key) {
-      conf[key] = row.children[1]?.textContent?.trim() || '';
-    }
-  });
+  block.innerHTML = `
+    <div class="cookie-consent-wrapper">
+      <div class="cookie-consent">
+        <div class="cookie-message">
+          <p>We use cookies to enhance your user experience.
+             <a href="/privacy-policy" class="cookie-policy-link" target="_blank" rel="noopener">Read Privacy Policy</a>
+          </p>
+        </div>
+        <div class="cookie-buttons">
+          <button class="cookie-btn secondary">Decline</button>
+          <button class="cookie-btn primary">Allow all cookies</button>
+        </div>
+      </div>
+    </div>
+  `;
 
-  // 3. Build the UI
-  block.innerHTML = '';
+  block.querySelector('.cookie-btn.secondary').addEventListener('click', () => logConsent('declined'));
+  block.querySelector('.cookie-btn.primary').addEventListener('click', () => logConsent('accepted'));
 
-  const container = document.createElement('div');
-  container.className = 'cookie-consent';
-
-  const msgDiv = document.createElement('div');
-  msgDiv.className = 'cookie-message';
-  msgDiv.innerHTML = conf.message;
-
-  const btnDiv = document.createElement('div');
-  btnDiv.className = 'cookie-buttons';
-
-  // Privacy Policy Link
-  if (conf.policylink && conf.policylabel) {
-    const policy = document.createElement('a');
-    policy.href = conf.policylink;
-    policy.textContent = conf.policylabel;
-    policy.className = 'cookie-policy-link';
-    policy.target = '_blank';
-    policy.rel = 'noopener';
-    btnDiv.appendChild(policy);
-  }
-
-  // Decline Button
-  const declineBtn = document.createElement('button');
-  declineBtn.className = 'cookie-btn secondary';
-  declineBtn.textContent = conf.declinlabel || 'Decline';
-  declineBtn.addEventListener('click', () => {
-    localStorage.setItem('gmr-cookie-consent', 'declined');
-    block.closest('.cookie-consent-wrapper').style.display = 'none';
-    logConsentToBackend('declined');
-  });
-
-  // Accept Button
-  const acceptBtn = document.createElement('button');
-  acceptBtn.className = 'cookie-btn primary';
-  acceptBtn.textContent = conf.acceptlabel || 'Allow all cookies';
-  acceptBtn.addEventListener('click', () => {
-    localStorage.setItem('gmr-cookie-consent', 'accepted');
-    block.closest('.cookie-consent-wrapper').style.display = 'none';
-    logConsentToBackend('accepted');
-  });
-
-  btnDiv.appendChild(declineBtn);
-  btnDiv.appendChild(acceptBtn);
-
-  container.appendChild(msgDiv);
-  container.appendChild(btnDiv);
-  block.appendChild(container);
-
-  // Show the banner
-  const wrapper = block.closest('.cookie-consent-wrapper');
+  const wrapper = block.querySelector('.cookie-consent-wrapper');
   if (wrapper) wrapper.style.display = 'block';
 }
