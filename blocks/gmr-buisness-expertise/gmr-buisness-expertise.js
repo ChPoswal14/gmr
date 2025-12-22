@@ -3,61 +3,113 @@ export default function decorate(block) {
   if (rows.length < 2) return;
 
   /* =========================
-     Header
+     Create wrappers
+  ========================== */
+  const outer = document.createElement("div");
+  outer.className = "sec-commitment spacer";
+
+  const container = document.createElement("div");
+  container.className = "container";
+
+  /* =========================
+     HEADER (row 0)
   ========================== */
   const headerRow = rows.shift();
   const headerCells = [...headerRow.children];
 
-  const sectionTitle = headerCells[0]?.innerHTML || "";
-  const sectionDescription = headerCells[1]?.innerHTML || "";
+  const headerWrapper = document.createElement("div");
+  headerWrapper.className = "sec-head text-center mb-5";
+
+  const secTitle = headerCells[0];
+  const secDesc = headerCells[1];
+
+  // Title
+  if (secTitle) {
+    const p = secTitle.querySelector("p");
+    if (p) {
+      const h2 = document.createElement("h2");
+      h2.innerHTML = p.innerHTML;
+      h2.className = "mb-3";
+      p.replaceWith(h2);
+    }
+    headerWrapper.append(secTitle);
+  }
+
+  // Description
+  if (secDesc) {
+    const p = secDesc.querySelector("p");
+    if (p) {
+      const h2 = document.createElement("h2");
+      h2.innerHTML = p.innerHTML;
+      h2.className = "mb-3";
+      p.replaceWith(h2);
+    }
+    headerWrapper.append(secDesc);
+  }
 
   /* =========================
-     Wrapper
+     GRID
   ========================== */
-  block.innerHTML = `
-    <div class="container py-5">
-      <div class="row mb-4 text-center">
-        <div class="col-12">
-          <h2 class="mb-3">${sectionTitle}</h2>
-          <div class="text-muted">${sectionDescription}</div>
-        </div>
-      </div>
-      <div class="row g-4 gmr-buisness-items"></div>
-    </div>
-  `;
+  const grid = document.createElement("div");
+  grid.className = "row g-4";
 
-  const itemsContainer = block.querySelector(".gmr-buisness-items");
-
-  /* =========================
-     Cards (each remaining row)
-  ========================== */
   rows.forEach((row) => {
-    const cols = [...row.children];
+    row.classList.add("col-12", "col-md-6", "col-lg-4");
 
-    const image = cols[0]?.querySelector("picture")?.outerHTML || "";
-    const title = cols[1]?.innerHTML || "";
-    const description = cols[2]?.innerHTML || "";
-    const ctaText = cols[3]?.textContent?.trim() || "";
-    const ctaLink = cols[4]?.textContent?.trim() || "#";
+    const cells = [...row.children];
 
-    const cardCol = document.createElement("div");
-    cardCol.className = "col-12 col-md-6 col-lg-4";
+    const imageCell = cells[0];
+    const titleCell = cells[1];
+    const descCell = cells[2];
+    const ctaTextCell = cells[3];
+    const ctaLinkCell = cells[4];
 
-    cardCol.innerHTML = `
-      <div class="card h-100 shadow-sm">
-        ${image}
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">${title}</h5>
-          <div class="card-text mb-3">${description}</div>
-          ${
-            ctaText
-              ? `<a href="${ctaLink}" class="btn btn-primary mt-auto">${ctaText}</a>`
-              : ""
-          }
-        </div>
-      </div>
-    `;
+    imageCell?.classList.add("mb-3");
 
-    itemsContainer.appendChild(cardCol);
+    // Card title
+    if (titleCell) {
+      const p = titleCell.querySelector("p");
+      if (p) {
+        const h3 = document.createElement("h3");
+        h3.innerHTML = p.innerHTML;
+        p.replaceWith(h3);
+      }
+    }
+
+    // CTA
+    if (ctaLinkCell) {
+      const link =
+        ctaLinkCell.querySelector("a") || document.createElement("a");
+      const href = ctaLinkCell.querySelector("a")?.getAttribute("href") || "";
+      const text = ctaTextCell?.textContent?.trim() || "";
+
+      if (!link.parentNode) ctaLinkCell.append(link);
+      if (href) link.href = href;
+      if (text) link.textContent = text;
+
+      link.classList.add("btn-link");
+      ctaTextCell?.remove();
+    }
+
+    // Body wrapper
+    const body = document.createElement("div");
+    body.className = "card h-100 p-3";
+
+    [imageCell, titleCell, descCell, ctaLinkCell].forEach((el) => {
+      if (el) body.append(el);
+    });
+
+    row.innerHTML = "";
+    row.append(body);
+    grid.append(row);
   });
+
+  /* =========================
+     Assemble
+  ========================== */
+  container.append(headerWrapper, grid);
+  outer.append(container);
+
+  block.innerHTML = "";
+  block.append(outer);
 }
