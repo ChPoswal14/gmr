@@ -1,4 +1,4 @@
-// cookie-consent.js - FINAL FIXED VERSION FOR AEM AUTHORING
+// cookie-consent.js - FINAL FIXED VERSION (Customize button works + Authoring fixed)
 
 const LOG_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent';
 const UPDATE_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent/update';
@@ -123,7 +123,10 @@ function showPostConsentView() {
   `;
   document.body.appendChild(wrapper);
 
-  document.getElementById('manage-prefs-btn')?.addEventListener('click', openCustomizeModal);
+  const manageBtn = document.getElementById('manage-prefs-btn');
+  if (manageBtn) {
+    manageBtn.addEventListener('click', openCustomizeModal);
+  }
 }
 
 function getBlockConfig() {
@@ -157,77 +160,96 @@ function getBlockConfig() {
 }
 
 function openCustomizeModal() {
+  console.log('Customize modal opened'); // Debug log - check DevTools Console
+
   const conf = getBlockConfig();
 
   const savedPrefs = JSON.parse(localStorage.getItem('gmr-custom-preferences') || '{}');
 
   const modal = document.createElement('div');
   modal.id = 'customize-modal';
+  modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:99999;';
+
   modal.innerHTML = `
-    <div class="modal-content">
-      <h2>Customize Cookie Preferences</h2>
+    <div style="background:#fff; padding:30px; border-radius:12px; max-width:600px; width:90%; box-shadow:0 8px 30px rgba(0,0,0,0.3);">
+      <h2 style="text-align:center; color:#003366; margin-bottom:20px;">Customize Cookie Preferences</h2>
 
-      <div class="category">
+      <div style="margin:25px 0;">
         <strong>Essential Cookies</strong><br>
-        <small>Always active – Required for site functionality</small><br>
-        <input type="checkbox" checked disabled>
+        <small style="color:#666;">Always active – Required for site functionality</small><br>
+        <input type="checkbox" checked disabled style="margin-top:8px;">
       </div>
 
-      <div class="category">
+      <div style="margin:20px 0;">
         <label><input type="checkbox" id="analytics" ${savedPrefs.analytics ? 'checked' : ''}> Analytics Cookies</label><br>
-        <small>${conf.analyticsdesc || 'Anaylytics'}</small>
+        <small style="color:#666;">${conf.analyticsdesc || 'Anaylytics'}</small>
       </div>
 
-      <div class="category">
+      <div style="margin:20px 0;">
         <label><input type="checkbox" id="marketing" ${savedPrefs.marketing ? 'checked' : ''}> Marketing Cookies</label><br>
-        <small>${conf.marketingdesc || 'Marketing'}</small>
+        <small style="color:#666;">${conf.marketingdesc || 'Marketing'}</small>
       </div>
 
-      <div class="category">
+      <div style="margin:20px 0;">
         <label><input type="checkbox" id="personalization" ${savedPrefs.personalization ? 'checked' : ''}> Personalization Cookies</label><br>
-        <small>${conf.personalizationdesc || 'Personalisation'}</small>
+        <small style="color:#666;">${conf.personalizationdesc || 'Personalisation'}</small>
       </div>
 
-      <div class="category">
+      <div style="margin:20px 0;">
         <label><input type="checkbox" id="third_party" ${savedPrefs.third_party ? 'checked' : ''}> Third-Party Cookies</label><br>
-        <small>${conf.thirdpartydesc || 'Third Party'}</small>
+        <small style="color:#666;">${conf.thirdpartydesc || 'Third Party'}</small>
       </div>
 
-      <div class="category">
+      <div style="margin:20px 0;">
         <label><input type="checkbox" id="functional" ${savedPrefs.functional ? 'checked' : ''}> Functional Cookies</label><br>
-        <small>${conf.functionaldesc || 'This is cookies custom preferences'}</small>
+        <small style="color:#666;">${conf.functionaldesc || 'This is cookies custom preferences'}</small>
       </div>
 
-      <div class="modal-buttons">
-        <button id="save-prefs">Save Preferences</button>
-        <button id="delete-data">Delete My Data</button>
-        <button id="close-modal">Cancel</button>
+      <div style="text-align:center; margin-top:30px;">
+        <button id="save-prefs" style="padding:12px 30px; background:#f5a623; color:#000; border:none; border-radius:8px; font-weight:bold;">
+          Save Preferences
+        </button>
+        <button id="delete-data" style="padding:12px 30px; background:#d9534f; color:#fff; border:none; border-radius:8px; margin-left:15px;">
+          Delete My Data
+        </button>
+        <button id="close-modal" style="margin-left:15px; padding:12px 30px; background:#ccc; border:none; border-radius:8px;">
+          Cancel
+        </button>
       </div>
     </div>
   `;
 
   document.body.appendChild(modal);
 
-  modal.querySelector('#close-modal').onclick = () => modal.remove();
-  modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+  // Attach events after modal is added
+  const closeBtn = modal.querySelector('#close-modal');
+  if (closeBtn) closeBtn.onclick = () => modal.remove();
 
-  modal.querySelector('#save-prefs').onclick = () => {
-    const customPreferences = {
-      analytics: document.getElementById('analytics').checked,
-      marketing: document.getElementById('marketing').checked,
-      personalization: document.getElementById('personalization').checked,
-      third_party: document.getElementById('third_party').checked,
-      functional: document.getElementById('functional').checked
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.remove();
+  });
+
+  const saveBtn = modal.querySelector('#save-prefs');
+  if (saveBtn) {
+    saveBtn.onclick = () => {
+      const customPreferences = {
+        analytics: document.getElementById('analytics').checked,
+        marketing: document.getElementById('marketing').checked,
+        personalization: document.getElementById('personalization').checked,
+        third_party: document.getElementById('third_party').checked,
+        functional: document.getElementById('functional').checked
+      };
+
+      const type = Object.values(customPreferences).every(v => v) ? 'accepted' :
+        Object.values(customPreferences).every(v => !v) ? 'declined' : 'custom';
+
+      sendConsent(type, customPreferences);
+      modal.remove();
     };
+  }
 
-    const type = Object.values(customPreferences).every(v => v) ? 'accepted' :
-      Object.values(customPreferences).every(v => !v) ? 'declined' : 'custom';
-
-    sendConsent(type, customPreferences);
-    modal.remove();
-  };
-
-  modal.querySelector('#delete-data').onclick = deleteRecord;
+  const deleteBtn = modal.querySelector('#delete-data');
+  if (deleteBtn) deleteBtn.onclick = deleteRecord;
 }
 
 export default function decorate(block) {
@@ -238,7 +260,7 @@ export default function decorate(block) {
     return;
   }
 
-  // Create banner wrapper and append after block (preserves authoring table)
+  // Create and append wrapper
   const wrapper = document.createElement('div');
   wrapper.className = 'cookie-consent-wrapper';
 
@@ -264,13 +286,23 @@ export default function decorate(block) {
   const allTrue = { analytics: true, marketing: true, personalization: true, third_party: true, functional: true };
   const allFalse = { analytics: false, marketing: false, personalization: false, third_party: false, functional: false };
 
-  wrapper.querySelector('.cookie-btn.primary').addEventListener('click', () => sendConsent('accepted', allTrue));
-  wrapper.querySelector('.cookie-btn.secondary').addEventListener('click', () => sendConsent('declined', allFalse));
-  wrapper.querySelector('.cookie-btn.customize').addEventListener('click', openCustomizeModal);
+  const primaryBtn = wrapper.querySelector('.cookie-btn.primary');
+  if (primaryBtn) primaryBtn.addEventListener('click', () => sendConsent('accepted', allTrue));
+
+  const secondaryBtn = wrapper.querySelector('.cookie-btn.secondary');
+  if (secondaryBtn) secondaryBtn.addEventListener('click', () => sendConsent('declined', allFalse));
+
+  const customizeBtn = wrapper.querySelector('.cookie-btn.customize');
+  if (customizeBtn) {
+    customizeBtn.addEventListener('click', () => {
+      console.log('Customize button clicked'); // Debug
+      openCustomizeModal();
+    });
+  }
 
   wrapper.style.display = 'block';
 
-  // Hide configuration table in live/preview mode
+  // Hide config table in live mode
   if (!document.body.classList.contains('aue')) {
     block.style.display = 'none';
   }
