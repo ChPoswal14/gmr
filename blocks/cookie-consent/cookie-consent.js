@@ -1,4 +1,4 @@
-// cookie-consent.js - FINAL FIXED VERSION (Banner shows + Authoring intact)
+// cookie-consent.js - FINAL FIXED VERSION FOR AEM AUTHORING
 
 const LOG_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent';
 const UPDATE_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent/update';
@@ -110,18 +110,19 @@ function applyConsents(prefs) {
 }
 
 function showPostConsentView() {
-  const wrapper = document.querySelector('.cookie-consent-wrapper');
-  if (!wrapper) return;
+  const existingWrapper = document.querySelector('.cookie-consent-wrapper');
+  if (existingWrapper) existingWrapper.remove();
 
+  const wrapper = document.createElement('div');
+  wrapper.className = 'cookie-consent-wrapper';
   wrapper.innerHTML = `
-    <div style="background:#f0f8ff; padding:20px; text-align:center; border-radius:8px; color:#000;">
-      <p style="margin:0 0 15px;">Your preferences have been saved.</p>
-      <button id="manage-prefs-btn" style="padding:10px 24px; background:#003366; color:white; border:none; border-radius:6px; font-weight:bold; cursor:pointer;">
-        Manage Preferences
-      </button>
+    <div class="cookie-consent post-consent">
+      <p>Your preferences have been saved.</p>
+      <button id="manage-prefs-btn">Manage Preferences</button>
     </div>
   `;
-  wrapper.style.display = 'block';
+  document.body.appendChild(wrapper);
+
   document.getElementById('manage-prefs-btn')?.addEventListener('click', openCustomizeModal);
 }
 
@@ -162,53 +163,45 @@ function openCustomizeModal() {
 
   const modal = document.createElement('div');
   modal.id = 'customize-modal';
-  modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:99999;';
-
   modal.innerHTML = `
-    <div style="background:#fff; padding:30px; border-radius:12px; max-width:600px; width:90%; box-shadow:0 8px 30px rgba(0,0,0,0.3);">
-      <h2 style="text-align:center; color:#003366; margin-bottom:20px;">Customize Cookie Preferences</h2>
+    <div class="modal-content">
+      <h2>Customize Cookie Preferences</h2>
 
-      <div style="margin:25px 0;">
+      <div class="category">
         <strong>Essential Cookies</strong><br>
-        <small style="color:#666;">Always active – Required for site functionality</small><br>
-        <input type="checkbox" checked disabled style="margin-top:8px;">
+        <small>Always active – Required for site functionality</small><br>
+        <input type="checkbox" checked disabled>
       </div>
 
-      <div style="margin:20px 0;">
+      <div class="category">
         <label><input type="checkbox" id="analytics" ${savedPrefs.analytics ? 'checked' : ''}> Analytics Cookies</label><br>
-        <small style="color:#666;">${conf.analyticsdesc || 'Analytics description'}</small>
+        <small>${conf.analyticsdesc || 'Anaylytics'}</small>
       </div>
 
-      <div style="margin:20px 0;">
+      <div class="category">
         <label><input type="checkbox" id="marketing" ${savedPrefs.marketing ? 'checked' : ''}> Marketing Cookies</label><br>
-        <small style="color:#666;">${conf.marketingdesc || 'Marketing description'}</small>
+        <small>${conf.marketingdesc || 'Marketing'}</small>
       </div>
 
-      <div style="margin:20px 0;">
+      <div class="category">
         <label><input type="checkbox" id="personalization" ${savedPrefs.personalization ? 'checked' : ''}> Personalization Cookies</label><br>
-        <small style="color:#666;">${conf.personalizationdesc || 'Personalization description'}</small>
+        <small>${conf.personalizationdesc || 'Personalisation'}</small>
       </div>
 
-      <div style="margin:20px 0;">
+      <div class="category">
         <label><input type="checkbox" id="third_party" ${savedPrefs.third_party ? 'checked' : ''}> Third-Party Cookies</label><br>
-        <small style="color:#666;">${conf.thirdpartydesc || 'Third-Party description'}</small>
+        <small>${conf.thirdpartydesc || 'Third Party'}</small>
       </div>
 
-      <div style="margin:20px 0;">
+      <div class="category">
         <label><input type="checkbox" id="functional" ${savedPrefs.functional ? 'checked' : ''}> Functional Cookies</label><br>
-        <small style="color:#666;">${conf.functionaldesc || 'Functional description'}</small>
+        <small>${conf.functionaldesc || 'This is cookies custom preferences'}</small>
       </div>
 
-      <div style="text-align:center; margin-top:30px;">
-        <button id="save-prefs" style="padding:12px 30px; background:#f5a623; color:#000; border:none; border-radius:8px; font-weight:bold;">
-          Save Preferences
-        </button>
-        <button id="delete-data" style="padding:12px 30px; background:#d9534f; color:#fff; border:none; border-radius:8px; margin-left:15px;">
-          Delete My Data
-        </button>
-        <button id="close-modal" style="margin-left:15px; padding:12px 30px; background:#ccc; border:none; border-radius:8px;">
-          Cancel
-        </button>
+      <div class="modal-buttons">
+        <button id="save-prefs">Save Preferences</button>
+        <button id="delete-data">Delete My Data</button>
+        <button id="close-modal">Cancel</button>
       </div>
     </div>
   `;
@@ -245,9 +238,10 @@ export default function decorate(block) {
     return;
   }
 
-  // Append banner after the configuration table (do not overwrite block.innerHTML)
+  // Create banner wrapper and append after block (preserves authoring table)
   const wrapper = document.createElement('div');
   wrapper.className = 'cookie-consent-wrapper';
+
   wrapper.innerHTML = `
     <div class="cookie-consent">
       <div class="cookie-message">
@@ -265,7 +259,7 @@ export default function decorate(block) {
     </div>
   `;
 
-  block.appendChild(wrapper);
+  block.parentNode.insertBefore(wrapper, block.nextSibling);
 
   const allTrue = { analytics: true, marketing: true, personalization: true, third_party: true, functional: true };
   const allFalse = { analytics: false, marketing: false, personalization: false, third_party: false, functional: false };
@@ -276,10 +270,8 @@ export default function decorate(block) {
 
   wrapper.style.display = 'block';
 
-  // Hide the configuration table in live/preview mode (keep visible in author)
+  // Hide configuration table in live/preview mode
   if (!document.body.classList.contains('aue')) {
-    block.querySelectorAll(':scope > div').forEach(row => {
-      row.style.display = 'none';
-    });
+    block.style.display = 'none';
   }
 }
