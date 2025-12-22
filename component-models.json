@@ -294,6 +294,12 @@
         "label": "Section Heading",
         "valueType": "string",
         "defaultValue": "Operational Excellence and Recognition"
+      },
+      {
+        "component": "richtext",
+        "name": "cardDescription",
+        "label": "Card Description",
+        "valueType": "string"
       }
     ]
   },
