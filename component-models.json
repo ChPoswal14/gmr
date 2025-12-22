@@ -294,32 +294,16 @@
   },
   {
     "id": "aviation-services-header",
-    "fields": [
-      {
-        "component": "text",
-        "name": "headerTitle",
-        "label": "Section Admin Title",
-        "valueType": "string",
-        "defaultValue": "Airport Navigation Header"
-      },
-      {
-        "component": "text",
-        "name": "dropdownButtonText",
-        "label": "Dropdown Button Label",
-        "valueType": "string",
-        "defaultValue": "Domestic Network"
-      }
-    ]
+    "fields": []
   },
   {
     "id": "aviation-service-item",
-    "itemLabel": "airportName",
     "fields": [
       {
         "component": "text",
         "name": "airportName",
-        "label": "Airport Name",
-        "valueType": "string"
+        "valueType": "string",
+        "hidden": true
       },
       {
         "component": "text",
@@ -330,26 +314,8 @@
       {
         "component": "checkbox",
         "name": "isActive",
-        "label": "Show Underline (Active)",
+        "label": "Active",
         "valueType": "boolean"
-      }
-    ]
-  },
-  {
-    "id": "dropdown-link-item",
-    "itemLabel": "linkText",
-    "fields": [
-      {
-        "component": "text",
-        "name": "linkText",
-        "label": "Link Text",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "linkUrl",
-        "label": "Link URL",
-        "valueType": "string"
       }
     ]
   },
@@ -901,6 +867,54 @@
         "component": "aem-content",
         "name": "reference",
         "label": "Reference"
+      }
+    ]
+  },
+  {
+    "id": "global-airport-network",
+    "fields": [
+      {
+        "component": "text",
+        "name": "sectionTitle",
+        "label": "Section Heading",
+        "valueType": "string",
+        "defaultValue": "GMR’s Global Airport Network"
+      },
+      {
+        "component": "richtext",
+        "name": "sectionDescription",
+        "label": "Description Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "mapImage",
+        "label": "World Map Background Image",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "network-location-item",
+    "itemLabel": "airportName",
+    "fields": [
+      {
+        "component": "text",
+        "name": "airportName",
+        "label": "Airport Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "countryName",
+        "label": "Country Name",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "flagIcon",
+        "label": "Country Flag Icon",
+        "valueType": "string"
       }
     ]
   },
