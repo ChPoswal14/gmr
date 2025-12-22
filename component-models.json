@@ -1134,6 +1134,42 @@
     ]
   },
   {
+    "id": "image-title-desc",
+    "fields": [
+      {
+        "component": "text",
+        "name": "adminTitle",
+        "label": "Admin Section Title",
+        "valueType": "string",
+        "defaultValue": "Sustainability Hero Section"
+      }
+    ]
+  },
+  {
+    "id": "image-title-desc-item",
+    "itemLabel": "title",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Background Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title Overlay",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description Overlay",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "inner-banner",
     "fields": [
       {
