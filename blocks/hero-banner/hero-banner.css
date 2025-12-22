@@ -85,8 +85,8 @@
 /* Arrows */
 .hero-nav .swiper-button-prev,
 .hero-nav .swiper-button-next {
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.75rem !important;
+    height: 2.75rem !important;
     border: solid 2px var(--yellow);
     background: none;
     border-radius: 0.75rem;
