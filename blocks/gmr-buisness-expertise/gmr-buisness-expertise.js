@@ -1,115 +1,92 @@
 export default function decorate(block) {
   const rows = [...block.children];
-  if (rows.length < 2) return;
+  if (rows.length < 3) return;
 
-  /* =========================
-     Create wrappers
-  ========================== */
-  const outer = document.createElement("div");
-  outer.className = "sec-commitment spacer";
+  /* ================================
+     1️⃣ Read authored content
+     ================================ */
+  const sectionTitleRow = rows[0];
+  const sectionDescRow = rows[1];
+  const cardRows = rows.slice(2);
 
-  const container = document.createElement("div");
-  container.className = "container";
+  const sectionTitle = sectionTitleRow.textContent.trim();
+  const sectionDesc = sectionDescRow.innerHTML;
 
-  /* =========================
-     HEADER (row 0)
-  ========================== */
-  const headerRow = rows.shift();
-  const headerCells = [...headerRow.children];
-
-  const headerWrapper = document.createElement("div");
-  headerWrapper.className = "sec-head text-center mb-5";
-
-  const secTitle = headerCells[0];
-  const secDesc = headerCells[1];
-
-  // Title
-  if (secTitle) {
-    const p = secTitle.querySelector("p");
-    if (p) {
-      const h2 = document.createElement("h2");
-      h2.innerHTML = p.innerHTML;
-      h2.className = "mb-3";
-      p.replaceWith(h2);
-    }
-    headerWrapper.append(secTitle);
-  }
-
-  // Description
-  if (secDesc) {
-    const p = secDesc.querySelector("p");
-    if (p) {
-      const h2 = document.createElement("h2");
-      h2.innerHTML = p.innerHTML;
-      h2.className = "mb-3";
-      p.replaceWith(h2);
-    }
-    headerWrapper.append(secDesc);
-  }
-
-  /* =========================
-     GRID
-  ========================== */
-  const grid = document.createElement("div");
-  grid.className = "row g-4";
-
+  /* ================================
+     2️⃣ Hide authored rows (DO NOT REMOVE)
+     ================================ */
   rows.forEach((row) => {
-    row.classList.add("col-12", "col-md-6", "col-lg-4");
-
-    const cells = [...row.children];
-
-    const imageCell = cells[0];
-    const titleCell = cells[1];
-    const descCell = cells[2];
-    const ctaTextCell = cells[3];
-    const ctaLinkCell = cells[4];
-
-    imageCell?.classList.add("mb-3");
-
-    // Card title
-    if (titleCell) {
-      const p = titleCell.querySelector("p");
-      if (p) {
-        const h3 = document.createElement("h3");
-        h3.innerHTML = p.innerHTML;
-        p.replaceWith(h3);
-      }
-    }
-
-    // CTA
-    if (ctaLinkCell) {
-      const link =
-        ctaLinkCell.querySelector("a") || document.createElement("a");
-      const href = ctaLinkCell.querySelector("a")?.getAttribute("href") || "";
-      const text = ctaTextCell?.textContent?.trim() || "";
-
-      if (!link.parentNode) ctaLinkCell.append(link);
-      if (href) link.href = href;
-      if (text) link.textContent = text;
-
-      link.classList.add("btn-link");
-      ctaTextCell?.remove();
-    }
-
-    // Body wrapper
-    const body = document.createElement("div");
-    body.className = "card h-100 p-3";
-
-    [imageCell, titleCell, descCell, ctaLinkCell].forEach((el) => {
-      if (el) body.append(el);
-    });
-
-    row.innerHTML = "";
-    row.append(body);
-    grid.append(row);
+    row.style.display = "none";
   });
 
-  /* =========================
-     Assemble
-  ========================== */
-  container.append(headerWrapper, grid);
-  outer.append(container);
+  /* ================================
+     3️⃣ Runtime wrapper (OUTSIDE UE structure)
+     ================================ */
+  const runtime = document.createElement("div");
+  runtime.className = "innovation-runtime";
 
-  block.innerHTML = "";
-  block.append(outer);
+  runtime.innerHTML = `
+    <section class="sec-innovation spacer">
+      <div class="container">
+        <div class="my-5 ps-5 ms-5">
+          <div class="row">
+            <div class="col-md-6">
+              <h2 class="sec-title text-primary">${sectionTitle}</h2>
+              <div class="sec-desc">${sectionDesc}</div>
+            </div>
+          </div>
+        </div>
+        <div class="innovation-row"></div>
+      </div>
+    </section>
+  `;
+
+  block.after(runtime);
+
+  const cardsRow = runtime.querySelector(".innovation-row");
+
+  /* ================================
+     4️⃣ Build cards (TEXT ONLY)
+     ================================ */
+  cardRows.forEach((row, index) => {
+    const cells = [...row.children];
+
+    const picture = cells[0]?.querySelector("img");
+    const title = cells[1]?.textContent?.trim() || "";
+    const desc = cells[2]?.textContent?.trim() || "";
+    const cta = cells[3]?.textContent?.trim() || "READ MORE";
+
+    const col = document.createElement("div");
+    col.className = "innovation-col";
+
+    const card = document.createElement("div");
+    card.className = index === 0 ? "card card-overlay" : "card card-overlay";
+
+    /* Image recreated safely */
+    if (picture?.src) {
+      const imgWrap = document.createElement("div");
+      imgWrap.className = "card-img";
+
+      const img = document.createElement("img");
+      img.src = picture.src;
+      img.alt = picture.alt || "";
+
+      imgWrap.append(img);
+      card.append(imgWrap);
+    }
+
+    /* Content */
+    const content = document.createElement("div");
+    content.className = "card-body";
+
+    content.innerHTML = `
+      <h3 class="card-title">${title}</h3>
+      <p class="card-desc">${desc}</p>
+      <div class="card-cta"><a href="#" class="btn-link">${cta}</a>
+    `;
+
+    card.append(content);
+    col.append(card);
+    cardsRow.append(col);
+  });
 }
