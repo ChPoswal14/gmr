@@ -1,4 +1,4 @@
-// cookie-consent.js - Final Full Version
+// cookie-consent.js - FINAL FULL VERSION (Fixed for AEM Authoring + Full Features)
 
 const LOG_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent';
 const UPDATE_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent/update';
@@ -16,7 +16,9 @@ async function fetchGeo() {
       region = data.region || 'unknown';
       country = data.country_name || 'unknown';
     }
-  } catch (e) {}
+  } catch (e) {
+    console.warn('Geolocation fetch failed', e);
+  }
   return { city, region, country };
 }
 
@@ -39,13 +41,17 @@ async function sendConsent(consentType, customPreferences) {
   const url = hasConsent ? UPDATE_ENDPOINT : LOG_ENDPOINT;
 
   try {
+    const body = hasConsent
+      ? JSON.stringify({ id: localStorage.getItem('gmr-privacy-id'), ...payload })
+      : JSON.stringify(payload);
+
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': AUTH_HEADER
       },
-      body: JSON.stringify(hasConsent ? { id: localStorage.getItem('gmr-privacy-id'), ...payload } : payload)
+      body
     });
 
     const result = await response.json();
@@ -60,10 +66,10 @@ async function sendConsent(consentType, customPreferences) {
       applyConsents(customPreferences);
       showPostConsentView();
     } else {
-      alert('Error saving preferences.');
+      alert('Error saving preferences. Please try again.');
     }
   } catch (e) {
-    alert('Network error.');
+    alert('Network error. Check your connection.');
   }
 }
 
@@ -97,7 +103,21 @@ async function deleteRecord() {
 }
 
 function applyConsents(prefs) {
-  // Add your GA / Target code here
+  // Google Analytics Consent Mode
+  if (window.gtag) {
+    gtag('consent', 'update', {
+      'analytics_storage': prefs.analytics ? 'granted' : 'denied'
+    });
+  }
+
+  // Adobe Target (example using Opt-In if available)
+  if (window.adobe?.optIn) {
+    if (prefs.personalization) {
+      adobe.optIn.approve(['target']);
+    } else {
+      adobe.optIn.deny(['target']);
+    }
+  }
 }
 
 function showPostConsentView() {
@@ -105,9 +125,9 @@ function showPostConsentView() {
   if (!wrapper) return;
 
   wrapper.innerHTML = `
-    <div style="background:#f0f8ff; padding:20px; text-align:center; border-radius:8px;">
-      <p>Your preferences have been saved.</p>
-      <button id="manage-prefs-btn" style="padding:10px 20px; background:#003366; color:white; border:none; border-radius:6px; cursor:pointer;">
+    <div style="background:#f0f8ff; padding:20px; text-align:center; border-radius:8px; color:#000;">
+      <p style="margin:0 0 15px;">Your preferences have been saved.</p>
+      <button id="manage-prefs-btn" style="padding:10px 24px; background:#003366; color:white; border:none; border-radius:6px; font-weight:bold; cursor:pointer;">
         Manage Preferences
       </button>
     </div>
@@ -117,10 +137,22 @@ function showPostConsentView() {
 }
 
 function openCustomizeModal() {
+  // Re-read config every time modal opens (critical for authoring changes)
   const conf = {};
-  [...document.querySelector('.cookie-consent')?.closest('.block')?.children || []].forEach((row) => {
-    const key = row.children[0]?.textContent?.trim().toLowerCase();
-    if (key) conf[key] = row.children[1]?.innerHTML || row.children[1]?.textContent?.trim();
+  const rows = document.querySelectorAll('.cookie-consent.block > div > div');
+  rows.forEach((row) => {
+    const cells = row.querySelectorAll('div');
+    if (cells.length >= 2) {
+      const key = cells[0].textContent.trim().toLowerCase().replace(/\s+/g, '');
+      const value = cells[1];
+      if (key === 'message') {
+        conf.message = value.innerHTML.trim();
+      } else if (key.includes('desc')) {
+        conf[key] = value.innerHTML.trim();
+      } else {
+        conf[key] = value.textContent.trim();
+      }
+    }
   });
 
   const savedPrefs = JSON.parse(localStorage.getItem('gmr-custom-preferences') || '{}');
@@ -130,8 +162,8 @@ function openCustomizeModal() {
   modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:99999;';
 
   modal.innerHTML = `
-    <div style="background:#fff; padding:30px; border-radius:12px; max-width:600px; width:90%; text-align:left; box-shadow:0 8px 30px rgba(0,0,0,0.3);">
-      <h2 style="text-align:center; color:#003366;">Customize Cookie Preferences</h2>
+    <div style="background:#fff; padding:30px; border-radius:12px; max-width:600px; width:90%; box-shadow:0 8px 30px rgba(0,0,0,0.3);">
+      <h2 style="text-align:center; color:#003366; margin-bottom:20px;">Customize Cookie Preferences</h2>
 
       <div style="margin:25px 0;">
         <strong>Essential Cookies</strong><br>
@@ -141,27 +173,27 @@ function openCustomizeModal() {
 
       <div style="margin:20px 0;">
         <label><input type="checkbox" id="analytics" ${savedPrefs.analytics ? 'checked' : ''}> Analytics Cookies</label><br>
-        <small style="color:#666;">${conf.analyticsdesc || 'Help us improve the site'}</small>
+        <small style="color:#666;">${conf.analyticsdesc || 'Help us improve the site with usage data'}</small>
       </div>
 
       <div style="margin:20px 0;">
         <label><input type="checkbox" id="marketing" ${savedPrefs.marketing ? 'checked' : ''}> Marketing Cookies</label><br>
-        <small style="color:#666;">${conf.marketingdesc || 'Show relevant ads'}</small>
+        <small style="color:#666;">${conf.marketingdesc || 'Show relevant advertisements'}</small>
       </div>
 
       <div style="margin:20px 0;">
         <label><input type="checkbox" id="personalization" ${savedPrefs.personalization ? 'checked' : ''}> Personalization Cookies</label><br>
-        <small style="color:#666;">${conf.personalizationdesc || 'Tailored content'}</small>
+        <small style="color:#666;">${conf.personalizationdesc || 'Tailored content and experiences'}</small>
       </div>
 
       <div style="margin:20px 0;">
         <label><input type="checkbox" id="third_party" ${savedPrefs.third_party ? 'checked' : ''}> Third-Party Cookies</label><br>
-        <small style="color:#666;">${conf.thirdpartydesc || 'Social media features'}</small>
+        <small style="color:#666;">${conf.thirdpartydesc || 'Social media and sharing features'}</small>
       </div>
 
       <div style="margin:20px 0;">
         <label><input type="checkbox" id="functional" ${savedPrefs.functional ? 'checked' : ''}> Functional Cookies</label><br>
-        <small style="color:#666;">${conf.functionaldesc || 'Remember preferences'}</small>
+        <small style="color:#666;">${conf.functionaldesc || 'Remember your preferences'}</small>
       </div>
 
       <div style="text-align:center; margin-top:30px;">
@@ -192,8 +224,8 @@ function openCustomizeModal() {
       functional: document.getElementById('functional').checked
     };
 
-    const type = (Object.values(customPreferences).every(v => v)) ? 'accepted' :
-      (Object.values(customPreferences).every(v => !v)) ? 'declined' : 'custom';
+    const type = Object.values(customPreferences).every(v => v) ? 'accepted' :
+      Object.values(customPreferences).every(v => !v) ? 'declined' : 'custom';
 
     sendConsent(type, customPreferences);
     modal.remove();
@@ -203,11 +235,32 @@ function openCustomizeModal() {
 }
 
 export default function decorate(block) {
+  // Robust config reading - works in AEM Author, Preview, and Live
   const conf = {};
-  [...block.children].forEach((row) => {
-    const key = row.children[0]?.textContent?.trim().toLowerCase();
-    if (key) conf[key] = row.children[1]?.innerHTML || row.children[1]?.textContent?.trim();
+  const rows = block.querySelectorAll(':scope > div');
+  rows.forEach((row) => {
+    const cells = row.querySelectorAll(':scope > div');
+    if (cells.length >= 2) {
+      const keyCell = cells[0];
+      const valueCell = cells[1];
+      const key = keyCell.textContent.trim().toLowerCase().replace(/\s+/g, '');
+      if (key === 'message') {
+        conf.message = valueCell.innerHTML.trim();
+      } else if (key.includes('desc')) {
+        conf[key] = valueCell.innerHTML.trim();
+      } else {
+        conf[key] = valueCell.textContent.trim();
+      }
+    }
   });
+
+  // Fallback defaults
+  conf.message = conf.message || 'We use cookies and similar technologies to enhance your experience.';
+  conf.policylabel = conf.policylabel || 'Read Privacy Policy';
+  conf.policylink = conf.policylink || '/privacy-policy';
+  conf.acceptlabel = conf.acceptlabel || 'Allow all cookies';
+  conf.declinlabel = conf.declinlabel || 'Decline';
+  conf.customizelabel = conf.customizelabel || 'Customize';
 
   if (localStorage.getItem('gmr-cookie-consent')) {
     showPostConsentView();
@@ -218,16 +271,16 @@ export default function decorate(block) {
     <div class="cookie-consent-wrapper">
       <div class="cookie-consent">
         <div class="cookie-message">
-          <p>${conf.message || 'We use cookies to enhance your experience.'}
-             <a href="${conf.policylink || '/privacy-policy'}" class="cookie-policy-link" target="_blank" rel="noopener">
-               ${conf.policylabel || 'Read Privacy Policy'}
+          <p>${conf.message}
+             <a href="${conf.policylink}" class="cookie-policy-link" target="_blank" rel="noopener">
+               ${conf.policylabel}
              </a>
           </p>
         </div>
         <div class="cookie-buttons">
-          <button class="cookie-btn secondary">${conf.declinlabel || 'Decline'}</button>
-          <button class="cookie-btn primary">${conf.acceptlabel || 'Allow all cookies'}</button>
-          <button class="cookie-btn customize">${conf.customizelabel || 'Customize'}</button>
+          <button class="cookie-btn secondary">${conf.declinlabel}</button>
+          <button class="cookie-btn primary">${conf.acceptlabel}</button>
+          <button class="cookie-btn customize">${conf.customizelabel}</button>
         </div>
       </div>
     </div>
