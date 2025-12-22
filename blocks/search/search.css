@@ -9,9 +9,13 @@
 }
 
 .search-results {
-  background: #fff;
+  max-height: 280px;          /* adjust as needed */
+  overflow-y: auto;
   border: 1px solid #ddd;
-  margin-top: 5px;
+  background: #fff;
+}
+.search-results {
+  scroll-behavior: smooth;
 }
 
 .search-result {
@@ -19,7 +23,12 @@
   border-bottom: 1px solid #eee;
 }
 
-.search-result a {
+.search-results a {
+  display: block;
+  padding: 8px 10px;
   text-decoration: none;
   color: inherit;
+}
+.search-results a.active {
+  background: #eef2ff;
 }

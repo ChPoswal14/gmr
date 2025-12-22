@@ -7,7 +7,7 @@
         "title",
         "description",
         "category",
-        "industry",
+        "content",
         "featured"
       ]
     }

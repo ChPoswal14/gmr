@@ -1,5 +1,4 @@
 export default async function decorate(block) {
-  // ---------- HTML ----------
   block.innerHTML = `
     <div class="search-box" role="combobox" aria-expanded="false">
       <input
@@ -20,16 +19,15 @@ export default async function decorate(block) {
   const input = block.querySelector('input');
   const resultsEl = block.querySelector('.search-results');
 
-  // ---------- State ----------
   let indexData = [];
   let results = [];
   let activeIndex = -1;
   let debounceTimer;
 
-  // ---------- Load Index ----------
+  // Load index once
   async function loadIndex() {
     try {
-      const resp = await fetch('/search-index.json');
+      const resp = await fetch('/query-index.json');
       const json = await resp.json();
       indexData = json.data || [];
     } catch (e) {
@@ -39,7 +37,6 @@ export default async function decorate(block) {
 
   await loadIndex();
 
-  // ---------- Helpers ----------
   function clearResults() {
     resultsEl.innerHTML = '';
     results = [];
