@@ -1,4 +1,4 @@
-// cookie-consent.js - FINAL VERSION (Perfectly matches your AEM HTML structure)
+// cookie-consent.js - FINAL FIXED VERSION (Banner shows + Authoring intact)
 
 const LOG_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent';
 const UPDATE_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent/update';
@@ -101,12 +101,9 @@ async function deleteRecord() {
 }
 
 function applyConsents(prefs) {
-  // Google Analytics Consent Mode
   if (window.gtag) {
     gtag('consent', 'update', { 'analytics_storage': prefs.analytics ? 'granted' : 'denied' });
   }
-
-  // Adobe Target
   if (window.adobe?.optIn) {
     prefs.personalization ? adobe.optIn.approve(['target']) : adobe.optIn.deny(['target']);
   }
@@ -133,7 +130,6 @@ function getBlockConfig() {
   const block = document.querySelector('.cookie-consent.block');
   if (!block) return conf;
 
-  // Match your exact AEM structure with data-aue-prop
   const propElements = block.querySelectorAll('[data-aue-prop]');
   propElements.forEach(el => {
     const prop = el.getAttribute('data-aue-prop');
@@ -160,7 +156,7 @@ function getBlockConfig() {
 }
 
 function openCustomizeModal() {
-  const conf = getBlockConfig();  // Re-read for live authoring updates
+  const conf = getBlockConfig();
 
   const savedPrefs = JSON.parse(localStorage.getItem('gmr-custom-preferences') || '{}');
 
@@ -180,27 +176,27 @@ function openCustomizeModal() {
 
       <div style="margin:20px 0;">
         <label><input type="checkbox" id="analytics" ${savedPrefs.analytics ? 'checked' : ''}> Analytics Cookies</label><br>
-        <small style="color:#666;">${conf.analyticsdesc || 'Anaylytics'}</small>
+        <small style="color:#666;">${conf.analyticsdesc || 'Analytics description'}</small>
       </div>
 
       <div style="margin:20px 0;">
         <label><input type="checkbox" id="marketing" ${savedPrefs.marketing ? 'checked' : ''}> Marketing Cookies</label><br>
-        <small style="color:#666;">${conf.marketingdesc || 'Marketing'}</small>
+        <small style="color:#666;">${conf.marketingdesc || 'Marketing description'}</small>
       </div>
 
       <div style="margin:20px 0;">
         <label><input type="checkbox" id="personalization" ${savedPrefs.personalization ? 'checked' : ''}> Personalization Cookies</label><br>
-        <small style="color:#666;">${conf.personalizationdesc || 'Personalisation'}</small>
+        <small style="color:#666;">${conf.personalizationdesc || 'Personalization description'}</small>
       </div>
 
       <div style="margin:20px 0;">
         <label><input type="checkbox" id="third_party" ${savedPrefs.third_party ? 'checked' : ''}> Third-Party Cookies</label><br>
-        <small style="color:#666;">${conf.thirdpartydesc || 'Third Party'}</small>
+        <small style="color:#666;">${conf.thirdpartydesc || 'Third-Party description'}</small>
       </div>
 
       <div style="margin:20px 0;">
         <label><input type="checkbox" id="functional" ${savedPrefs.functional ? 'checked' : ''}> Functional Cookies</label><br>
-        <small style="color:#666;">${conf.functionaldesc || 'This is cookies custom preferences'}</small>
+        <small style="color:#666;">${conf.functionaldesc || 'Functional description'}</small>
       </div>
 
       <div style="text-align:center; margin-top:30px;">
@@ -249,31 +245,41 @@ export default function decorate(block) {
     return;
   }
 
-  block.innerHTML = `
-    <div class="cookie-consent-wrapper">
-      <div class="cookie-consent">
-        <div class="cookie-message">
-          <p>${conf.message || 'This is Cookie Banner'}
-             <a href="${conf.policylink || '#'}" class="cookie-policy-link" target="_blank" rel="noopener">
-               ${conf.policylabel || 'policy'}
-             </a>
-          </p>
-        </div>
-        <div class="cookie-buttons">
-          <button class="cookie-btn secondary">${conf.declinlabel || 'DECLINE'}</button>
-          <button class="cookie-btn primary">${conf.acceptlabel || 'ALLOW ALL'}</button>
-          <button class="cookie-btn customize">${conf.customizelabel || 'Customise'}</button>
-        </div>
+  // Append banner after the configuration table (do not overwrite block.innerHTML)
+  const wrapper = document.createElement('div');
+  wrapper.className = 'cookie-consent-wrapper';
+  wrapper.innerHTML = `
+    <div class="cookie-consent">
+      <div class="cookie-message">
+        <p>${conf.message || 'This is Cookie Banner'}
+           <a href="${conf.policylink || '#'}" class="cookie-policy-link" target="_blank" rel="noopener">
+             ${conf.policylabel || 'policy'}
+           </a>
+        </p>
+      </div>
+      <div class="cookie-buttons">
+        <button class="cookie-btn secondary">${conf.declinlabel || 'DECLINE'}</button>
+        <button class="cookie-btn primary">${conf.acceptlabel || 'ALLOW ALL'}</button>
+        <button class="cookie-btn customize">${conf.customizelabel || 'Customise'}</button>
       </div>
     </div>
   `;
 
+  block.appendChild(wrapper);
+
   const allTrue = { analytics: true, marketing: true, personalization: true, third_party: true, functional: true };
   const allFalse = { analytics: false, marketing: false, personalization: false, third_party: false, functional: false };
 
-  block.querySelector('.cookie-btn.primary').addEventListener('click', () => sendConsent('accepted', allTrue));
-  block.querySelector('.cookie-btn.secondary').addEventListener('click', () => sendConsent('declined', allFalse));
-  block.querySelector('.cookie-btn.customize').addEventListener('click', openCustomizeModal);
+  wrapper.querySelector('.cookie-btn.primary').addEventListener('click', () => sendConsent('accepted', allTrue));
+  wrapper.querySelector('.cookie-btn.secondary').addEventListener('click', () => sendConsent('declined', allFalse));
+  wrapper.querySelector('.cookie-btn.customize').addEventListener('click', openCustomizeModal);
 
-  block.querySelector('.cookie-consent-wrapper').style.display = 'block';
+  wrapper.style.display = 'block';
+
+  // Hide the configuration table in live/preview mode (keep visible in author)
+  if (!document.body.classList.contains('aue')) {
+    block.querySelectorAll(':scope > div').forEach(row => {
+      row.style.display = 'none';
+    });
+  }
 }

@@ -1,17 +1,20 @@
-/* Cookie Consent Banner */
+/* cookie-consent.css - Full Professional & Responsive Design */
+
+/* Main Banner Wrapper - Fixed at bottom */
 .cookie-consent-wrapper {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    background: #1a1a1a;
-    color: #fff;
+    background: #1a1a1a; /* Dark background */
+    color: #ffffff;
     z-index: 9999;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
-    font-family: system-ui, -apple-system, sans-serif;
-    display: none;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    display: none; /* Hidden by default, JS will show it */
 }
 
+/* Inner Container */
 .cookie-consent {
     max-width: 1200px;
     margin: 0 auto;
@@ -22,13 +25,16 @@
     align-items: center;
 }
 
+/* Desktop: Side-by-side layout */
 @media (min-width: 768px) {
     .cookie-consent {
         flex-direction: row;
+        align-items: center;
         text-align: left;
     }
 }
 
+/* Message Text */
 .cookie-message {
     flex: 1;
     font-size: 0.95rem;
@@ -39,15 +45,18 @@
     margin: 0;
 }
 
+/* Privacy Policy Link */
 .cookie-policy-link {
-    color: #fff;
+    color: #ffffff;
     text-decoration: underline;
+    font-weight: 500;
 }
 
 .cookie-policy-link:hover {
-    color: #f5a623;
+    color: #f5a623; /* Orange hover */
 }
 
+/* Buttons Container */
 .cookie-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -55,51 +64,183 @@
     justify-content: center;
 }
 
+/* Common Button Styles */
 .cookie-btn {
     padding: 12px 28px;
     border-radius: 6px;
     font-weight: 600;
+    font-size: 0.95rem;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: 120px;
+    text-align: center;
 }
 
+/* Decline Button */
 .cookie-btn.secondary {
     background: transparent;
-    border: 1px solid #fff;
-    color: #fff;
+    border: 1px solid #ffffff;
+    color: #ffffff;
 }
 
 .cookie-btn.secondary:hover {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
 }
 
+/* Allow All Button */
 .cookie-btn.primary {
-    background: #f5a623;
-    color: #000;
+    background: #f5a623; /* GMR Orange */
+    color: #000000;
     border: none;
 }
 
 .cookie-btn.primary:hover {
     background: #e09612;
+    transform: translateY(-1px);
 }
 
+/* Customize Button */
 .cookie-btn.customize {
     background: transparent;
-    border: 1px solid #fff;
-    color: #fff;
+    border: 1px solid #ffffff;
+    color: #ffffff;
 }
 
 .cookie-btn.customize:hover {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
 }
 
-/* Responsive */
+/* Post-Consent Small Bar */
+.cookie-consent-wrapper > div[style*="background:#f0f8ff"] {
+    background: #f0f8ff !important;
+    color: #000000 !important;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Customize Modal */
+#customize-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+#customize-modal > div {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    color: #333333;
+}
+
+#customize-modal h2 {
+    text-align: center;
+    color: #003366;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+#customize-modal strong {
+    display: block;
+    margin: 25px 0 8px;
+    font-size: 1.1rem;
+}
+
+#customize-modal small {
+    display: block;
+    color: #666666;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+#customize-modal input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+#customize-modal label {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+/* Modal Buttons */
+#customize-modal button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px;
+    min-width: 160px;
+}
+
+#customize-modal #save-prefs {
+    background: #f5a623;
+    color: #000000;
+}
+
+#customize-modal #save-prefs:hover {
+    background: #e09612;
+}
+
+#customize-modal #delete-data {
+    background: #d9534f;
+    color: #ffffff;
+}
+
+#customize-modal #delete-data:hover {
+    background: #c9302c;
+}
+
+#customize-modal #close-modal {
+    background: #cccccc;
+    color: #000000;
+}
+
+#customize-modal #close-modal:hover {
+    background: #bbbbbb;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 767px) {
     .cookie-buttons {
         width: 100%;
         flex-direction: column;
     }
+
     .cookie-btn {
         width: 100%;
     }
+
+    #customize-modal > div {
+        padding: 20px;
+    }
+
+    #customize-modal button {
+        width: 100%;
+        margin: 8px 0;
+    }
+}
+
+/* Hide configuration table in live/preview mode (keep visible in author) */
+body:not(.aue) .cookie-consent.block > div {
+    display: none !important;
+}
+
+body:not(.aue) .cookie-consent-wrapper {
+    display: block !important;
 }
