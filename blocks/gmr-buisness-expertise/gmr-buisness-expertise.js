@@ -1,88 +1,63 @@
 export default function decorate(block) {
   const rows = [...block.children];
+  if (rows.length < 2) return;
 
-  const outerContainer = document.createElement("div");
-  outerContainer.className = "sec-commitment spacer";
-
-  const container = document.createElement("div");
-  container.className = "container";
-
-  // ---- Header ----
+  /* =========================
+     Header
+  ========================== */
   const headerRow = rows.shift();
-  headerRow.classList.add("sec-head", "h2", "mb-5", "fw-normal", "text-center");
+  const headerCells = [...headerRow.children];
 
-  // ---- Grid ----
-  const grid = document.createElement("div");
-  grid.className = "row";
+  const sectionTitle = headerCells[0]?.innerHTML || "";
+  const sectionDescription = headerCells[1]?.innerHTML || "";
 
+  /* =========================
+     Wrapper
+  ========================== */
+  block.innerHTML = `
+    <div class="container py-5">
+      <div class="row mb-4 text-center">
+        <div class="col-12">
+          <h2 class="mb-3">${sectionTitle}</h2>
+          <div class="text-muted">${sectionDescription}</div>
+        </div>
+      </div>
+      <div class="row g-4 gmr-buisness-items"></div>
+    </div>
+  `;
+
+  const itemsContainer = block.querySelector(".gmr-buisness-items");
+
+  /* =========================
+     Cards (each remaining row)
+  ========================== */
   rows.forEach((row) => {
-    row.classList.add("col-md-6", "comm-card");
+    const cols = [...row.children];
 
-    const cells = [...row.children];
+    const image = cols[0]?.querySelector("picture")?.outerHTML || "";
+    const title = cols[1]?.innerHTML || "";
+    const description = cols[2]?.innerHTML || "";
+    const ctaText = cols[3]?.textContent?.trim() || "";
+    const ctaLink = cols[4]?.textContent?.trim() || "#";
 
-    const imageCell = cells[0];
-    const titleCell = cells[1];
-    const descCell = cells[2];
-    const buttonTextCell = cells[3];
-    const buttonLinkCell = cells[4];
+    const cardCol = document.createElement("div");
+    cardCol.className = "col-12 col-md-6 col-lg-4";
 
-    // Image
-    imageCell?.classList.add("comm-card-img");
+    cardCol.innerHTML = `
+      <div class="card h-100 shadow-sm">
+        ${image}
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">${title}</h5>
+          <div class="card-text mb-3">${description}</div>
+          ${
+            ctaText
+              ? `<a href="${ctaLink}" class="btn btn-primary mt-auto">${ctaText}</a>`
+              : ""
+          }
+        </div>
+      </div>
+    `;
 
-    // ---- Title: <p> → <h3> ----
-    if (titleCell) {
-      titleCell.classList.add("comm-card-title");
-      const p = titleCell.querySelector("p");
-      if (p) {
-        const h3 = document.createElement("h3");
-        h3.innerHTML = p.innerHTML;
-        p.replaceWith(h3);
-      }
-    }
-
-    // ---- Body wrapper ----
-    const body = document.createElement("div");
-    body.className = "comm-card-body";
-
-    descCell?.classList.add("comm-card-desc");
-
-    // ---- CTA handling ----
-    let ctaWrapper;
-    let ctaLink;
-
-    if (buttonLinkCell) {
-      ctaWrapper = buttonLinkCell;
-      ctaWrapper.classList.add("button-container");
-
-      ctaLink = ctaWrapper.querySelector("a");
-      if (!ctaLink) {
-        ctaLink = document.createElement("a");
-        ctaWrapper.append(ctaLink);
-      }
-
-      const linkHref =
-        buttonLinkCell.querySelector("a")?.getAttribute("href") || "";
-      const buttonText = buttonTextCell?.textContent?.trim() || "";
-
-      if (linkHref) ctaLink.href = linkHref;
-      if (buttonText) ctaLink.textContent = buttonText;
-
-      ctaLink.classList.add("btn", "btn-primary");
-    }
-
-    // remove plain button text row
-    buttonTextCell?.remove();
-
-    // Move nodes into body (UE-safe)
-    if (titleCell) body.append(titleCell);
-    if (descCell) body.append(descCell);
-    if (ctaWrapper) body.append(ctaWrapper);
-
-    row.append(body);
-    grid.append(row);
+    itemsContainer.appendChild(cardCol);
   });
-
-  container.append(headerRow, grid);
-  outerContainer.append(container);
-  block.append(outerContainer);
 }
