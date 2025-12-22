@@ -1,10 +1,24 @@
-// cookie-consent.js - FINAL FIXED VERSION (Customize button works + Authoring fixed)
+// cookie-consent.js - FINAL VERSION (Sends Real User IP + Everything Else Fixed)
 
-const LOG_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent';
-const UPDATE_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent/update';
-const DELETE_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent/delete';
+const CONSENT_ENDPOINT = 'http://13.200.106.168:4000/api/cookie-consent';
+const DELETE_ENDPOINT_BASE = 'http://13.200.106.168:4000/api/cookie-consent';
 
 const AUTH_HEADER = 'U2FsdGVkX1+IAunex0zJueoZQpRBfpUm/DSQSMufK69HpTEh4abfdnhz0fQ+jbSmPrqojCZOhYZ6/mvA28aQxw';
+
+let userIP = 'unknown'; // Will be filled by fetchIP()
+
+async function fetchIP() {
+  try {
+    const response = await fetch('https://api.ipify.org?format=json');
+    if (response.ok) {
+      const data = await response.json();
+      userIP = data.ip || 'unknown';
+    }
+  } catch (e) {
+    console.warn('Could not fetch user IP', e);
+    userIP = 'unknown';
+  }
+}
 
 async function fetchGeo() {
   let city = 'unknown', region = 'unknown', country = 'unknown';
@@ -20,11 +34,14 @@ async function fetchGeo() {
   return { city, region, country };
 }
 
+// Call fetchIP early so IP is ready when needed
+fetchIP();
+
 async function sendConsent(consentType, customPreferences) {
   const { city, region, country } = await fetchGeo();
 
   const payload = {
-    userIp: 'anonymous',
+    userIp: userIP,  // Now sends real IP (e.g., "13.201.135.1")
     location: Intl.DateTimeFormat().resolvedOptions().timeZone,
     city,
     region,
@@ -35,30 +52,24 @@ async function sendConsent(consentType, customPreferences) {
     customPreferences
   };
 
-  const hasConsent = localStorage.getItem('gmr-cookie-consent');
-  const url = hasConsent ? UPDATE_ENDPOINT : LOG_ENDPOINT;
-
   try {
-    const body = hasConsent
-      ? JSON.stringify({ id: localStorage.getItem('gmr-privacy-id'), ...payload })
-      : JSON.stringify(payload);
-
-    const response = await fetch(url, {
+    const response = await fetch(CONSENT_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': AUTH_HEADER
       },
-      body
+      body: JSON.stringify(payload)
     });
 
     const result = await response.json();
 
     if (response.ok) {
-      if (!hasConsent) {
-        const savedId = result.id || result.data?.id || result.data?._id;
-        if (savedId) localStorage.setItem('gmr-privacy-id', savedId);
+      const savedId = result.id || result.data?.id || result.data?._id || result._id;
+      if (savedId) {
+        localStorage.setItem('gmr-privacy-id', savedId);
       }
+
       localStorage.setItem('gmr-cookie-consent', consentType === 'declined' ? 'declined' : 'accepted');
       localStorage.setItem('gmr-custom-preferences', JSON.stringify(customPreferences));
       applyConsents(customPreferences);
@@ -79,13 +90,12 @@ async function deleteRecord() {
   }
 
   try {
-    const response = await fetch(DELETE_ENDPOINT, {
-      method: 'POST',
+    const response = await fetch(`${DELETE_ENDPOINT_BASE}/${id}`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': AUTH_HEADER
-      },
-      body: JSON.stringify({ id })
+      }
     });
 
     if (response.ok) {
@@ -124,9 +134,7 @@ function showPostConsentView() {
   document.body.appendChild(wrapper);
 
   const manageBtn = document.getElementById('manage-prefs-btn');
-  if (manageBtn) {
-    manageBtn.addEventListener('click', openCustomizeModal);
-  }
+  if (manageBtn) manageBtn.addEventListener('click', openCustomizeModal);
 }
 
 function getBlockConfig() {
@@ -160,8 +168,6 @@ function getBlockConfig() {
 }
 
 function openCustomizeModal() {
-  console.log('Customize modal opened'); // Debug log - check DevTools Console
-
   const conf = getBlockConfig();
 
   const savedPrefs = JSON.parse(localStorage.getItem('gmr-custom-preferences') || '{}');
@@ -221,35 +227,26 @@ function openCustomizeModal() {
 
   document.body.appendChild(modal);
 
-  // Attach events after modal is added
-  const closeBtn = modal.querySelector('#close-modal');
-  if (closeBtn) closeBtn.onclick = () => modal.remove();
+  modal.querySelector('#close-modal').onclick = () => modal.remove();
+  modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
 
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.remove();
-  });
-
-  const saveBtn = modal.querySelector('#save-prefs');
-  if (saveBtn) {
-    saveBtn.onclick = () => {
-      const customPreferences = {
-        analytics: document.getElementById('analytics').checked,
-        marketing: document.getElementById('marketing').checked,
-        personalization: document.getElementById('personalization').checked,
-        third_party: document.getElementById('third_party').checked,
-        functional: document.getElementById('functional').checked
-      };
-
-      const type = Object.values(customPreferences).every(v => v) ? 'accepted' :
-        Object.values(customPreferences).every(v => !v) ? 'declined' : 'custom';
-
-      sendConsent(type, customPreferences);
-      modal.remove();
+  modal.querySelector('#save-prefs').onclick = () => {
+    const customPreferences = {
+      analytics: document.getElementById('analytics').checked,
+      marketing: document.getElementById('marketing').checked,
+      personalization: document.getElementById('personalization').checked,
+      third_party: document.getElementById('third_party').checked,
+      functional: document.getElementById('functional').checked
     };
-  }
 
-  const deleteBtn = modal.querySelector('#delete-data');
-  if (deleteBtn) deleteBtn.onclick = deleteRecord;
+    const type = Object.values(customPreferences).every(v => v) ? 'accepted' :
+      Object.values(customPreferences).every(v => !v) ? 'declined' : 'custom';
+
+    sendConsent(type, customPreferences);
+    modal.remove();
+  };
+
+  modal.querySelector('#delete-data').onclick = deleteRecord;
 }
 
 export default function decorate(block) {
@@ -260,7 +257,6 @@ export default function decorate(block) {
     return;
   }
 
-  // Create and append wrapper
   const wrapper = document.createElement('div');
   wrapper.className = 'cookie-consent-wrapper';
 
@@ -286,23 +282,12 @@ export default function decorate(block) {
   const allTrue = { analytics: true, marketing: true, personalization: true, third_party: true, functional: true };
   const allFalse = { analytics: false, marketing: false, personalization: false, third_party: false, functional: false };
 
-  const primaryBtn = wrapper.querySelector('.cookie-btn.primary');
-  if (primaryBtn) primaryBtn.addEventListener('click', () => sendConsent('accepted', allTrue));
-
-  const secondaryBtn = wrapper.querySelector('.cookie-btn.secondary');
-  if (secondaryBtn) secondaryBtn.addEventListener('click', () => sendConsent('declined', allFalse));
-
-  const customizeBtn = wrapper.querySelector('.cookie-btn.customize');
-  if (customizeBtn) {
-    customizeBtn.addEventListener('click', () => {
-      console.log('Customize button clicked'); // Debug
-      openCustomizeModal();
-    });
-  }
+  wrapper.querySelector('.cookie-btn.primary').addEventListener('click', () => sendConsent('accepted', allTrue));
+  wrapper.querySelector('.cookie-btn.secondary').addEventListener('click', () => sendConsent('declined', allFalse));
+  wrapper.querySelector('.cookie-btn.customize').addEventListener('click', openCustomizeModal);
 
   wrapper.style.display = 'block';
 
-  // Hide config table in live mode
   if (!document.body.classList.contains('aue')) {
     block.style.display = 'none';
   }
