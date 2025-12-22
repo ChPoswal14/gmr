@@ -855,6 +855,54 @@
     ]
   },
   {
+    "id": "global-airport-network",
+    "fields": [
+      {
+        "component": "text",
+        "name": "sectionTitle",
+        "label": "Section Heading",
+        "valueType": "string",
+        "defaultValue": "GMR’s Global Airport Network"
+      },
+      {
+        "component": "richtext",
+        "name": "sectionDescription",
+        "label": "Description Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "mapImage",
+        "label": "World Map Background Image",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "network-location-item",
+    "itemLabel": "airportName",
+    "fields": [
+      {
+        "component": "text",
+        "name": "airportName",
+        "label": "Airport Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "countryName",
+        "label": "Country Name",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "flagIcon",
+        "label": "Country Flag Icon",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "global-leaders-aviation",
     "fields": [
       {
