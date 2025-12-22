@@ -17,8 +17,10 @@
       }
     },
     {
-      "title": "Aviation Service Tab",
+      "title": "Aviation Service Item",
       "id": "aviation-service-item",
+      "hidden": true,
+      "labelHidden": true,
       "plugins": {
         "xwalk": {
           "page": {
@@ -30,52 +32,21 @@
           }
         }
       }
-    },
-    {
-      "title": "Dropdown Link",
-      "id": "dropdown-link-item",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "dropdown-link-item",
-              "model": "dropdown-link-item"
-            }
-          }
-        }
-      }
     }
   ],
   "models": [
     {
       "id": "aviation-services-header",
-      "fields": [
-        {
-          "component": "text",
-          "name": "headerTitle",
-          "label": "Section Admin Title",
-          "valueType": "string",
-          "defaultValue": "Airport Navigation Header"
-        },
-        {
-          "component": "text",
-          "name": "dropdownButtonText",
-          "label": "Dropdown Button Label",
-          "valueType": "string",
-          "defaultValue": "Domestic Network"
-        }
-      ]
+      "fields": []
     },
     {
       "id": "aviation-service-item",
-      "itemLabel": "airportName",
       "fields": [
         {
           "component": "text",
           "name": "airportName",
-          "label": "Airport Name",
-          "valueType": "string"
+          "valueType": "string",
+          "hidden": true
         },
         {
           "component": "text",
@@ -86,26 +57,8 @@
         {
           "component": "checkbox",
           "name": "isActive",
-          "label": "Show Underline (Active)",
+          "label": "Active",
           "valueType": "boolean"
-        }
-      ]
-    },
-    {
-      "id": "dropdown-link-item",
-      "itemLabel": "linkText",
-      "fields": [
-        {
-          "component": "text",
-          "name": "linkText",
-          "label": "Link Text",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "linkUrl",
-          "label": "Link URL",
-          "valueType": "string"
         }
       ]
     }
@@ -113,10 +66,7 @@
   "filters": [
     {
       "id": "aviation-services-header",
-      "components": [
-        "aviation-service-item",
-        "dropdown-link-item"
-      ]
+      "components": ["aviation-service-item"]
     }
   ]
 }

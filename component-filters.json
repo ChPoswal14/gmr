@@ -35,7 +35,8 @@
       "gmr-buisness-brand",
       "aviation-services-header",
       "our-airports",
-      "all-business-cards"
+      "all-business-cards",
+      "global-airport-network"
     ]
   },
   {
@@ -136,6 +137,12 @@
     "id": "footertopbars",
     "components": [
       "footertopbar"
+    ]
+  },
+  {
+    "id": "global-airport-network",
+    "components": [
+      "network-location-item"
     ]
   },
   {
