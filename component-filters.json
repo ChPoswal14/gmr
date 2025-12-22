@@ -118,13 +118,6 @@
     ]
   },
   {
-    "id": "content-listing",
-    "components": [
-      "image-title-desc-button",
-      "card"
-    ]
-  },
-  {
     "id": "footerbottoms",
     "components": [
       "footerbottom"
