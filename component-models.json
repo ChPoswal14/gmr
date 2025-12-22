@@ -1140,20 +1140,44 @@
     ]
   },
   {
-    "id": "image-title-desc",
+    "id": "image-title-desc-button",
     "fields": [
       {
+        "component": "reference",
+        "name": "backgroundImage",
+        "label": "Background Image",
+        "valueType": "string"
+      },
+      {
         "component": "text",
-        "name": "adminTitle",
-        "label": "Admin Section Title",
+        "name": "title",
+        "label": "Main Title",
         "valueType": "string",
-        "defaultValue": "Sustainability Hero Section"
+        "defaultValue": "Step Into the Future of Civil Aviation"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonLabel",
+        "label": "Button Text",
+        "valueType": "string",
+        "defaultValue": "Visit Delhi Airport Website"
+      },
+      {
+        "component": "text",
+        "name": "buttonUrl",
+        "label": "Button Link (URL)",
+        "valueType": "string"
       }
     ]
   },
   {
-    "id": "image-title-desc-item",
-    "itemLabel": "title",
+    "id": "image-title-desc",
     "fields": [
       {
         "component": "reference",
@@ -1164,13 +1188,14 @@
       {
         "component": "text",
         "name": "title",
-        "label": "Title Overlay",
-        "valueType": "string"
+        "label": "Title",
+        "valueType": "string",
+        "defaultValue": "Leading the Way in Sustainable Aviation"
       },
       {
         "component": "richtext",
         "name": "description",
-        "label": "Description Overlay",
+        "label": "Description",
         "valueType": "string"
       }
     ]

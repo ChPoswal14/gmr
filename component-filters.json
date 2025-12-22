@@ -36,7 +36,9 @@
       "aviation-services-header",
       "our-airports",
       "all-business-cards",
-      "image-title-desc"
+      "image-title-desc",
+      "image-title-desc-button",
+      "success-stories"
     ]
   },
   {
@@ -116,6 +118,13 @@
     ]
   },
   {
+    "id": "content-listing",
+    "components": [
+      "image-title-desc-button",
+      "card"
+    ]
+  },
+  {
     "id": "footerbottoms",
     "components": [
       "footerbottom"
@@ -167,12 +176,6 @@
     "id": "hero-banner",
     "components": [
       "hero-banner-items"
-    ]
-  },
-  {
-    "id": "image-title-desc",
-    "components": [
-      "image-title-desc-item"
     ]
   },
   {
