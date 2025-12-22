@@ -173,6 +173,52 @@
     ]
   },
   {
+    "id": "airport-hero",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "backgroundImage",
+        "label": "Background Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "eyebrow",
+        "label": "Eyebrow Text",
+        "valueType": "string",
+        "defaultValue": "Gateway to New India"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Main Title",
+        "valueType": "string",
+        "defaultValue": "Indira Gandhi International Airport (IGIA)"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string",
+        "defaultValue": "<p>Indira Gandhi International Airport is one of the <strong>busiest aviation gateways</strong> in the world and serves over <strong>79+ million</strong> domestic and international passengers annually.</p>"
+      },
+      {
+        "component": "text",
+        "name": "ctaLabel",
+        "label": "CTA Button Label",
+        "valueType": "string",
+        "defaultValue": "Delhi Airport Website"
+      },
+      {
+        "component": "text",
+        "name": "ctaLink",
+        "label": "CTA Button Link",
+        "valueType": "string",
+        "defaultValue": "https://www.newdelhiairport.in/"
+      }
+    ]
+  },
+  {
     "id": "airport-overview",
     "fields": [
       {
@@ -354,36 +400,13 @@
     ]
   },
   {
-    "id": "awards-carousel",
+    "id": "aviation-services",
     "fields": [
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "sectionTitle",
-        "label": "Section Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "sectionDescription",
-        "label": "Section Description"
-      }
-    ]
-  },
-  {
-    "id": "award-item",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Award Image"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Award Description"
+        "component": "aem-content",
+        "name": "fragmentPath",
+        "label": "Select Aviation Services Fragment",
+        "valueType": "string"
       }
     ]
   },
@@ -669,29 +692,6 @@
     ]
   },
   {
-    "id": "committed-banner",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Top Image"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Main Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Description"
-      }
-    ]
-  },
-  {
     "id": "cookie-consent",
     "fields": [
       {
@@ -770,41 +770,6 @@
         "label": "Functional Cookies Description",
         "valueType": "string",
         "defaultValue": "These remember your preferences (language, region, etc.) to make your visit more convenient."
-      }
-    ]
-  },
-  {
-    "id": "experience-banner",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Main Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Description"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Right Side Image"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaText",
-        "label": "CTA Text"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaLink",
-        "label": "CTA Link"
       }
     ]
   },
@@ -1531,46 +1496,6 @@
         "name": "ctaUrl",
         "label": "Link URL",
         "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "passenger-experience",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "sectionTitle",
-        "label": "Section Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "sectionDescription",
-        "label": "Section Description"
-      }
-    ]
-  },
-  {
-    "id": "experience-item",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Description"
       }
     ]
   },
