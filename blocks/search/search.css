@@ -1,17 +1,22 @@
-.search {
-  max-width: 600px;
-  margin: 2rem auto;
+.search-box {
+  position: relative;
+  max-width: 400px;
 }
 
-.search-input {
+.search-box input {
   width: 100%;
   padding: 10px;
-  font-size: 16px;
+}
+
+.search-results {
+  background: #fff;
+  border: 1px solid #ddd;
+  margin-top: 5px;
 }
 
 .search-result {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
 }
 
 .search-result a {
