@@ -157,6 +157,14 @@
             "value": "highlight"
           },
           {
+            "name": "Sec-Grid-5",
+            "value": "sec-grid-5"
+          },
+          {
+            "name": "Sec-Grid-2",
+            "value": "sec-grid-2"
+          },
+          {
             "name": "Background Blue",
             "value": "bg-primary"
           }
@@ -689,37 +697,79 @@
       {
         "component": "richtext",
         "name": "message",
-        "label": "Consent Message",
+        "label": "Main Consent Message",
         "valueType": "string",
-        "defaultValue": "We use cookies to enhance your user experience."
+        "defaultValue": "We use cookies and similar technologies to enhance your experience, analyze site performance, personalize content, and serve relevant advertisements."
       },
       {
         "component": "text",
         "name": "policyLabel",
-        "label": "Policy Link Text",
+        "label": "Privacy Policy Link Text",
         "valueType": "string",
         "defaultValue": "Read Privacy Policy"
       },
       {
         "component": "text",
         "name": "policyLink",
-        "label": "Policy Page URL",
+        "label": "Privacy Policy URL",
         "valueType": "string",
-        "comment": "Link to your privacy page (e.g. /privacy-policy)"
+        "defaultValue": "/privacy-policy"
       },
       {
         "component": "text",
         "name": "acceptLabel",
-        "label": "Accept Button Label",
+        "label": "Accept All Button Text",
         "valueType": "string",
         "defaultValue": "Allow all cookies"
       },
       {
         "component": "text",
         "name": "declineLabel",
-        "label": "Decline Button Label",
+        "label": "Decline Button Text",
         "valueType": "string",
         "defaultValue": "Decline"
+      },
+      {
+        "component": "text",
+        "name": "customizeLabel",
+        "label": "Customize Button Text",
+        "valueType": "string",
+        "defaultValue": "Customize"
+      },
+      {
+        "component": "richtext",
+        "name": "analyticsDesc",
+        "label": "Analytics Cookies Description",
+        "valueType": "string",
+        "defaultValue": "These cookies help us understand how visitors use our website and improve performance (e.g., Google Analytics)."
+      },
+      {
+        "component": "richtext",
+        "name": "marketingDesc",
+        "label": "Marketing Cookies Description",
+        "valueType": "string",
+        "defaultValue": "These allow us and our partners to show you relevant advertisements based on your interests."
+      },
+      {
+        "component": "richtext",
+        "name": "personalizationDesc",
+        "label": "Personalization Cookies Description",
+        "valueType": "string",
+        "defaultValue": "These enable tailored content and experiences, such as recommendations (e.g., Adobe Target)."
+      },
+      {
+        "component": "richtext",
+        "name": "thirdPartyDesc",
+        "label": "Third-Party Cookies Description",
+        "valueType": "string",
+        "defaultValue": "Used by social media and partners for sharing, login, and embedded content."
+      },
+      {
+        "component": "richtext",
+        "name": "functionalDesc",
+        "label": "Functional Cookies Description",
+        "valueType": "string",
+        "defaultValue": "These remember your preferences (language, region, etc.) to make your visit more convenient."
       }
     ]
   },
