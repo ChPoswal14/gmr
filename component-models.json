@@ -157,6 +157,14 @@
             "value": "highlight"
           },
           {
+            "name": "Sec-Grid-5",
+            "value": "sec-grid-5"
+          },
+          {
+            "name": "Sec-Grid-2",
+            "value": "sec-grid-2"
+          },
+          {
             "name": "Background Blue",
             "value": "bg-primary"
           }
@@ -274,58 +282,6 @@
         "name": "statLabel",
         "label": "Statistic Label",
         "description": "Example: Passengers handled annually"
-      }
-    ]
-  },
-  {
-    "id": "aviation-expertise",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "sectionTitle",
-        "label": "Section Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "sectionDescription",
-        "label": "Section Description"
-      }
-    ]
-  },
-  {
-    "id": "aviation-item",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Card Image"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Description"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaText",
-        "label": "CTA Text"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaLink",
-        "label": "CTA Link"
       }
     ]
   },
@@ -695,37 +651,79 @@
       {
         "component": "richtext",
         "name": "message",
-        "label": "Consent Message",
+        "label": "Main Consent Message",
         "valueType": "string",
-        "defaultValue": "We use cookies to enhance your user experience."
+        "defaultValue": "We use cookies and similar technologies to enhance your experience, analyze site performance, personalize content, and serve relevant advertisements."
       },
       {
         "component": "text",
         "name": "policyLabel",
-        "label": "Policy Link Text",
+        "label": "Privacy Policy Link Text",
         "valueType": "string",
         "defaultValue": "Read Privacy Policy"
       },
       {
         "component": "text",
         "name": "policyLink",
-        "label": "Policy Page URL",
+        "label": "Privacy Policy URL",
         "valueType": "string",
-        "comment": "Link to your privacy page (e.g. /privacy-policy)"
+        "defaultValue": "/privacy-policy"
       },
       {
         "component": "text",
         "name": "acceptLabel",
-        "label": "Accept Button Label",
+        "label": "Accept All Button Text",
         "valueType": "string",
         "defaultValue": "Allow all cookies"
       },
       {
         "component": "text",
         "name": "declineLabel",
-        "label": "Decline Button Label",
+        "label": "Decline Button Text",
         "valueType": "string",
         "defaultValue": "Decline"
+      },
+      {
+        "component": "text",
+        "name": "customizeLabel",
+        "label": "Customize Button Text",
+        "valueType": "string",
+        "defaultValue": "Customize"
+      },
+      {
+        "component": "richtext",
+        "name": "analyticsDesc",
+        "label": "Analytics Cookies Description",
+        "valueType": "string",
+        "defaultValue": "These cookies help us understand how visitors use our website and improve performance (e.g., Google Analytics)."
+      },
+      {
+        "component": "richtext",
+        "name": "marketingDesc",
+        "label": "Marketing Cookies Description",
+        "valueType": "string",
+        "defaultValue": "These allow us and our partners to show you relevant advertisements based on your interests."
+      },
+      {
+        "component": "richtext",
+        "name": "personalizationDesc",
+        "label": "Personalization Cookies Description",
+        "valueType": "string",
+        "defaultValue": "These enable tailored content and experiences, such as recommendations (e.g., Adobe Target)."
+      },
+      {
+        "component": "richtext",
+        "name": "thirdPartyDesc",
+        "label": "Third-Party Cookies Description",
+        "valueType": "string",
+        "defaultValue": "Used by social media and partners for sharing, login, and embedded content."
+      },
+      {
+        "component": "richtext",
+        "name": "functionalDesc",
+        "label": "Functional Cookies Description",
+        "valueType": "string",
+        "defaultValue": "These remember your preferences (language, region, etc.) to make your visit more convenient."
       }
     ]
   },
@@ -876,6 +874,110 @@
         "label": "Content",
         "valueType": "string",
         "defaultValue": "<p><strong>GMR Airports Limited</strong> (operating as <strong>GMR AERO</strong>) runs Asia’s largest private airport network and the world’s second largest. GMR serves over <strong>120 million passengers</strong> annually across a growing network, with operations spanning <strong>India, Indonesia, Greece, and the Philippines</strong>.</p><p>Our portfolio includes airports in <strong>Delhi, Hyderabad, Goa, Kualanamu (Indonesia)</strong>, and technical services at <strong>Cebu (Philippines)</strong>, which makes us the only Indian airport developer with projects abroad. <strong>GMR AERO’s</strong> network and integrated airport solutions extend to <strong>310 destinations</strong>, with support from a partnership with <strong>Groupe ADP</strong>. Numerous awards from <strong>ACI</strong> and <strong>Skytrax</strong> are testimony to GMR Group’s world-class airport management services.</p>"
+      }
+    ]
+  },
+  {
+    "id": "gmr-buisness-brand",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "sectionDescription",
+        "label": "Section Description"
+      }
+    ]
+  },
+  {
+    "id": "gmr-buisness-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Card Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      }
+    ]
+  },
+  {
+    "id": "gmr-buisness-expertise",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "sectionDescription",
+        "label": "Section Description"
+      }
+    ]
+  },
+  {
+    "id": "gmr-buisness-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Card Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
       }
     ]
   },
@@ -1242,6 +1344,65 @@
     ]
   },
   {
+    "id": "news-updates",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "sectionDescription",
+        "label": "Section Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Button Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Button Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "category",
+        "label": "Section Category"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "limit",
+        "label": "Section Limit"
+      }
+    ]
+  },
+  {
+    "id": "news",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "itemsToShow",
+        "label": "Number of News Items",
+        "default": 5
+      }
+    ]
+  },
+  {
     "id": "passenger-experience",
     "fields": [
       {
@@ -1337,43 +1498,8 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "tag",
-        "label": "Section Tag"
-      }
-    ]
-  },
-  {
-    "id": "story-item",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Card Image"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Description"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaText",
-        "label": "CTA Text"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaLink",
-        "label": "CTA Link"
+        "name": "category",
+        "label": "Section Category"
       }
     ]
   }

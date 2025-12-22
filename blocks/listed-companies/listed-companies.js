@@ -9,7 +9,7 @@ export default function decorate(block) {
   header.className = 'd-md-flex align-items-center gap-3';
 
   const entryContainer = document.createElement('div');
-  entryContainer.className = 'entry-container';
+  entryContainer.className = 'entry-container fullCont mb-5';
 
   // Title + description (wrap first child in <h2>)
   if (children[0]) {
@@ -96,7 +96,7 @@ export default function decorate(block) {
         const btnAnchor = document.createElement('a');
         btnAnchor.href = hrefEl.textContent.trim() || '#';
         btnAnchor.title = labelEl.textContent.trim();
-        btnAnchor.className = 'btn btn-link';
+        btnAnchor.className = 'btn btn-circle';
         btnAnchor.textContent = labelEl.textContent.trim();
         btnContainer.appendChild(btnAnchor);
 

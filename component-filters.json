@@ -31,8 +31,8 @@
       "key-highlightss",
       "awards-recognitions",
       "global-leaders-aviation",
-      "airport-hero",
-      "aviation-services"
+      "gmr-buisness-expertise",
+      "gmr-buisness-brand"
     ]
   },
   {
@@ -42,22 +42,8 @@
     ]
   },
   {
-    "id": "aviation-expertise",
-    "components": [
-      "aviation-item"
-    ]
-  },
-  {
     "id": "aviation-infrastructure",
     "components": []
-  },
-  {
-    "id": "aviation-services",
-    "components": [
-      "image",
-      "text",
-      "richtext"
-    ]
   },
   {
     "id": "awards-carousel",
@@ -137,6 +123,18 @@
     ]
   },
   {
+    "id": "gmr-buisness-brand",
+    "components": [
+      "gmr-buisness-item"
+    ]
+  },
+  {
+    "id": "gmr-buisness-expertise",
+    "components": [
+      "gmr-buisness-item"
+    ]
+  },
+  {
     "id": "header-img",
     "components": [
       "menu-img"
@@ -183,6 +181,16 @@
     ]
   },
   {
+    "id": "news-updates",
+    "components": []
+  },
+  {
+    "id": "news",
+    "components": [
+      "news"
+    ]
+  },
+  {
     "id": "passenger-experience",
     "components": [
       "experience-item"
@@ -190,8 +198,6 @@
   },
   {
     "id": "success-stories",
-    "components": [
-      "story-item"
-    ]
+    "components": []
   }
 ]

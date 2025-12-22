@@ -1,0 +1,92 @@
+.key-highlightss-wrapper {
+  background: var(--lpink);
+}
+
+/* Header */
+.key-highlights-header {
+  max-width: 900px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.key-highlights-header h2,
+.key-highlights-header div:first-child {
+  font-size: 42px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+
+
+/* Grid */
+.key-highlights-grid {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Card */
+.key-highlight-card {
+  position: relative;
+  height: 320px;
+  border-radius: 8px;
+  overflow: hidden;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.key-highlight-media {
+  position: absolute;
+  inset: 0;
+}
+
+.key-highlight-media picture,
+.key-highlight-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay */
+.key-highlight-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.70) 100%);
+}
+
+.key-highlight-card h3,
+.key-highlight-card p {
+  position: relative;
+  z-index: 2;
+  padding: 0 32px;
+}
+
+.key-highlight-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+.key-highlight-card p {
+  font-size: 1.125rem;
+  padding-bottom: 32px; color: var(--light-grey); margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .key-highlights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .key-highlights-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+}

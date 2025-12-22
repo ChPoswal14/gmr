@@ -1,0 +1,15 @@
+{
+  "indices": [
+    {
+      "name": "search",
+      "path": "/content",
+      "properties": [
+        "title",
+        "description",
+        "category",
+        "industry",
+        "featured"
+      ]
+    }
+  ]
+}
