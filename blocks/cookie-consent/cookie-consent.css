@@ -1,110 +1,166 @@
-/* Wrapper: Fixed at bottom, full width */
+/* Cookie Consent Banner - Bottom Fixed Bar */
 .cookie-consent-wrapper {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    z-index: 9999;
-    background-color: #1a1a1a; /* Dark background */
+    background: #1a1a1a; /* Dark background */
     color: #ffffff;
-    padding: 15px 20px;
-    box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
-    display: none; /* Hidden by default until JS runs */
-    font-family: sans-serif;
+    z-index: 9999;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    display: none; /* Hidden until JS shows it */
 }
 
-/* Flex Container */
 .cookie-consent {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
-    gap: 30px;
+    padding: 20px;
+    gap: 20px;
 }
 
-/* Message Text */
+@media (min-width: 768px) {
+    .cookie-consent {
+        flex-direction: row;
+        text-align: left;
+    }
+}
+
 .cookie-message {
     flex: 1;
     font-size: 0.95rem;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 .cookie-message p {
     margin: 0;
 }
 
-/* Buttons Area */
-.cookie-buttons {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-/* Policy Link (CTA) */
 .cookie-policy-link {
     color: #fff;
     text-decoration: underline;
-    font-size: 0.9rem;
-    margin-right: 10px;
-    white-space: nowrap;
 }
+
 .cookie-policy-link:hover {
-    color: #f5a623; /* GMR Orange hover */
+    color: #f5a623; /* Orange hover */
 }
 
-/* Standard Button Styles */
+.cookie-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
 .cookie-btn {
-    padding: 10px 20px;
-    border-radius: 4px;
+    padding: 12px 24px;
+    border-radius: 6px;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     cursor: pointer;
-    border: none;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
     white-space: nowrap;
 }
 
-/* Accept Button (Primary) */
-.cookie-btn.primary {
-    background-color: #f5a623; /* GMR Orange */
+.cookie-btn.secondary { /* Decline */
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.cookie-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.cookie-btn.primary { /* Allow All */
+    background: #f5a623; /* Orange */
+    color: #000;
+    border: none;
+}
+
+.cookie-btn.primary:hover {
+    background: #e09612;
+}
+
+.cookie-btn.customize { /* Customize */
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.cookie-btn.customize:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Post-Consent Small Bar */
+.cookie-consent-wrapper .cookie-consent small-bar {
+    background: #f0f8ff;
     color: #000;
 }
-.cookie-btn.primary:hover {
-    background-color: #e09612;
+
+/* Customize Modal */
+#privacy-modal, #customize-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
 }
 
-/* Decline Button (Secondary) */
-.cookie-btn.secondary {
-    background-color: transparent;
-    border: 1px solid #ffffff;
-    color: #ffffff;
+#privacy-modal > div, #customize-modal > div {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    color: #333;
 }
-.cookie-btn.secondary:hover {
-    background-color: rgba(255,255,255,0.1);
+
+#privacy-modal h2, #customize-modal h2 {
+    text-align: center;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+#privacy-modal input[type="text"], #customize-modal input[type="checkbox"] {
+    margin-top: 8px;
+}
+
+#privacy-modal label, #customize-modal label {
+    display: block;
+    margin: 20px 0 10px;
+    font-weight: bold;
+}
+
+#privacy-modal small, #customize-modal small {
+    display: block;
+    color: #666;
+    margin-top: 5px;
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .cookie-consent {
         flex-direction: column;
-        text-align: left;
-        gap: 20px;
+        text-align: center;
     }
 
     .cookie-buttons {
         width: 100%;
-        flex-wrap: wrap;
-        justify-content: flex-start;
+        flex-direction: column;
     }
 
     .cookie-btn {
-        flex: 1;
-        text-align: center;
-    }
-
-    .cookie-policy-link {
         width: 100%;
-        margin-bottom: 5px;
     }
 }
