@@ -314,40 +314,6 @@
     ]
   },
   {
-    "id": "awards-carousel",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "sectionTitle",
-        "label": "Section Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "sectionDescription",
-        "label": "Section Description"
-      }
-    ]
-  },
-  {
-    "id": "award-item",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Award Image"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Award Description"
-      }
-    ]
-  },
-  {
     "id": "awards-recognitions",
     "fields": [
       {
@@ -623,29 +589,6 @@
     ]
   },
   {
-    "id": "committed-banner",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Top Image"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Main Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Description"
-      }
-    ]
-  },
-  {
     "id": "cookie-consent",
     "fields": [
       {
@@ -724,41 +667,6 @@
         "label": "Functional Cookies Description",
         "valueType": "string",
         "defaultValue": "These remember your preferences (language, region, etc.) to make your visit more convenient."
-      }
-    ]
-  },
-  {
-    "id": "experience-banner",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Main Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Description"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Right Side Image"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaText",
-        "label": "CTA Text"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaLink",
-        "label": "CTA Link"
       }
     ]
   },
@@ -1399,46 +1307,6 @@
         "name": "itemsToShow",
         "label": "Number of News Items",
         "default": 5
-      }
-    ]
-  },
-  {
-    "id": "passenger-experience",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "sectionTitle",
-        "label": "Section Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "sectionDescription",
-        "label": "Section Description"
-      }
-    ]
-  },
-  {
-    "id": "experience-item",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Title"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "description",
-        "label": "Description"
       }
     ]
   },

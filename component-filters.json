@@ -46,9 +46,11 @@
     "components": []
   },
   {
-    "id": "awards-carousel",
+    "id": "aviation-services",
     "components": [
-      "award-item"
+      "image",
+      "text",
+      "richtext"
     ]
   },
   {
@@ -95,14 +97,6 @@
     "components": [
       "commitment-card"
     ]
-  },
-  {
-    "id": "committed-banner",
-    "components": []
-  },
-  {
-    "id": "experience-banner",
-    "components": []
   },
   {
     "id": "footerbottoms",
@@ -188,12 +182,6 @@
     "id": "news",
     "components": [
       "news"
-    ]
-  },
-  {
-    "id": "passenger-experience",
-    "components": [
-      "experience-item"
     ]
   },
   {
