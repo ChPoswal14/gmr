@@ -59,10 +59,29 @@ export default function decorate(block) {
     if (titleCell) body.append(titleCell);
     if (descCell) body.append(descCell);
 
-    if (ctaLinkCell) {
-      ctaLinkCell.classList.add("card-cta");
-      body.append(ctaLinkCell);
-      ctaTextCell?.remove();
+    if (ctaTextCell && ctaLinkCell) {
+      ctaTextCell.classList.add("cta-text");
+      ctaLinkCell.classList.add("cta-link");
+
+      const link = ctaLinkCell.querySelector("a");
+
+      if (link) {
+        const text = ctaTextCell.textContent.trim();
+
+        if (text) {
+          // Put text INSIDE <a>
+          link.textContent = text;
+        }
+
+        link.classList.add("btn-link");
+      }
+
+      const ctaWrapper = document.createElement("div");
+      ctaWrapper.className = "expertise-cta";
+
+      // IMPORTANT: keep BOTH fields in DOM
+      ctaWrapper.append(ctaLinkCell);
+      body.append(ctaWrapper);
     }
 
     card.append(body);
