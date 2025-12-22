@@ -23,27 +23,29 @@ export default function decorate(block) {
      3️⃣ Runtime wrapper (OUTSIDE UE structure)
      ================================ */
   const runtime = document.createElement("div");
-  runtime.className = "innovation-runtime";
+  runtime.className = "expertise-runtime";
 
   runtime.innerHTML = `
-    <section class="sec-innovation spacer">
-      <div class="container">
-        <div class="my-5 ps-5 ms-5">
+    <section class="sec-expertise spacer">
+      <div class="container">  
           <div class="row">
-            <div class="col-md-6">
-              <h2 class="sec-title text-primary">${sectionTitle}</h2>
-              <div class="sec-desc">${sectionDesc}</div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-7 text-center mx-auto mb-5">
+                    <h2 class="sec-title">${sectionTitle}</h2>
+                    <div class="sec-desc">${sectionDesc}</div>
+                    </div>
+                </div>   
             </div>
-          </div>
-        </div>
-        <div class="innovation-row"></div>
+          </div>     
+       
       </div>
     </section>
   `;
 
   block.after(runtime);
 
-  const cardsRow = runtime.querySelector(".innovation-row");
+  const cardsRow = runtime.querySelector(".row");
 
   /* ================================
      4️⃣ Build cards (TEXT ONLY)
@@ -57,10 +59,10 @@ export default function decorate(block) {
     const cta = cells[3]?.textContent?.trim() || "READ MORE";
 
     const col = document.createElement("div");
-    col.className = "innovation-col";
+    col.className = "col-md-4";
 
     const card = document.createElement("div");
-    card.className = index === 0 ? "card card-overlay" : "card card-overlay";
+    card.className = index === 0 ? "card card-ui-one" : "card card-ui-one";
 
     /* Image recreated safely */
     if (picture?.src) {
