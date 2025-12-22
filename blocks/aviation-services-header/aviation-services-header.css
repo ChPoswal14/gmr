@@ -1,7 +1,9 @@
+/* Tabs wrapper */
 .aviation-tabs {
   border-bottom: 1px solid #e5e5e5;
 }
 
+/* UL layout */
 .aviation-tabs-list {
   display: flex;
   gap: 40px;
@@ -10,10 +12,12 @@
   padding: 0;
 }
 
+/* LI */
 .aviation-tabs-list li {
   position: relative;
 }
 
+/* Anchor */
 .aviation-tabs-list a {
   display: inline-block;
   padding: 16px 0;
@@ -28,6 +32,7 @@
   color: #003a8f;
 }
 
+/* Active state */
 .aviation-tabs-list li.active a {
   color: #003a8f;
 }

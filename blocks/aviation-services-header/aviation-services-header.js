@@ -1,9 +1,9 @@
 export default function decorate(block) {
-  const rows = [...block.children];
+  const originalItems = [...block.children];
 
-  // Remove admin-only rows if present
-  rows.shift(); // headerTitle
-  rows.shift(); // dropdownButtonText
+  // Skip admin-only fields (if present)
+  originalItems.shift(); // headerTitle
+  originalItems.shift(); // dropdownButtonText
 
   const container = document.createElement('div');
   container.className = 'aviation-tabs container';
@@ -11,12 +11,12 @@ export default function decorate(block) {
   const ul = document.createElement('ul');
   ul.className = 'aviation-tabs-list';
 
-  rows.forEach((row) => {
-    const [airportNameEl, linkEl, activeEl] = row.children;
+  originalItems.forEach((item) => {
+    const fields = [...item.children];
 
-    const label = airportNameEl?.textContent.trim();
-    const link = linkEl?.textContent.trim();
-    const isActive = activeEl?.textContent.trim() === 'true';
+    const label = fields[0]?.textContent.trim(); // Airport Name
+    const link = fields[1]?.textContent.trim();  // URL
+    const isActive = fields[2]?.textContent.trim() === 'true';
 
     if (!label || !link) return;
 
@@ -33,7 +33,13 @@ export default function decorate(block) {
 
   container.appendChild(ul);
 
-  // Clear original UE content
+  /**
+   * CRITICAL PART:
+   * Remove ALL original UE-rendered content
+   * This hides:
+   *  - aviation-service-item
+   *  - Airport Name
+   */
   block.innerHTML = '';
   block.appendChild(container);
 }
