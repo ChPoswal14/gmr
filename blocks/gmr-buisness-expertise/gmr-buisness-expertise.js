@@ -3,16 +3,14 @@ export default function decorate(block) {
   if (rows.length < 2) return;
 
   /* ===============================
-     1️⃣ SECTION FIELDS
+     1️⃣ READ EXISTING UE ROWS
      =============================== */
-  const sectionTitleRow = rows.shift();
-  const sectionDescRow = rows.shift();
-
-  const sectionTitle = sectionTitleRow?.textContent?.trim() || "";
-  const sectionDesc = sectionDescRow?.innerHTML || "";
+  const sectionTitleRow = rows[0];
+  const sectionDescRow = rows[1];
+  const cardRows = rows.slice(2);
 
   /* ===============================
-     2️⃣ WRAPPERS
+     2️⃣ CREATE WRAPPERS (NO DELETE)
      =============================== */
   const section = document.createElement("section");
   section.className = "gmr-buisness-expertise-section spacer";
@@ -20,103 +18,63 @@ export default function decorate(block) {
   const container = document.createElement("div");
   container.className = "container";
 
-  /* ===============================
-     3️⃣ HEADER
-     =============================== */
   const header = document.createElement("div");
   header.className = "text-center mb-5";
 
-  if (sectionTitle) {
-    const h2 = document.createElement("h2");
-    h2.className = "sec-title";
-    h2.textContent = sectionTitle;
-    header.append(h2);
-  }
-
-  if (sectionDesc) {
-    const desc = document.createElement("div");
-    desc.className = "sec-desc";
-    desc.innerHTML = sectionDesc;
-    header.append(desc);
-  }
+  const grid = document.createElement("div");
+  grid.className = "row g-4 justify-content-center";
 
   /* ===============================
-     4️⃣ GRID
+     3️⃣ MOVE HEADER ROWS (KEEP NODES)
      =============================== */
-  const row = document.createElement("div");
-  row.className = "row g-4 justify-content-center";
+  sectionTitleRow.classList.add("sec-title");
+  sectionDescRow.classList.add("sec-desc");
+
+  header.append(sectionTitleRow, sectionDescRow);
 
   /* ===============================
-     5️⃣ CARDS LOOP (UE SAFE)
+     4️⃣ CARD LOOP (MOVE ROWS, NOT CLONE)
      =============================== */
-  rows.forEach((itemRow) => {
-    const cells = [...itemRow.children];
+  cardRows.forEach((row) => {
+    row.classList.add("col-lg-4", "col-md-6", "expertise-col");
 
+    const cells = [...row.children];
     const imageCell = cells[0];
     const titleCell = cells[1];
     const descCell = cells[2];
     const ctaTextCell = cells[3];
     const ctaLinkCell = cells[4];
 
-    const picture = imageCell?.querySelector("picture");
-    const title = titleCell?.textContent?.trim() || "";
-    const description = descCell?.innerHTML || "";
-    const ctaText = ctaTextCell?.textContent?.trim() || "";
-    const ctaLink = ctaLinkCell?.querySelector("a")?.getAttribute("href") || "";
-
-    /* Column */
-    const col = document.createElement("div");
-    col.className = "col-lg-4 col-md-6";
-
-    /* Card */
     const card = document.createElement("div");
     card.className = "expertise-card h-100";
 
-    /* Image */
-    if (picture) {
-      const imgWrap = document.createElement("div");
-      imgWrap.className = "expertise-card-img";
-      imgWrap.append(picture);
-      card.append(imgWrap);
+    if (imageCell) {
+      imageCell.classList.add("expertise-card-img");
+      card.append(imageCell);
     }
 
-    /* Body */
     const body = document.createElement("div");
     body.className = "expertise-card-body";
 
-    if (title) {
-      const h3 = document.createElement("h3");
-      h3.className = "card-title";
-      h3.textContent = title;
-      body.append(h3);
-    }
+    if (titleCell) body.append(titleCell);
+    if (descCell) body.append(descCell);
 
-    if (description) {
-      const p = document.createElement("div");
-      p.className = "card-desc";
-      p.innerHTML = description;
-      body.append(p);
-    }
-
-    if (ctaText && ctaLink) {
-      const cta = document.createElement("a");
-      cta.className = "card-cta";
-      cta.href = ctaLink;
-      cta.innerHTML = `${ctaText} <span>›</span>`;
-      body.append(cta);
+    if (ctaLinkCell) {
+      ctaLinkCell.classList.add("card-cta");
+      body.append(ctaLinkCell);
+      ctaTextCell?.remove();
     }
 
     card.append(body);
-    col.append(card);
-    row.append(col);
+    row.append(card);
+    grid.append(row);
   });
 
   /* ===============================
-     6️⃣ ASSEMBLE
+     5️⃣ ASSEMBLE (SAFE)
      =============================== */
-  container.append(header, row);
+  container.append(header, grid);
   section.append(container);
 
-  block.innerHTML = "";
-  block.append(section);
+  block.prepend(section);
 }
