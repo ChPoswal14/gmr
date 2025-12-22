@@ -240,6 +240,42 @@
     ]
   },
   {
+    "id": "all-business-cards",
+    "fields": [
+      {
+        "component": "text",
+        "name": "sectionTitle",
+        "label": "Section Heading",
+        "valueType": "string",
+        "defaultValue": "Operational Excellence and Recognition"
+      }
+    ]
+  },
+  {
+    "id": "all-business-cards-item",
+    "itemLabel": "cardTitle",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "cardImage",
+        "label": "Card Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "cardTitle",
+        "label": "Card Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "cardDescription",
+        "label": "Card Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "aviation-infrastructure",
     "fields": [
       {
@@ -252,6 +288,67 @@
         "component": "richtext",
         "name": "description",
         "label": "Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "aviation-services-header",
+    "fields": [
+      {
+        "component": "text",
+        "name": "headerTitle",
+        "label": "Section Admin Title",
+        "valueType": "string",
+        "defaultValue": "Airport Navigation Header"
+      },
+      {
+        "component": "text",
+        "name": "dropdownButtonText",
+        "label": "Dropdown Button Label",
+        "valueType": "string",
+        "defaultValue": "Domestic Network"
+      }
+    ]
+  },
+  {
+    "id": "aviation-service-item",
+    "itemLabel": "airportName",
+    "fields": [
+      {
+        "component": "text",
+        "name": "airportName",
+        "label": "Airport Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "navigationLink",
+        "label": "URL",
+        "valueType": "string"
+      },
+      {
+        "component": "checkbox",
+        "name": "isActive",
+        "label": "Show Underline (Active)",
+        "valueType": "boolean"
+      }
+    ]
+  },
+  {
+    "id": "dropdown-link-item",
+    "itemLabel": "linkText",
+    "fields": [
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Link Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "linkUrl",
+        "label": "Link URL",
         "valueType": "string"
       }
     ]
@@ -298,7 +395,19 @@
         "name": "sectionTitle",
         "label": "Section Title",
         "valueType": "string",
-        "defaultValue": "Awards & Global Recognition"
+        "defaultValue": "GMR Runs Major Airports in India and Asia"
+      },
+      {
+        "component": "richtext",
+        "name": "sectionDescription",
+        "label": "Section Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "footerTag",
+        "label": "Footer Tag (e.g. FY 2025-26)",
+        "valueType": "string"
       }
     ]
   },
@@ -307,21 +416,15 @@
     "itemLabel": "title",
     "fields": [
       {
-        "component": "reference",
-        "name": "image",
-        "label": "Award Image",
-        "valueType": "string"
-      },
-      {
         "component": "text",
         "name": "title",
-        "label": "Award Title",
+        "label": "Stat Number (Title)",
         "valueType": "string"
       },
       {
         "component": "richtext",
         "name": "description",
-        "label": "Award Description",
+        "label": "Stat Subtext (Description)",
         "valueType": "string"
       }
     ]
@@ -1342,6 +1445,92 @@
         "name": "itemsToShow",
         "label": "Number of News Items",
         "default": 5
+      }
+    ]
+  },
+  {
+    "id": "our-airports",
+    "fields": [
+      {
+        "component": "text",
+        "name": "sectionTitle",
+        "label": "Section Heading",
+        "valueType": "string",
+        "defaultValue": "Our Airports"
+      },
+      {
+        "component": "text",
+        "name": "domesticBtnLabel",
+        "label": "Domestic Button Text",
+        "valueType": "string",
+        "defaultValue": "Domestic Network"
+      },
+      {
+        "component": "text",
+        "name": "internationalBtnLabel",
+        "label": "International Button Text",
+        "valueType": "string",
+        "defaultValue": "International Network"
+      }
+    ]
+  },
+  {
+    "id": "our-airports-item",
+    "itemLabel": "airportName",
+    "fields": [
+      {
+        "component": "select",
+        "name": "networkType",
+        "label": "Network Type (For Filtering)",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Domestic",
+            "value": "domestic"
+          },
+          {
+            "name": "International",
+            "value": "international"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Airport Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "statusBadge",
+        "label": "Image Badge (e.g. Operating Asset)",
+        "valueType": "string",
+        "defaultValue": "Operating Asset"
+      },
+      {
+        "component": "text",
+        "name": "airportName",
+        "label": "Airport Name",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ctaLabel",
+        "label": "Link Text",
+        "valueType": "string",
+        "defaultValue": "READ MORE"
+      },
+      {
+        "component": "text",
+        "name": "ctaUrl",
+        "label": "Link URL",
+        "valueType": "string"
       }
     ]
   },

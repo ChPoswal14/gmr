@@ -32,7 +32,10 @@
       "awards-recognitions",
       "global-leaders-aviation",
       "gmr-buisness-expertise",
-      "gmr-buisness-brand"
+      "gmr-buisness-brand",
+      "aviation-services-header",
+      "our-airports",
+      "all-business-cards"
     ]
   },
   {
@@ -42,8 +45,21 @@
     ]
   },
   {
+    "id": "all-business-cards",
+    "components": [
+      "all-business-cards-item"
+    ]
+  },
+  {
     "id": "aviation-infrastructure",
     "components": []
+  },
+  {
+    "id": "aviation-services-header",
+    "components": [
+      "aviation-service-item",
+      "dropdown-link-item"
+    ]
   },
   {
     "id": "awards-carousel",
@@ -188,6 +204,12 @@
     "id": "news",
     "components": [
       "news"
+    ]
+  },
+  {
+    "id": "our-airports",
+    "components": [
+      "our-airports-item"
     ]
   },
   {
