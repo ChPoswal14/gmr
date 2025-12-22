@@ -2,7 +2,7 @@
   "indices": [
     {
       "name": "search",
-      "path": "/content",
+      "path": "/",
       "properties": [
         "title",
         "description",
