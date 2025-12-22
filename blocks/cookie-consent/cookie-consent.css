@@ -244,3 +244,17 @@ body:not(.aue) .cookie-consent.block > div {
 body:not(.aue) .cookie-consent-wrapper {
     display: block !important;
 }
+.cookie-consent {
+    min-height: 80px; /* Ensures it's tall enough */
+    justify-content: space-between;
+}
+
+.cookie-message, .cookie-buttons {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .cookie-message, .cookie-buttons {
+        width: auto;
+    }
+}
