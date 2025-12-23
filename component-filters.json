@@ -62,9 +62,11 @@
     ]
   },
   {
-    "id": "awards-carousel",
+    "id": "aviation-services",
     "components": [
-      "award-item"
+      "image",
+      "text",
+      "richtext"
     ]
   },
   {
@@ -111,14 +113,6 @@
     "components": [
       "commitment-card"
     ]
-  },
-  {
-    "id": "committed-banner",
-    "components": []
-  },
-  {
-    "id": "experience-banner",
-    "components": []
   },
   {
     "id": "footerbottoms",
@@ -222,12 +216,6 @@
     "id": "our-airports",
     "components": [
       "our-airports-item"
-    ]
-  },
-  {
-    "id": "passenger-experience",
-    "components": [
-      "experience-item"
     ]
   },
   {
