@@ -2,12 +2,12 @@
   "indices": [
     {
       "name": "search",
-      "path": "/content",
+      "path": "/",
       "properties": [
         "title",
         "description",
         "category",
-        "industry",
+        "content",
         "featured"
       ]
     }

@@ -36,9 +36,7 @@
       "aviation-services-header",
       "our-airports",
       "all-business-cards",
-      "image-title-desc",
-      "image-title-desc-button",
-      "success-stories"
+      "global-airport-network"
     ]
   },
   {
@@ -60,16 +58,13 @@
   {
     "id": "aviation-services-header",
     "components": [
-      "aviation-service-item",
-      "dropdown-link-item"
+      "aviation-service-item"
     ]
   },
   {
-    "id": "aviation-services",
+    "id": "awards-carousel",
     "components": [
-      "image",
-      "text",
-      "richtext"
+      "award-item"
     ]
   },
   {
@@ -118,6 +113,14 @@
     ]
   },
   {
+    "id": "committed-banner",
+    "components": []
+  },
+  {
+    "id": "experience-banner",
+    "components": []
+  },
+  {
     "id": "footerbottoms",
     "components": [
       "footerbottom"
@@ -133,6 +136,18 @@
     "id": "footertopbars",
     "components": [
       "footertopbar"
+    ]
+  },
+  {
+    "id": "global-airport-network",
+    "components": [
+      "network-location-item"
+    ]
+  },
+  {
+    "id": "global-leaders-aviation",
+    "components": [
+      "global-item"
     ]
   },
   {
@@ -207,6 +222,12 @@
     "id": "our-airports",
     "components": [
       "our-airports-item"
+    ]
+  },
+  {
+    "id": "passenger-experience",
+    "components": [
+      "experience-item"
     ]
   },
   {

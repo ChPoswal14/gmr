@@ -173,52 +173,6 @@
     ]
   },
   {
-    "id": "airport-hero",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "backgroundImage",
-        "label": "Background Image",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "eyebrow",
-        "label": "Eyebrow Text",
-        "valueType": "string",
-        "defaultValue": "Gateway to New India"
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Main Title",
-        "valueType": "string",
-        "defaultValue": "Indira Gandhi International Airport (IGIA)"
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "label": "Description",
-        "valueType": "string",
-        "defaultValue": "<p>Indira Gandhi International Airport is one of the <strong>busiest aviation gateways</strong> in the world and serves over <strong>79+ million</strong> domestic and international passengers annually.</p>"
-      },
-      {
-        "component": "text",
-        "name": "ctaLabel",
-        "label": "CTA Button Label",
-        "valueType": "string",
-        "defaultValue": "Delhi Airport Website"
-      },
-      {
-        "component": "text",
-        "name": "ctaLink",
-        "label": "CTA Button Link",
-        "valueType": "string",
-        "defaultValue": "https://www.newdelhiairport.in/"
-      }
-    ]
-  },
-  {
     "id": "airport-overview",
     "fields": [
       {
@@ -294,12 +248,6 @@
         "label": "Section Heading",
         "valueType": "string",
         "defaultValue": "Operational Excellence and Recognition"
-      },
-      {
-        "component": "richtext",
-        "name": "cardDescription",
-        "label": "Card Description",
-        "valueType": "string"
       }
     ]
   },
@@ -346,32 +294,16 @@
   },
   {
     "id": "aviation-services-header",
-    "fields": [
-      {
-        "component": "text",
-        "name": "headerTitle",
-        "label": "Section Admin Title",
-        "valueType": "string",
-        "defaultValue": "Airport Navigation Header"
-      },
-      {
-        "component": "text",
-        "name": "dropdownButtonText",
-        "label": "Dropdown Button Label",
-        "valueType": "string",
-        "defaultValue": "Domestic Network"
-      }
-    ]
+    "fields": []
   },
   {
     "id": "aviation-service-item",
-    "itemLabel": "airportName",
     "fields": [
       {
         "component": "text",
         "name": "airportName",
-        "label": "Airport Name",
-        "valueType": "string"
+        "valueType": "string",
+        "hidden": true
       },
       {
         "component": "text",
@@ -382,37 +314,42 @@
       {
         "component": "checkbox",
         "name": "isActive",
-        "label": "Show Underline (Active)",
+        "label": "Active",
         "valueType": "boolean"
       }
     ]
   },
   {
-    "id": "dropdown-link-item",
-    "itemLabel": "linkText",
+    "id": "awards-carousel",
     "fields": [
       {
         "component": "text",
-        "name": "linkText",
-        "label": "Link Text",
-        "valueType": "string"
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
       },
       {
-        "component": "text",
-        "name": "linkUrl",
-        "label": "Link URL",
-        "valueType": "string"
+        "component": "richtext",
+        "valueType": "string",
+        "name": "sectionDescription",
+        "label": "Section Description"
       }
     ]
   },
   {
-    "id": "aviation-services",
+    "id": "award-item",
     "fields": [
       {
-        "component": "aem-content",
-        "name": "fragmentPath",
-        "label": "Select Aviation Services Fragment",
-        "valueType": "string"
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Award Image"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Award Description"
       }
     ]
   },
@@ -698,6 +635,29 @@
     ]
   },
   {
+    "id": "committed-banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Top Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Main Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description"
+      }
+    ]
+  },
+  {
     "id": "cookie-consent",
     "fields": [
       {
@@ -776,6 +736,41 @@
         "label": "Functional Cookies Description",
         "valueType": "string",
         "defaultValue": "These remember your preferences (language, region, etc.) to make your visit more convenient."
+      }
+    ]
+  },
+  {
+    "id": "experience-banner",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Main Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Right Side Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
       }
     ]
   },
@@ -876,6 +871,54 @@
     ]
   },
   {
+    "id": "global-airport-network",
+    "fields": [
+      {
+        "component": "text",
+        "name": "sectionTitle",
+        "label": "Section Heading",
+        "valueType": "string",
+        "defaultValue": "GMR’s Global Airport Network"
+      },
+      {
+        "component": "richtext",
+        "name": "sectionDescription",
+        "label": "Description Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "mapImage",
+        "label": "World Map Background Image",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "network-location-item",
+    "itemLabel": "airportName",
+    "fields": [
+      {
+        "component": "text",
+        "name": "airportName",
+        "label": "Airport Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "countryName",
+        "label": "Country Name",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "flagIcon",
+        "label": "Country Flag Icon",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "global-leaders-aviation",
     "fields": [
       {
@@ -883,14 +926,37 @@
         "name": "sectionTitle",
         "label": "Section Title",
         "valueType": "string",
-        "defaultValue": "Global Leaders in Aviation Infrastructure"
+        "defaultValue": "GMR Runs Major Airports in India and Asia"
       },
       {
         "component": "richtext",
-        "name": "content",
-        "label": "Content",
-        "valueType": "string",
-        "defaultValue": "<p><strong>GMR Airports Limited</strong> (operating as <strong>GMR AERO</strong>) runs Asia’s largest private airport network and the world’s second largest. GMR serves over <strong>120 million passengers</strong> annually across a growing network, with operations spanning <strong>India, Indonesia, Greece, and the Philippines</strong>.</p><p>Our portfolio includes airports in <strong>Delhi, Hyderabad, Goa, Kualanamu (Indonesia)</strong>, and technical services at <strong>Cebu (Philippines)</strong>, which makes us the only Indian airport developer with projects abroad. <strong>GMR AERO’s</strong> network and integrated airport solutions extend to <strong>310 destinations</strong>, with support from a partnership with <strong>Groupe ADP</strong>. Numerous awards from <strong>ACI</strong> and <strong>Skytrax</strong> are testimony to GMR Group’s world-class airport management services.</p>"
+        "name": "sectionDescription",
+        "label": "Section Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "footerTag",
+        "label": "Footer Tag (e.g. FY 2025-26)",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "award-item",
+    "itemLabel": "title",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Stat Number (Title)",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Stat Subtext (Description)",
+        "valueType": "string"
       }
     ]
   },
@@ -1135,67 +1201,6 @@
         "component": "aem-content",
         "name": "watch-video-link",
         "label": "Watch Video Link URL",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "image-title-desc-button",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "backgroundImage",
-        "label": "Background Image",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Main Title",
-        "valueType": "string",
-        "defaultValue": "Step Into the Future of Civil Aviation"
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "label": "Description Text",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "buttonLabel",
-        "label": "Button Text",
-        "valueType": "string",
-        "defaultValue": "Visit Delhi Airport Website"
-      },
-      {
-        "component": "text",
-        "name": "buttonUrl",
-        "label": "Button Link (URL)",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "image-title-desc",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "image",
-        "label": "Background Image",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Title",
-        "valueType": "string",
-        "defaultValue": "Leading the Way in Sustainable Aviation"
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "label": "Description",
         "valueType": "string"
       }
     ]
@@ -1563,6 +1568,46 @@
         "name": "ctaUrl",
         "label": "Link URL",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "passenger-experience",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sectionTitle",
+        "label": "Section Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "sectionDescription",
+        "label": "Section Description"
+      }
+    ]
+  },
+  {
+    "id": "experience-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description"
       }
     ]
   },
