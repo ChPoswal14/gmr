@@ -41,13 +41,14 @@
           "name": "sectionTitle",
           "label": "Section Title",
           "valueType": "string",
-          "defaultValue": "GMR Runs Major Airports in India and Asia"
+          "defaultValue": "Global Leaders in Aviation Infrastructure"
         },
         {
           "component": "richtext",
-          "name": "sectionDescription",
-          "label": "Section Description",
-          "valueType": "string"
+          "name": "content",
+          "label": "Content",
+          "valueType": "string",
+          "defaultValue": "<p><strong>GMR Airports Limited</strong> (operating as <strong>GMR AERO</strong>) runs Asia’s largest private airport network and the world’s second largest. GMR serves over <strong>120 million passengers</strong> annually across a growing network, with operations spanning <strong>India, Indonesia, Greece, and the Philippines</strong>.</p><p>Our portfolio includes airports in <strong>Delhi, Hyderabad, Goa, Kualanamu (Indonesia)</strong>, and technical services at <strong>Cebu (Philippines)</strong>, which makes us the only Indian airport developer with projects abroad. <strong>GMR AERO’s</strong> network and integrated airport solutions extend to <strong>310 destinations</strong>, with support from a partnership with <strong>Groupe ADP</strong>. Numerous awards from <strong>ACI</strong> and <strong>Skytrax</strong> are testimony to GMR Group’s world-class airport management services.</p>"
         },
         {
           "component": "text",
@@ -58,7 +59,7 @@
       ]
     },
     {
-      "id": "award-item",
+      "id": "global-item",
       "itemLabel": "title",
       "fields": [
         {
