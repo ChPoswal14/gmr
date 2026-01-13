@@ -25,6 +25,7 @@
       "cookie-consent",
       "privacy-request",
       "news-updates",
+      "success-stories",
       "careers-highlight",
       "content-listing",
       "aviation-infrastructure",
@@ -36,7 +37,16 @@
       "aviation-services-header",
       "our-airports",
       "all-business-cards",
-      "global-airport-network"
+      "global-airport-network",
+      "social-connect",
+      "image-title-desc-button",
+      "overlay-banner",
+      "header-utility",
+      "common-cards",
+      "listing-filter",
+      "values-and-beliefs",
+      "our-presence",
+      "corporate-governance"
     ]
   },
   {
@@ -112,6 +122,18 @@
     "id": "commitment-cards",
     "components": [
       "commitment-card"
+    ]
+  },
+  {
+    "id": "governance-section-filter",
+    "components": [
+      "governance-section"
+    ]
+  },
+  {
+    "id": "governance-item-filter",
+    "components": [
+      "governance-list-item"
     ]
   },
   {
